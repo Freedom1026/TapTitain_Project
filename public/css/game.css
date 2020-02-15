@@ -1,0 +1,70 @@
+body{
+    text-align: center;
+}
+
+table{
+    margin: auto;
+}
+
+div.stage span:nth-child(1), div.stage span:nth-child(3){
+    border-radius: 100%;
+    padding: 1vh;
+    background-color: red;
+}
+
+div.stage span:nth-child(2){
+    padding: 2vh;
+    border-radius: 100%;
+    background-color: red;
+}
+
+div.actSkill span{
+    visibility: hidden;
+    border-radius: 100%;
+    padding: 1vw;
+    background-color: red;
+}
+
+
+/* 下面四個同屬一個區域 */
+
+div.hideBlock{
+    position: relative;
+/* 這邊要分螢幕大小 */
+    background-color: red;
+    width: 50%;
+    height: 10vh;
+}
+
+
+div.hideBlock, div.hideBlock div{
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+}
+
+
+div.bascInfo{
+    background-color: white;
+    position: absolute;
+}
+
+div.heroSkill{
+    visibility: hidden;
+    position: absolute;
+    background-color: white;
+}
+div.creatureSkill{
+    visibility: hidden;
+    position: absolute;
+    background-color: white;
+}
+
+
+
+
+/* div.changePanel {
+    position: absolute;
+    bottom: 40%;
+} */

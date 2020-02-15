@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/game.css">
+    <script src="js/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    <canvas></canvas>
+
+<!-- panel of active skill -->
+<div class="actSkill">
+    <span>
+        財
+    </span>
+    <span>
+        蠻
+    </span>
+</div>
+
+
+<!-- 可隱藏板塊 固定 -->
+<div class="hideBlock">
+
+    <!-- basic information -->
+    <div class="bascInfo">
+        <p>目前每秒出傷害總和</p>
+        <p>點擊攻擊力</p>
+        <p>異生物 每秒輸出傷害總和</p>
+    </div>
+
+    <!-- panel of hero skill -->
+    <div class="heroSkill">
+        <div>
+            <span>img</span><span>原始之力</span><span class="origin">lv.1</span><button onclick="levelUp('origin',0)">Level up</button>
+        </div>
+        <div>
+            <span>img</span><span>財富之力</span><span class="fortune">lv.0</span><button onclick="levelUp('fortune',1)">Level up</button onclick="levelUp('origin',0)">
+        </div>
+        <div>
+            <span>img</span><span>蠻荒之力</span><span class="wild">lv.0</span><button onclick="levelUp('wild',2)">Level up</button>
+        </div>
+    </div>    
+            
+
+    
+    <!-- panel of creature -->
+    <div class="creatureSkill">   
+        <table>
+            <tr>
+                <td>img</td>
+                <td>生物名稱</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>img</td>
+                <td>LV.0</td>
+                <td>DPS:0</td>
+                <td><button>升級</button></td>
+            </tr>
+            <tr>
+                <td>img</td>
+                <td class="skillIcons">icon icon</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+
+
+
+
+<!-- panel of change btn -->
+<div class="changePanel">
+<button id="btn_hero">英雄技能</button>
+<button id="btn_creature">異生物</button>
+<button id="btn_buy">道具購買</button>
+</div>
+
+
+<!-- Hero skill details -->
+<div class="HSkillDetail">
+<p>img + 技能名稱</p>
+<p>lv.___</p>
+<div class="description">技能說明: <span>持續時間</span><span>冷卻時間</span></div>
+</div>
+
+
+
+  
+    <script>
+        //基本設定
+        var canvas = document.querySelector('canvas');
+        (window.innerWidth <= 768)? canvas.width = window.innerWidth: canvas.width = window.innerWidth/5*3;
+        
+        //高度必須固定 因此之後必須填寫數字
+        canvas.height = window.innerHeight/2;
+        var ctx = canvas.getContext('2d');
+        //隨著螢幕大小調整畫布大小
+        //reload會有問題！！因為是重新載入　如果沒去讀取資料庫　會出大問題
+        window.onresize = function r(){location.reload()};
+        //測試畫面
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+    
+    </script>
+   
+   <script>
+    //拿jquery去抓技能圖示 顯示技能視窗
+    
+    //從資料庫取得目前技能等級
+    let heroSkillLevel = [];
+    heroSkillLevel[0] = 1;
+    heroSkillLevel[1] = 0;
+    heroSkillLevel[2] = 0;
+    
+    
+    //補上條件符合
+    function levelUp(skill,skLv){
+    heroSkillLevel[skLv]++;
+     //傳入參數: 技能名稱
+    $(`span.${skill}`).text(`Lv.${heroSkillLevel[skLv]}`);
+    if(skLv == 0){
+        return;
+    }
+    $(`div.actSkill span:nth-child(${skLv})`).css("visibility","visible");
+    }
+    
+    
+        $('#btn_hero').click(function(){panelgo("div.heroSkill")});
+        $('#btn_creature').click(function(){panelgo("div.creatureSkill")})
+        
+        function panelgo(pn){
+            if($(pn).css("visibility") == "visible"){
+                $(pn).css("visibility","hidden");
+                // $(pn).css("display","none");
+                }
+                else{
+                $(pn).css("visibility","visible")
+                // $(pn).css("display","block");
+                }
+            }
+    
+    
+    </script>
+
+
+
+    <script src="js/monsters.js"></script>
+    <script src="js/cha.js"></script>
+    <script src="js/skill.js"></script>
+    <script src="js/contorl.js"></script>
+</body>
+</html>

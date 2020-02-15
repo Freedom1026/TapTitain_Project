@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <canvas></canvas>
+    <script>
+        var canvas = document.querySelector('canvas');
+        canvas.width = 800;
+        canvas.height = 600;
+        var ctx = canvas.getContext('2d');
+        
+        var cha01 = new Image();
+        cha01.src = "stand.png";
+        var cha02 = new Image();
+        cha02.src = "attack/00.png";
+        var cha03 = new Image();
+        cha03.src = "attack/01.png";
+
+
+
+        canvas.onclick = attack;
+
+        function draw(){
+        ctx.drawImage(cha01,100,100)
+        }
+
+        function attack(){
+        ctx.drawImage(cha02,100,100)
+        setTimeout(draw, 20)
+        }
+    
+    
+    </script>
+
+
+</body>
+</html>

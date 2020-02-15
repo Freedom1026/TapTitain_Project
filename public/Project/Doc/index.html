@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+    <canvas></canvas>
+
+    <div class="activeSkill">
+        <span>click</span>
+        <span>click</span>
+        <span>click</span>
+    </div>
+
+    <div class="selfSkill">
+        <div>
+            <span>技能名稱</span>
+            <span>LV.ejs</span>
+            <span>LV.content</span>
+            <button id="btn01" onclick="meLevelUp()">提升英雄等級</button>
+        </div>
+        <div>
+            <span>技能名稱</span>
+            <span>LV.ejs</span>
+            <span>LV.content</span>
+            <button id="btn01" onclick="SkillLevelUp()">提升技能等級</button>
+        </div>
+        
+
+    </div>
+    <div class="selectPanel">
+        <button id="btn02">Hero</button>
+        <button id="btn03">NPC</button>  
+        <button id="btn03">Diamond</button>  
+    </div>
+  
+    <script>
+        //基本設定
+        var canvas = document.querySelector('canvas');
+        (window.innerWidth <= 768)? canvas.width = window.innerWidth: canvas.width = window.innerWidth/5*3;
+        
+        //高度必須固定 因此之後必須填寫數字
+        canvas.height = window.innerHeight;
+        var ctx = canvas.getContext('2d');
+        //隨著螢幕大小調整畫布大小
+        window.onresize = function r(){location.reload()};
+        //測試畫面
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+    
+    </script>
+   
+    <script src="js/monsters.js"></script>
+    <script src="js/cha.js"></script>
+    <script src="js/skill.js"></script>
+    <script src="js/contorl.js"></script>
+</body>
+</html>
