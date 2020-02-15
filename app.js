@@ -28,6 +28,7 @@ app.set('views', __dirname + '/view');
 app.listen(80);
 console.log("Server is running... Press 'Ctrl + C' to exit.");
 
+
 // 路由設定:
 // 格式:  /controllerName/actionName
 app.get("/", function (request, response) {
@@ -36,8 +37,7 @@ app.get("/", function (request, response) {
 
 app.get("/:controllerName", function (request, response) {
     var controllerName = request.params.controllerName;
-    var actionName = request.params.actionName;
-    doControllerAction(controllerName, "index", request, response);
+    doControllerAction(controllerName, "test", request, response);
 });
 
 app.get("/:controllerName/:actionName", function (request, response) {

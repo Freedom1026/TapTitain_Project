@@ -94,6 +94,7 @@
 </div>
 
 
+<%= MeLv %>
 
   
     <script>
@@ -116,11 +117,20 @@
     //拿jquery去抓技能圖示 顯示技能視窗
     
     //從資料庫取得目前技能等級
-    let heroSkillLevel = [];
-    heroSkillLevel[0] = 1;
-    heroSkillLevel[1] = 0;
-    heroSkillLevel[2] = 0;
-    
+    let heroSkillLevel = [1, 0, 0];
+ 
+
+    $(function(){
+            $.get("/home/get_test", function (e) {
+                var HeroData = JSON.parse(e);
+                heroSkillLevel[0] = HeroData[0].heroLv;
+                heroSkillLevel[1] = HeroData[0].heroSkLv_A;
+                heroSkillLevel[2] = HeroData[0].heroSkLv_B;
+            })
+        })
+
+
+
     
     //補上條件符合
     function levelUp(skill,skLv){
