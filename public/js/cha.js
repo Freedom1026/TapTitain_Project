@@ -41,6 +41,9 @@ class mainCha extends Cha {
         this.LV = 1;
         //金幣 可以直接載入
         this.Coin = 8000;
+
+        //技能加成係數
+        this.Sk_A = 1;
     }    
     normal(){
         this.sx = 0;

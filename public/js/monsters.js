@@ -37,7 +37,8 @@ var monstersProperty = class monstersProperty {
     }
 
     hpLose(){
-        this.hpbarContent -= Me.ATK*20/this.hp;
+        this.attackedAmount =  Me.ATK ;
+        this.hpbarContent -= this.attackedAmount*20/this.hp;
         (this.hpbarContent <= 0)? changeMonster():0;
     }
 
