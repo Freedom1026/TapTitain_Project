@@ -12,8 +12,6 @@ function test(){
         Me.attacked();
         ctx.fillText(Me.ATK, RwdDx*1.2, RwdDy);
     };
-    //計時功能
-    
     NowMonster.hpbar();
 }
 

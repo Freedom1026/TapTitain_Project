@@ -64,11 +64,11 @@ var HSK = class HSK{
         this.times = 1;
         this.LvUp = [10,20,30,40,50];
         this.upSpend = [100,120,150,200,250];
-        this.skTime = [30,60,90,90,90];
-        this.coolTime = [180,180,600,660,720];
+        this.skTime = [30,60,90,12,90];
+        this.coolTime = [100,160,180,20,720];
         this.t_A = -1;
         this.t_B = -1;
-        this.timeStart = setInterval (this.timeCount , 1000);
+        
     }
     SkOpen(){ //每秒確認....prototype連線
         if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
@@ -99,26 +99,31 @@ var HSK = class HSK{
         this.times = 1;
     }
 
-    //計時功能
-    timeCount(){
+    //設定計時時間   --->prototype
+    timeReset(){
         this.t_A = this.skTime[this.lv];
-        console.log(this.skTime[this.lv]);
         this.t_B = this.coolTime[this.lv];
-        if(this.t_A  > 0){
-            this.t_A  --;
-            if(this.t_A <= 0){
-                this.t_B --;
-                if(this.t_B <= 0){
-                    clearInterval(this.timeStart);
-                }
+        this.timeStart = setInterval (()=>this.timeCount() , 1000);
+    }
+
+
+    //計時功能    ---->prototype
+    timeCount(){
+        if(this.t_A <= 0){
+            this.t_B -=1;
+            $("#debug_btn").text(this.t_B);
+            if(this.t_B <= 0){
+                clearInterval(this.timeStart);
             }
+        }else{
+            this.t_A -= 1;
+            $("#debug_btn").text(this.t_A);
         }
     }
     
 }
 
 var testSK = new HSK("test", 3);
-testSK.timeCount();
 
 
 //-------------進階版技能-------------
