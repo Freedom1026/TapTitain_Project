@@ -112,55 +112,6 @@
         ctx.fillRect(0, 0, canvas.width, canvas.height)
     
     </script>
-   
-   <script>
-    //拿jquery去抓技能圖示 顯示技能視窗
-    
-    //從資料庫取得目前技能等級
-    let heroSkillLevel = [1, 0, 0];
- 
-
-    $(function(){
-            $.get("/home/get_test", function (e) {
-                var HeroData = JSON.parse(e);
-                heroSkillLevel[0] = HeroData[0].heroLv;
-                heroSkillLevel[1] = HeroData[0].heroSkLv_A;
-                heroSkillLevel[2] = HeroData[0].heroSkLv_B;
-            })
-        })
-
-
-
-    
-    //補上條件符合
-    function levelUp(skill,skLv){
-    heroSkillLevel[skLv]++;
-     //傳入參數: 技能名稱
-    $(`span.${skill}`).text(`Lv.${heroSkillLevel[skLv]}`);
-    if(skLv == 0){
-        return;
-    }
-    $(`div.actSkill span:nth-child(${skLv})`).css("visibility","visible");
-    }
-    
-    
-        $('#btn_hero').click(function(){panelgo("div.heroSkill")});
-        $('#btn_creature').click(function(){panelgo("div.creatureSkill")})
-        
-        function panelgo(pn){
-            if($(pn).css("visibility") == "visible"){
-                $(pn).css("visibility","hidden");
-                // $(pn).css("display","none");
-                }
-                else{
-                $(pn).css("visibility","visible")
-                // $(pn).css("display","block");
-                }
-            }
-    
-    
-    </script>
-
 
 
     <script src="js/monsters.js"></script>

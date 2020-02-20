@@ -7,17 +7,88 @@
 // var SkillDh = canvas.width /12;
 
 
-//-------------簡單版技能-------------
-// var skillFlag = true;
+//-------------技能-------------
+//拿jquery去抓技能圖示 顯示技能視窗
+    
+    //從資料庫取得目前技能等級
+    let heroSkillLevel = [1, 0, 0];
+ 
 
-// function flagOfSkill(){    
-//     (skillFlag)? skill_1():0;
-// }
+    $(function(){
+            $.get("/home/get_test", function (e) {
+                var HeroData = JSON.parse(e);
+                heroSkillLevel[0] = HeroData[0].heroLv || 1 ;
+                heroSkillLevel[1] = HeroData[0].heroSkLv_A || 0;
+                heroSkillLevel[2] = HeroData[0].heroSkLv_B || 0;
+            })
+        })
 
-// function skill_1(){
-//     Me.ATK +=10;
-//     skillFlag = false;
-// }
+
+
+    
+    //補上條件符合
+    function levelUp(skill,skLv){
+    heroSkillLevel[skLv]++;
+     //傳入參數: 技能名稱
+    $(`span.${skill}`).text(`Lv.${heroSkillLevel[skLv]}`);
+    if(skLv == 0){
+        return;
+    }
+    $(`div.actSkill span:nth-child(${skLv})`).css("visibility","visible");
+    }
+    
+    
+        $('#btn_hero').click(function(){panelgo("div.heroSkill")});
+        $('#btn_creature').click(function(){panelgo("div.creatureSkill")})
+        
+        function panelgo(pn){
+            if($(pn).css("visibility") == "visible"){
+                $(pn).css("visibility","hidden");
+                // $(pn).css("display","none");
+                }
+                else{
+                $(pn).css("visibility","visible")
+                // $(pn).css("display","block");
+                }
+            }
+    
+
+//設定技能基礎值
+
+var HSK = class HSK{
+    constructor(lv){
+        this.lv = lv;
+        this.SKOpenFlag = flase;
+        this.LvUp = [10,20,30,40,50];
+        this.upSpend = [100,120,150,200,250];
+        this.skTime = [30,60,90,90,90];
+        this.coolTime = [180,180,600,660,720];
+    }
+    SkOpen(){ //每秒確認
+        if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
+            this.SKOpenFlag = true;
+        }else{
+            this.SKOpenFlag = flase;
+        }
+    }
+
+    //click UP_BTN activation function
+    Check(){
+        if(this.SKOpenFlag){
+            this.lv ++;
+        }
+    }
+
+    //skill content at every level
+    Content(){
+        this.upATK = [1.05,1.06,1.1,1.2,1.4]; 
+    }
+
+    //click active rounded_btn
+    
+
+}
+
 
 
 
@@ -30,35 +101,35 @@
 
 
 //尚需要加上等級上限在函數中 ...(this.SkillLevel <= this.maxLevel)?  
-var skillObject = {
-    SkillLevel : 0,
-    LevelUpCondition_Hero : [0, 20, 40],
-    LevelUpCondition_Spend : [100, 120, 150],
-    SkillMatch: function(){
-        if(this.LevelUpCondition_Hero[this.SkillLevel] <= Me.LV && this.LevelUpCondition_Spend[this.SkillLevel] <= Me.Coin){
-            this.flag = true;
-        } else {this.flag =false;}
-    },
-    flag: false
-}
+// var skillObject = {
+//     SkillLevel : 0,
+//     LevelUpCondition_Hero : [0, 20, 40],
+//     LevelUpCondition_Spend : [100, 120, 150],
+//     SkillMatch: function(){
+//         if(this.LevelUpCondition_Hero[this.SkillLevel] <= Me.LV && this.LevelUpCondition_Spend[this.SkillLevel] <= Me.Coin){
+//             this.flag = true;
+//         } else {this.flag =false;}
+//     },
+//     flag: false
+// }
 
 
 
-//index btn升級技能
-function SkillLevelUp(){
-    if(skillObject.flag){
-         skillObject.SkillLevel += 1;
-         Me.ATK += 10; //測試
-         //show 主動技能的btn
-        //主動技能實質內容是寫在另外的地方
-        //這邊不是npc的被動技能
-        //Me.coin扣掉 skillObject.LevelUpCondition_Spend  
-    };
-}
+// //index btn升級技能
+// function SkillLevelUp(){
+//     if(skillObject.flag){
+//          skillObject.SkillLevel += 1;
+//          Me.ATK += 10; //測試
+//          //show 主動技能的btn
+//         //主動技能實質內容是寫在另外的地方
+//         //這邊不是npc的被動技能
+//         //Me.coin扣掉 skillObject.LevelUpCondition_Spend  
+//     };
+// }
 
 
-//主動技能 的 技能實質內容
-function skillRealContent(){
+// //主動技能 的 技能實質內容
+// function skillRealContent(){
     
 
-}
+// }
