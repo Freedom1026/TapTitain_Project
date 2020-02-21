@@ -33,7 +33,7 @@ div.hideBlock{
 /* 這邊要分螢幕大小 */
     background-color: red;
     width: 50%;
-    height: 10vh;
+    height: 15vh;
 }
 
 
@@ -50,6 +50,7 @@ div.bascInfo{
     position: absolute;
 }
 
+
 div.heroSkill{
     visibility: hidden;
     position: absolute;
@@ -64,7 +65,7 @@ div.creatureSkill{
 
 
 
-/* div.changePanel {
-    position: absolute;
-    bottom: 40%;
-} */
+div.changePanel {
+    position: relative;
+   
+}

@@ -56,15 +56,21 @@
 //設定技能基礎值
 
 var HSK = class HSK{
-    constructor(lv){
+    constructor(skname, lv){
+        this.skname = skname;
         this.lv = lv;
-        this.SKOpenFlag = flase;
+        this.SKOpenFlag = false;
+        //加成係數
+        this.times = 1;
         this.LvUp = [10,20,30,40,50];
         this.upSpend = [100,120,150,200,250];
         this.skTime = [30,60,90,90,90];
         this.coolTime = [180,180,600,660,720];
+        this.t_A = -1;
+        this.t_B = -1;
+        this.timeStart = setInterval (this.timeCount , 1000);
     }
-    SkOpen(){ //每秒確認
+    SkOpen(){ //每秒確認....prototype連線
         if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
             this.SKOpenFlag = true;
         }else{
@@ -79,17 +85,40 @@ var HSK = class HSK{
         }
     }
 
-    //skill content at every level
+    //skill content at every level  ---->個別技能的內容
     Content(){
         this.upATK = [1.05,1.06,1.1,1.2,1.4]; 
     }
 
     //click active rounded_btn
-    
+    excute(){ //sk_a 成為參數被呼叫
+        this.times = this.upATK[this.lv];
+    }
 
+    cancel(){
+        this.times = 1;
+    }
+
+    //計時功能
+    timeCount(){
+        this.t_A = this.skTime[this.lv];
+        console.log(this.skTime[this.lv]);
+        this.t_B = this.coolTime[this.lv];
+        if(this.t_A  > 0){
+            this.t_A  --;
+            if(this.t_A <= 0){
+                this.t_B --;
+                if(this.t_B <= 0){
+                    clearInterval(this.timeStart);
+                }
+            }
+        }
+    }
+    
 }
 
-
+var testSK = new HSK("test", 3);
+testSK.timeCount();
 
 
 //-------------進階版技能-------------
