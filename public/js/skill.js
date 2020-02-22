@@ -91,7 +91,7 @@ var HSK = class HSK{
     }
 
     //click active rounded_btn
-    excute(){ //sk_a 成為參數被呼叫
+    execute(){ //sk_a 成為參數被呼叫
         this.times = this.upATK[this.lv];
     }
 
@@ -101,9 +101,14 @@ var HSK = class HSK{
 
     //設定計時時間   --->prototype
     timeReset(){
-        this.t_A = this.skTime[this.lv];
-        this.t_B = this.coolTime[this.lv];
-        this.timeStart = setInterval (()=>this.timeCount() , 1000);
+        if(this.t_B <=0){
+            this.t_A = this.skTime[this.lv];
+            this.t_B = this.coolTime[this.lv];
+            this.timeStart = setInterval (()=>this.timeCount() , 1000);
+        }
+        else{
+            console.log(this.t_B);
+        }
     }
 
 
@@ -114,6 +119,7 @@ var HSK = class HSK{
             $("#debug_btn").text(this.t_B);
             if(this.t_B <= 0){
                 clearInterval(this.timeStart);
+                return this.t_B;
             }
         }else{
             this.t_A -= 1;
