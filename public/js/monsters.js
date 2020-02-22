@@ -32,12 +32,12 @@ var monstersProperty = class monstersProperty {
     hpbar(){
         ctx.save();
         ctx.fillStyle ="#FFA500";
-        ctx.fillRect(RwdDx*1.2, 20, this.hpbarContent, 20);
+        ctx.fillRect(RwdDx*1.2, 60, this.hpbarContent, 15);
         ctx.restore();
     }
 
     hpLose(){
-        this.attackedAmount =  Me.ATK ;
+        this.attackedAmount =  Me.ATK * testSK.times;
         this.hpbarContent -= this.attackedAmount*20/this.hp;
         (this.hpbarContent <= 0)? changeMonster():0;
     }
@@ -49,7 +49,7 @@ var monstersProperty = class monstersProperty {
     }
 
     draw(){
-        ctx.drawImage(this.image, this.sx, this.sy, this.sWidth, this.sHeight, this.dx, this.dy, this.dWidth, this.dHeight)
+        ctx.drawImage(this.image, this.sx, this.sy, this.sWidth, this.sHeight, this.dx, this.dy, this.dWidth, this.dHeight);
     }
 
 }
@@ -59,7 +59,7 @@ var NowMonster = new monstersProperty(monstersImg, 0, 0, 450, 450, RwdDx, RwdDy,
 
 
 function changeMonster(){
-NowMonster = new monstersProperty(monstersImg, 100, 100, 100, 100, RwdDx, RwdDy, RwdDw, RwdDh, 1000, 100); //array[index].img, array[index].sx
+NowMonster = new monstersProperty(monstersImg, 0, 450, 450, 450, RwdDx, RwdDy, RwdDw, RwdDh, 1000, 100); //array[index].img, array[index].sx
 console.log("死掉了,換新的" + NowMonster.hp)//用陣列去random
 }
 

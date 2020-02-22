@@ -8,22 +8,26 @@ table{
 
 div.stage span:nth-child(1), div.stage span:nth-child(3){
     border-radius: 100%;
+    top: 2vh;
     padding: 1vh;
     background-color: red;
+    position: relative;
+    z-index: 20;
 }
 
 div.stage span:nth-child(2){
     padding: 2vh;
+    top: 4vh;
     border-radius: 100%;
     background-color: red;
+    position: relative;
+    z-index: 20;
 }
 
-div.actSkill span{
-    visibility: hidden;
-    border-radius: 100%;
-    padding: 1vw;
-    background-color: red;
+canvas{
+    z-index: 1;
 }
+
 
 
 /* 下面四個同屬一個區域 */
@@ -33,7 +37,7 @@ div.hideBlock{
 /* 這邊要分螢幕大小 */
     background-color: red;
     width: 50%;
-    height: 15vh;
+    height: 25vh;
 }
 
 
@@ -46,20 +50,35 @@ div.hideBlock, div.hideBlock div{
 
 
 div.bascInfo{
+    padding: 7vh 0;
     background-color: white;
     position: absolute;
 }
 
+div.actSkill span{
+    top: 2vh;
+    visibility: hidden;
+    border-radius: 100%;
+    padding: 1vw;
+    position: relative;
+    z-index: 20;
+    background-color: red;
+}
 
 div.heroSkill{
+    margin-top: -1vh;
+    padding: 7vh 0;
     visibility: hidden;
     position: absolute;
     background-color: white;
 }
 div.creatureSkill{
+    padding: 8vh 0;
     visibility: hidden;
     position: absolute;
     background-color: white;
+    height: 8vh;
+    overflow-y: scroll;
 }
 
 
@@ -67,5 +86,9 @@ div.creatureSkill{
 
 div.changePanel {
     position: relative;
-   
+}
+
+
+div.HSkillDetail{
+    display: none;
 }

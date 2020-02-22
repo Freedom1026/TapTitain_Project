@@ -29,7 +29,6 @@ var Cha = class Cha {
         this.dWidth = dWidth;
         this.dHeight = dHeight;
     }
-
 }
 
 class mainCha extends Cha {
@@ -42,8 +41,6 @@ class mainCha extends Cha {
         //金幣 可以直接載入
         this.Coin = 8000;
 
-        //技能加成係數
-        this.Sk_A = 1;
     }    
     normal(){
         this.sx = 0;
@@ -73,3 +70,4 @@ var Hero_1 = new mainCha(chaimg, 0, 0, 200, 200, 109, 300, ChaDw, ChaDh);
 function meLevelUp(){
     Me.LV ++;
 }
+

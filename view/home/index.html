@@ -10,6 +10,14 @@
     <script src="js/jquery-3.4.1.min.js"></script>
 </head>
 <body>
+<!-- Stage -->
+<div class="stage">
+    <span>test</span>
+    <span>test</span>
+    <span>test</span>
+</div>
+
+
     <canvas></canvas>
 
 
@@ -25,16 +33,16 @@
         <p>異生物 每秒輸出傷害總和</p>
         <br>
         <br>
-        <!-- panel of active skill -->
-        <div class="actSkill">
-            <span>
+    </div>
+
+    <!-- panel of active skill -->
+    <div class="actSkill">
+            <span onclick="testSK.timeReset()" id="actBTN_A">
                 財
             </span>
             <span>
                 蠻
             </span>
-        </div>
-
     </div>
 
     <!-- panel of hero skill -->
@@ -73,6 +81,43 @@
                 <td></td>
                 <td></td>
             </tr>
+            <tr>
+                <td>img</td>
+                <td>生物名稱</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>img</td>
+                <td>LV.0</td>
+                <td>DPS:0</td>
+                <td><button>升級</button></td>
+            </tr>
+            <tr>
+                <td>img</td>
+                <td class="skillIcons">icon icon</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>img</td>
+                <td>生物名稱</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>img</td>
+                <td>LV.0</td>
+                <td>DPS:0</td>
+                <td><button>升級</button></td>
+            </tr>
+            <tr>
+                <td>img</td>
+                <td class="skillIcons">icon icon</td>
+                <td></td>
+                <td></td>
+            </tr>
+
         </table>
     </div>
 
@@ -95,7 +140,7 @@
 <p>img + 技能名稱</p>
 <p>lv.___</p>
 <div class="description">技能說明: <span>持續時間</span><span>冷卻時間</span></div>
-<button onclick="testSK.timeReset()" id="debug_btn">debug</button>
+<button id="debug_btn">debug</button>
 </div>
 
 
@@ -108,13 +153,16 @@
         (window.innerWidth <= 768)? canvas.width = window.innerWidth: canvas.width = window.innerWidth/5*3;
         
         //高度必須固定 因此之後必須填寫數字
-        canvas.height = window.innerHeight/2;
+        canvas.height = window.innerHeight/2*1.2;
         var ctx = canvas.getContext('2d');
         //隨著螢幕大小調整畫布大小
         //reload會有問題！！因為是重新載入　如果沒去讀取資料庫　會出大問題
         window.onresize = function r(){location.reload()};
         //測試畫面
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
+        //ctx.fillRect(0, 0, canvas.width, canvas.height);
+        var bk = new Image();
+        bk.src = "./img/background.png"
+        
     
     </script>
 

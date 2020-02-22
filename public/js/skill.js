@@ -64,10 +64,14 @@ var HSK = class HSK{
         this.times = 1;
         this.LvUp = [10,20,30,40,50];
         this.upSpend = [100,120,150,200,250];
-        this.skTime = [30,60,90,12,90];
-        this.coolTime = [100,160,180,20,720];
+        this.skTime = [30,60,90,17,90];
+        this.coolTime = [100,160,180,23,720];
+        //計時參數
         this.t_A = -1;
         this.t_B = -1;
+
+        //此技能實質內容
+        this.upATK = [1.05,1.06,1.1,1.2,1.4]; 
         
     }
     SkOpen(){ //每秒確認....prototype連線
@@ -76,18 +80,6 @@ var HSK = class HSK{
         }else{
             this.SKOpenFlag = flase;
         }
-    }
-
-    //click UP_BTN activation function
-    Check(){
-        if(this.SKOpenFlag){
-            this.lv ++;
-        }
-    }
-
-    //skill content at every level  ---->個別技能的內容
-    Content(){
-        this.upATK = [1.05,1.06,1.1,1.2,1.4]; 
     }
 
     //click active rounded_btn
@@ -99,15 +91,14 @@ var HSK = class HSK{
         this.times = 1;
     }
 
-    //設定計時時間   --->prototype
+    //設定計時時間   
     timeReset(){
         if(this.t_B <=0){
             this.t_A = this.skTime[this.lv];
             this.t_B = this.coolTime[this.lv];
             this.timeStart = setInterval (()=>this.timeCount() , 1000);
-        }
-        else{
-            console.log(this.t_B);
+            //call function of content
+            this.execute();
         }
     }
 
@@ -115,19 +106,29 @@ var HSK = class HSK{
     //計時功能    ---->prototype
     timeCount(){
         if(this.t_A <= 0){
+            this.cancel();  
             this.t_B -=1;
-            $("#debug_btn").text(this.t_B);
+            $("#actBTN_A").text(this.t_B);
             if(this.t_B <= 0){
                 clearInterval(this.timeStart);
                 return this.t_B;
             }
         }else{
             this.t_A -= 1;
-            $("#debug_btn").text(this.t_A);
+            console.log(this.times);
+            $("#actBTN_A").text(this.t_A);
         }
     }
     
 }
+
+
+class ActSkill_A extends HSK {
+    constructor(skname, lv){
+        super();
+    }
+}
+
 
 var testSK = new HSK("test", 3);
 
