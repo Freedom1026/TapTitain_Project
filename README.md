@@ -23,6 +23,7 @@ MVC框架
 
 ## 等待修改的bug
 * resize 後 active skill圖示會消失
+* 怪物hp=0時 點擊會出現undefined
 
 ## 思考問題點
 * 當技能等級為0，其對應冷卻值應為？
