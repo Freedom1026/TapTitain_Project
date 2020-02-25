@@ -27,19 +27,26 @@ var monstersProperty = class monstersProperty {
         this.hp = hp;
         this.money = money;
         this.hpbarContent = 150;
+        this.attackedAmount = 0;
     }
 
     hpbar(){
         ctx.save();
         ctx.fillStyle ="#FFA500";
-        ctx.fillRect(RwdDx*1.2, 60, this.hpbarContent, 15);
+        if(this.hpbarContent > 0){
+            ctx.fillRect(RwdDx*1.2, 60, this.hpbarContent, 15);
+        }
         ctx.restore();
     }
 
     hpLose(){
         this.attackedAmount =  Me.ATK * testSK.times;
         this.hpbarContent -= this.attackedAmount*20/this.hp;
-        (this.hpbarContent <= 0)? changeMonster():0;
+        if(this.hpbarContent <= 0){
+            changeMonster();
+            return this.attackedAmount, this.hpbarContent;
+        }
+        
     }
 
     attacked(){
@@ -60,12 +67,7 @@ var NowMonster = new monstersProperty(monstersImg, 0, 0, 450, 450, RwdDx, RwdDy,
 
 function changeMonster(){
 NowMonster = new monstersProperty(monstersImg, 0, 450, 450, 450, RwdDx, RwdDy, RwdDw, RwdDh, 1000, 100); //array[index].img, array[index].sx
-console.log("死掉了,換新的" + NowMonster.hp)//用陣列去random
+NowMonster.attackedAmount = Me.ATK * testSK.times;
+//關卡切換 打倒怪物計數+1
 }
-
-
-// var monsterType = [];
-// //dx, dy, dwidth, dheight都要是RWD
-// monsterType[0]=new monsterA(monstersImg, 100, 100, 100, 100, 100, 100, 100, 100);
-// monsterType[1]=new monsterB(monstersImg, 100, 100, 100, 100, 100, 100, 100, 100);
 

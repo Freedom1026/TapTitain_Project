@@ -17,9 +17,17 @@
     $(function(){
             $.get("/home/get_test", function (e) {
                 var HeroData = JSON.parse(e);
-                heroSkillLevel[0] = HeroData[0].heroLv || 1 ;
-                heroSkillLevel[1] = HeroData[0].heroSkLv_A || 0;
-                heroSkillLevel[2] = HeroData[0].heroSkLv_B || 0;
+                heroSkillLevel[0] = HeroData[0].heroLv;
+                heroSkillLevel[1] = HeroData[0].heroSkLv_A;
+                heroSkillLevel[2] = HeroData[0].heroSkLv_B;
+            }).then(function(){
+                    heroSkillLevel.forEach(function(val,ind){
+                        let now = ind + 1;
+                        $(`div.heroSkill div:nth-child(${now}) span:nth-child(3)`).text(`Lv.${val}`);
+                        if(val > 0){
+                            $(`div.actSkill span:nth-child(${ind})`).css("visibility","visible");
+                        }
+                    })
             })
         })
 
@@ -28,13 +36,14 @@
     
     //補上條件符合
     function levelUp(skill,skLv){
-    heroSkillLevel[skLv]++;
-     //傳入參數: 技能名稱
-    $(`span.${skill}`).text(`Lv.${heroSkillLevel[skLv]}`);
-    if(skLv == 0){
-        return;
-    }
-    $(`div.actSkill span:nth-child(${skLv})`).css("visibility","visible");
+        heroSkillLevel[skLv]++;
+        //傳入參數: 技能名稱
+        $(`span.${skill}`).text(`Lv.${heroSkillLevel[skLv]}`);
+        //排除第一個主角升級    
+        if(skLv == 0){
+                return;
+            }
+        $(`div.actSkill span:nth-child(${skLv})`).css("visibility","visible");
     }
     
     
@@ -53,6 +62,10 @@
             }
     
 
+//---------------------------------------上面是畫面function 下面是物件funciton
+
+
+
 //設定技能基礎值
 
 var HSK = class HSK{
@@ -69,9 +82,8 @@ var HSK = class HSK{
         //計時參數
         this.t_A = -1;
         this.t_B = -1;
-
         //此技能實質內容
-        this.upATK = [1.05,1.06,1.1,1.2,1.4]; 
+
         
     }
     SkOpen(){ //每秒確認....prototype連線
@@ -124,13 +136,18 @@ var HSK = class HSK{
 
 
 class ActSkill_A extends HSK {
-    constructor(skname, lv){
-        super();
+    constructor(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B){
+        super(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B);
+        this.upATK = [1.05,1.06,1.1,1.2,1.4];
     }
 }
 
 
+
+
 var testSK = new HSK("test", 3);
+
+var testSK2 = new ActSkill_A("test", 3);
 
 
 //-------------進階版技能-------------

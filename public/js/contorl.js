@@ -8,17 +8,27 @@ function test(){
     ctx.drawImage(bk,0, -40, 1200, 600);
     Me.draw();
     NowMonster.draw();
+    //暫時自己畫coin 之後換成圖
+    ctx.beginPath();
+    ctx.arc(RwdDx*1.4,RwdDy*1.4,10,0,2*Math.PI);
+    ctx.fillStyle = "#FFA500";
+    ctx.fill();
+    ctx.font = "20px Arial";
+    ctx.fillText(Me.Coin, RwdDx*1.5, RwdDy*1.4+5);
+
     canvas.onclick = FirstThing;
     if(ClickFlag){
         Me.attacked();
+        ctx.save();
+        ctx.fillStyle = "#FFA500";
         ctx.font = "30px Arial";
         ctx.fillText(NowMonster.attackedAmount, RwdDx*1.2, RwdDy*4);
+        ctx.restore();
     };
     NowMonster.hpbar();
 }
 
 function FirstThing(){
-    console.log(Me.ATK);
     ClickFlag = true;
     NowMonster.hpLose();
     NowMonster.attacked();
