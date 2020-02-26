@@ -25,12 +25,13 @@ MVC框架
 * 怪物距離boss數量
 
 ## 等待修改的bug
-* upATK在act_Btn失效
+* 怪物重生之後 atkAmount會變回20
 
 ## 處理完的bug
 1. active skill　若技能等級不為0　應直接顯示
 2. resize 後 active skill圖示會消失
 3. 怪物hp=0時 點擊會出現undefined
+4. upATK在act_Btn失效 -->忘記修改monster.hplose參數
 
 ## 思考問題點
 * 當技能等級為0，其對應冷卻值應為？

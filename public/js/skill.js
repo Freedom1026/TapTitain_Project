@@ -82,9 +82,7 @@ var HSK = class HSK{
         //計時參數
         this.t_A = -1;
         this.t_B = -1;
-        //此技能實質內容
 
-        
     }
     SkOpen(){ //每秒確認....prototype連線
         if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
@@ -104,11 +102,11 @@ var HSK = class HSK{
     }
 
     //設定計時時間   
-    timeReset(){
+    timeReset(ele){
         if(this.t_B <=0){
             this.t_A = this.skTime[this.lv];
             this.t_B = this.coolTime[this.lv];
-            this.timeStart = setInterval (()=>this.timeCount() , 1000);
+            this.timeStart = setInterval (()=>this.timeCount(ele) , 1000);
             //call function of content
             this.execute();
         }
@@ -116,19 +114,20 @@ var HSK = class HSK{
 
 
     //計時功能    ---->prototype
-    timeCount(){
+    timeCount(ele){
         if(this.t_A <= 0){
             this.cancel();  
             this.t_B -=1;
-            $("#actBTN_A").text(this.t_B);
+            $(ele).text(this.t_B);
+            $(ele).css("background-color","pink");
             if(this.t_B <= 0){
                 clearInterval(this.timeStart);
                 return this.t_B;
             }
         }else{
             this.t_A -= 1;
-            console.log(this.times);
-            $("#actBTN_A").text(this.t_A);
+            $(ele).text(this.t_A);
+            $(ele).css("background-color","yellow");
         }
     }
     

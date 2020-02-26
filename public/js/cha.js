@@ -58,6 +58,15 @@ class mainCha extends Cha {
 
 }
 
+class CreatureA extends Cha{
+    constructor(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight){
+        super(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+    }
+
+}
+
+
+
 
 //此處的Me 之後要加上--我的等級參數/金幣參數/破關關卡參數 利用get傳入
 var Me = new mainCha(chaimg, 0, 0, 200, 200, ChaDx, ChaDy, ChaDw, ChaDh);
@@ -65,9 +74,4 @@ var Hero_1 = new mainCha(chaimg, 0, 0, 200, 200, 109, 300, ChaDw, ChaDh);
 
 
 //之後再來加入的npc紀錄，要記錄Me已經召喚的npc　以及其等級 利用get傳入
-
-//index=>英雄等級提升
-function meLevelUp(){
-    Me.LV ++;
-}
 

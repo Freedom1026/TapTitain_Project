@@ -20,7 +20,7 @@ function test(){
     if(ClickFlag){
         Me.attacked();
         ctx.save();
-        ctx.fillStyle = "#FFA500";
+        ctx.fillStyle = "#AF2770";
         ctx.font = "30px Arial";
         ctx.fillText(NowMonster.attackedAmount, RwdDx*1.2, RwdDy*4);
         ctx.restore();

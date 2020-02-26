@@ -1,5 +1,5 @@
 var monstersImg = new Image();
-monstersImg.src = "img/testMon.png";
+monstersImg.src = "img/testMon2.png";
 
 //RWD係數 -->寬度係數不同
 var RwdDx = canvas.width/3;
@@ -40,7 +40,7 @@ var monstersProperty = class monstersProperty {
     }
 
     hpLose(){
-        this.attackedAmount =  Me.ATK * testSK.times;
+        this.attackedAmount =  Me.ATK * testSK2.times;
         this.hpbarContent -= this.attackedAmount*20/this.hp;
         if(this.hpbarContent <= 0){
             changeMonster();
@@ -50,7 +50,8 @@ var monstersProperty = class monstersProperty {
     }
 
     attacked(){
-        this.sx += 450;
+        this.sx += 225;
+        //225 or 450
         (this.sx >= 900)? this.sx = 0 : 0;
         return this.sx;
     }
@@ -61,13 +62,16 @@ var monstersProperty = class monstersProperty {
 
 }
 
-var NowMonster = new monstersProperty(monstersImg, 0, 0, 450, 450, RwdDx, RwdDy, RwdDw, RwdDh, 100, 100);
+var NowMonster = new monstersProperty(monstersImg, 0, 0, 225, 225, RwdDx, RwdDy, RwdDw, RwdDh, 10, 100);
+//0 0 225 225
 
 
 
 function changeMonster(){
-NowMonster = new monstersProperty(monstersImg, 0, 450, 450, 450, RwdDx, RwdDy, RwdDw, RwdDh, 1000, 100); //array[index].img, array[index].sx
+let r = Math.floor(Math.random()*4)*225;
+NowMonster = new monstersProperty(monstersImg, 0, r, 225, 225, RwdDx, RwdDy, RwdDw, RwdDh, 10, 100); //array[index].img, array[index].sx
 NowMonster.attackedAmount = Me.ATK * testSK.times;
+console.log(NowMonster.attackedAmount);
 //關卡切換 打倒怪物計數+1
 }
 
