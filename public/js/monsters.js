@@ -70,7 +70,7 @@ var NowMonster = new monstersProperty(monstersImg, 0, 0, 225, 225, RwdDx, RwdDy,
 function changeMonster(){
 let r = Math.floor(Math.random()*4)*225;
 NowMonster = new monstersProperty(monstersImg, 0, r, 225, 225, RwdDx, RwdDy, RwdDw, RwdDh, 10, 100); //array[index].img, array[index].sx
-NowMonster.attackedAmount = Me.ATK * testSK.times;
+NowMonster.attackedAmount = Me.ATK * testSK2.times;
 console.log(NowMonster.attackedAmount);
 //關卡切換 打倒怪物計數+1
 }
