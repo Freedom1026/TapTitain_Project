@@ -7,6 +7,9 @@ function test(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(bk,0, -40, 1200, 600);
     Me.draw();
+    C_A.draw();
+    C_B.draw();
+    C_C.draw();
     NowMonster.draw();
     //暫時自己畫coin 之後換成圖
     ctx.beginPath();
@@ -15,7 +18,7 @@ function test(){
     ctx.fill();
     ctx.font = "20px Arial";
     ctx.fillText(Me.Coin, RwdDx*1.5, RwdDy*1.4+5);
-
+    //C_A.attacked();
     canvas.onclick = FirstThing;
     if(ClickFlag){
         Me.attacked();

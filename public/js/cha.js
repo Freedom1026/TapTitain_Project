@@ -1,6 +1,8 @@
 
 var chaimg = new Image();
 chaimg.src = "img/all.png";
+var creatures = new Image();
+creatures.src = "img/testMon.png"
 
 
 //RWD係數 -->寬度係數不同
@@ -29,6 +31,9 @@ var Cha = class Cha {
         this.dWidth = dWidth;
         this.dHeight = dHeight;
     }
+    draw(){
+        ctx.drawImage(this.image, this.sx, this.sy, this.sWidth, this.sHeight, this.dx, this.dy, this.dWidth, this.dHeight)
+    }
 }
 
 class mainCha extends Cha {
@@ -52,26 +57,30 @@ class mainCha extends Cha {
         return this.sx;
     }
 
-    draw(){
-        ctx.drawImage(this.image, this.sx, this.sy, this.sWidth, this.sHeight, this.dx, this.dy, this.dWidth, this.dHeight)
-    }
-
 }
 
 class CreatureA extends Cha{
     constructor(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight){
         super(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
     }
+    attacked(){
+        this.sx += 450;
+        if(this.sx > 900){
+            this.sx = 0;
+        }
+        return this.sx;
+    }
 
 }
 
 
 
-
 //此處的Me 之後要加上--我的等級參數/金幣參數/破關關卡參數 利用get傳入
 var Me = new mainCha(chaimg, 0, 0, 200, 200, ChaDx, ChaDy, ChaDw, ChaDh);
-var Hero_1 = new mainCha(chaimg, 0, 0, 200, 200, 109, 300, ChaDw, ChaDh);
+
 
 
 //之後再來加入的npc紀錄，要記錄Me已經召喚的npc　以及其等級 利用get傳入
-
+var C_A = new CreatureA(creatures, 0, 0, 450, 450, 100, 100, ChaDw, ChaDh);
+var C_B = new CreatureA(creatures, 0, 0, 450, 450, 160, 160, ChaDw, ChaDh);
+var C_C = new CreatureA(creatures, 0, 0, 450, 450, 200, 200, ChaDw, ChaDh);

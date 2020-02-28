@@ -40,7 +40,8 @@ var monstersProperty = class monstersProperty {
     }
 
     hpLose(){
-        this.attackedAmount =  Me.ATK * testSK2.times;
+        //time係數 依賴技能名稱會不好維護
+        this.attackedAmount =  Me.ATK * origin.times;
         this.hpbarContent -= this.attackedAmount*20/this.hp;
         if(this.hpbarContent <= 0){
             changeMonster();
@@ -70,7 +71,8 @@ var NowMonster = new monstersProperty(monstersImg, 0, 0, 225, 225, RwdDx, RwdDy,
 function changeMonster(){
 let r = Math.floor(Math.random()*4)*225;
 NowMonster = new monstersProperty(monstersImg, 0, r, 225, 225, RwdDx, RwdDy, RwdDw, RwdDh, 10, 100); //array[index].img, array[index].sx
-NowMonster.attackedAmount = Me.ATK * testSK2.times;
+//times係數依賴技能名稱 會不好維護
+NowMonster.attackedAmount = Me.ATK * origin.times;
 console.log(NowMonster.attackedAmount);
 //關卡切換 打倒怪物計數+1
 }

@@ -34,16 +34,21 @@
 
 
     
-    //補上條件符合
-    function levelUp(skill,skLv){
-        heroSkillLevel[skLv]++;
+    function levelUp(skill,skLv_c){
+// //判斷條件
+let ttAB = [origin];
+console.log(ttAB[0].LvUp);
+        if(heroSkillLevel[skLv_c] <= heroSkillLevel[0]){
+            console.log("test");
+        }
+        heroSkillLevel[skLv_c]++;
         //傳入參數: 技能名稱
-        $(`span.${skill}`).text(`Lv.${heroSkillLevel[skLv]}`);
+        $(`span.${skill}`).text(`Lv.${heroSkillLevel[skLv_c]}`);
         //排除第一個主角升級    
-        if(skLv == 0){
+        if(skLv_c == 0){
                 return;
             }
-        $(`div.actSkill span:nth-child(${skLv})`).css("visibility","visible");
+        $(`div.actSkill span:nth-child(${skLv_c})`).css("visibility","visible");
     }
     
     
@@ -88,7 +93,7 @@ var HSK = class HSK{
         if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
             this.SKOpenFlag = true;
         }else{
-            this.SKOpenFlag = flase;
+            this.SKOpenFlag = false;
         }
     }
 
@@ -134,7 +139,7 @@ var HSK = class HSK{
 }
 
 
-class ActSkill_A extends HSK {
+class ActSkill_B extends HSK {
     constructor(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B){
         super(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B);
         this.upATK = [1.05,1.06,1.1,1.2,1.4];
@@ -146,7 +151,7 @@ class ActSkill_A extends HSK {
 
 var testSK = new HSK("test", 3);
 
-var testSK2 = new ActSkill_A("test", 3);
+var origin = new ActSkill_B("origin", 3);
 
 
 //-------------進階版技能-------------
