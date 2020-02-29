@@ -93,13 +93,15 @@ var HSK = class HSK{
         this.t_B = -1;
 
     }
-    SkOpen(){ //每秒確認....prototype連線
+    SkOpen(skID){ //每秒確認....prototype連線
         if(this.LvUp[this.lv-1] <= Me.LV && this.upSpend[this.lv-1] <= Me.Coin){
             this.SKOpenFlag = true;
-            $("body").css("background-color","red");
+            $(`div.heroSkill div:nth-child(${skID}) button`).text("A");
+            //$(`div.heroSkill div:nth-child(${skID}) button`).css("color","gray");
         }else{
             this.SKOpenFlag = false;
-            $("body").css("background-color","yellow");
+            $(`div.heroSkill div:nth-child(${skID}) button`).text("升級");
+            //$(`div.heroSkill div:nth-child(${skID}) button`).css("color","gray");
         }
     }
 
@@ -148,7 +150,7 @@ var HSK = class HSK{
 class ActSkill_B extends HSK {
     constructor(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B){
         super(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B);
-        this.upATK = [1.05,1.06,1.1,1.2,1.4];
+        this.upATK = [1,1.05,1.06,1.1,1.2,1.4];
     }
 }
 

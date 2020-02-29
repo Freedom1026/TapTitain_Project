@@ -12,7 +12,7 @@ MVC框架
 * 金幣掉落動畫
 * 成就系統
 -------------------
-* 技能升級btn未完成
+* 技能升級btn未完成.....Me也寫一個SKOPEN 放到skillArray裡面 迴圈確認文字變更
 -------------------
 * Cog面板
 * 調整active skill畫面位置
@@ -38,6 +38,4 @@ MVC框架
 * 對Me.LV console時 會出現 undefined
 
 ## 目前進度
-* skill目前可以倒數計時
-* 現有金幣顯示
-* skill現在可以顯示可升級的技能
+* 修改skill 升級btn

@@ -15,7 +15,7 @@ function test(){
     //monster
     NowMonster.draw();
     //skill open or close
-    origin.SkOpen();
+    origin.SkOpen(3);
     //暫時自己畫coin 之後換成圖
     ctx.beginPath();
     ctx.arc(RwdDx*1.4,RwdDy*1.4,10,0,2*Math.PI);
