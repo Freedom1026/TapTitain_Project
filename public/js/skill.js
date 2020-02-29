@@ -33,23 +33,27 @@
 
 
 
-    
-    function levelUp(skill,skLv_c){
-// //判斷條件
-let ttAB = [origin];
-console.log(ttAB[0].LvUp);
-        if(heroSkillLevel[skLv_c] <= heroSkillLevel[0]){
-            console.log("test");
-        }
-        heroSkillLevel[skLv_c]++;
-        //傳入參數: 技能名稱
-        $(`span.${skill}`).text(`Lv.${heroSkillLevel[skLv_c]}`);
-        //排除第一個主角升級    
-        if(skLv_c == 0){
+        
+        function levelUp(skill,skID){
+        //判斷條件 暫時自己重寫
+            if(skID != 0 && SkillArray[skID].LvUp[heroSkillLevel[skID]] <= Me.LV){
+                console.log("test");
+                SkillArray[skID].lv ++;
+                heroSkillLevel[skID]++;
+                //傳入參數: 技能名稱
+                $(`span.${skill}`).text(`Lv.${heroSkillLevel[skID]}`);
+                $(`div.actSkill span:nth-child(${skID})`).css("visibility","visible");
+            }
+            else if(skID == 0){
+                //排除第一個主角升級  
+                Me.LV++;
+                heroSkillLevel[skID]++;
+                $(`span.${skill}`).text(`Lv.${heroSkillLevel[skID]}`);
                 return;
             }
-        $(`div.actSkill span:nth-child(${skLv_c})`).css("visibility","visible");
-    }
+
+
+        }
     
     
         $('#btn_hero').click(function(){panelgo("div.heroSkill")});
@@ -80,8 +84,8 @@ var HSK = class HSK{
         this.SKOpenFlag = false;
         //加成係數
         this.times = 1;
-        this.LvUp = [10,20,30,40,50];
-        this.upSpend = [100,120,150,200,250];
+        this.LvUp = [0,10,20,30,40,50];
+        this.upSpend = [0,100,120,150,200,250];
         this.skTime = [30,60,90,17,90];
         this.coolTime = [100,160,180,23,720];
         //計時參數
@@ -90,10 +94,12 @@ var HSK = class HSK{
 
     }
     SkOpen(){ //每秒確認....prototype連線
-        if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
+        if(this.LvUp[this.lv-1] <= Me.LV && this.upSpend[this.lv-1] <= Me.Coin){
             this.SKOpenFlag = true;
+            $("body").css("background-color","red");
         }else{
             this.SKOpenFlag = false;
+            $("body").css("background-color","yellow");
         }
     }
 
@@ -149,9 +155,10 @@ class ActSkill_B extends HSK {
 
 
 
-var testSK = new HSK("test", 3);
+var testSK = new ActSkill_B("test", 1);
+var origin = new ActSkill_B("origin", 1);
 
-var origin = new ActSkill_B("origin", 3);
+var SkillArray = [Me,testSK, origin];
 
 
 //-------------進階版技能-------------

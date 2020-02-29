@@ -5,12 +5,17 @@ var ClickFlag = false;
 
 function test(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    //background
     ctx.drawImage(bk,0, -40, 1200, 600);
+    //creatures
     Me.draw();
     C_A.draw();
     C_B.draw();
     C_C.draw();
+    //monster
     NowMonster.draw();
+    //skill open or close
+    origin.SkOpen();
     //暫時自己畫coin 之後換成圖
     ctx.beginPath();
     ctx.arc(RwdDx*1.4,RwdDy*1.4,10,0,2*Math.PI);

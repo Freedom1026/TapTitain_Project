@@ -45,7 +45,7 @@ class mainCha extends Cha {
         this.LV = 1;
         //金幣 可以直接載入
         this.Coin = 8000;
-
+        this.LvUpSpend = [0,10,15,20,21,25,70]
     }    
     normal(){
         this.sx = 0;
