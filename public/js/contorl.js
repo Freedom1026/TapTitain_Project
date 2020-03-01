@@ -10,6 +10,7 @@ function test(){
     //creatures
     Me.draw();
     C_A.draw();
+    C_A.speedControl();
     C_B.draw();
     C_C.draw();
     //monster

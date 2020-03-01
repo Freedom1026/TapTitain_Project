@@ -17,9 +17,14 @@
     $(function(){
             $.get("/home/get_test", function (e) {
                 var HeroData = JSON.parse(e);
-                heroSkillLevel[0] = HeroData[0].heroLv;
-                heroSkillLevel[1] = HeroData[0].heroSkLv_A;
-                heroSkillLevel[2] = HeroData[0].heroSkLv_B;
+                
+                
+                
+                SkillArray[0].LV =(heroSkillLevel[0] = HeroData[0].heroLv);
+                SkillArray[1].lv =(heroSkillLevel[1] = HeroData[0].heroSkLv_A);
+                SkillArray[2].lv =(heroSkillLevel[2] = HeroData[0].heroSkLv_B);
+
+
             }).then(function(){
                     heroSkillLevel.forEach(function(val,ind){
                         let now = ind + 1;
@@ -29,6 +34,10 @@
                         }
                     })
             })
+
+            //if (LocalStorage){
+                // call function timeReset
+            //}
         })
 
 
@@ -87,10 +96,10 @@ var HSK = class HSK{
         this.SKOpenFlag = false;
         //加成係數
         this.times = 1;
-        this.LvUp = [0,10,20,30,40,50];
-        this.upSpend = [0,100,120,150,200,250];
-        this.skTime = [0,30,60,90,17,90]; 
-        this.coolTime = [0, 100,160,180,23,720];
+        this.LvUp = [0,10,20,30,40,50,60,70,80,90,100];
+        this.upSpend = [0,100,120,150,200,250,300,400];
+        this.skTime = [0,30,60,90,17,90,90,100]; 
+        this.coolTime = [0, 100,150,160,180,720,800];
         //計時參數
         this.t_A = -1;
         this.t_B = -1;
@@ -120,8 +129,9 @@ var HSK = class HSK{
     //設定計時時間   
     timeReset(ele){
         if(this.t_B <=0){
-            this.t_A = this.skTime[this.lv];
-            this.t_B = this.coolTime[this.lv];
+            this.t_A = localStorage.getItem(this.skname+"_A") || this.skTime[this.lv];
+            this.t_B = localStorage.getItem(this.skname+"_B") || this.coolTime[this.lv];
+            //get LocalStorage (this.skname_B) || this.coolTime[this.lv];
             this.timeStart = setInterval (()=>this.timeCount(ele) , 1000);
             //call function of content
             this.execute();
@@ -132,16 +142,23 @@ var HSK = class HSK{
     //計時功能    ---->prototype
     timeCount(ele){
         if(this.t_A <= 0){
-            this.cancel();  
+            this.cancel();
+            
             this.t_B -=1;
+            //set LocalStorage (this.skname_B, this.t_B);
             $(ele).text(this.t_B);
             $(ele).css("background-color","pink");
             if(this.t_B <= 0){
+                $(ele).text("蠻");
+                //remove LocalStorage
+                $(ele).css("background-color","red");
                 clearInterval(this.timeStart);
                 return this.t_B;
             }
         }else{
+            
             this.t_A -= 1;
+            //set LocalStorage (this.skname_A, this.t_A);
             $(ele).text(this.t_A);
             $(ele).css("background-color","yellow");
         }
@@ -166,44 +183,3 @@ var origin = new ActSkill_B("origin", 0);
 var SkillArray = [Me,testSK, origin];
 
 
-//-------------進階版技能-------------
-// skillObject 可以直接改成陣列
-// e.g. (skillObject => 陣列[0] ; 呼叫函數變成 陣列[0].SkillContent)
-// 再利用迴圈把每一個技能每次都做確認
-//需要使用jquery改變按鈕樣式,文字內容
-
-
-
-//尚需要加上等級上限在函數中 ...(this.SkillLevel <= this.maxLevel)?  
-// var skillObject = {
-//     SkillLevel : 0,
-//     LevelUpCondition_Hero : [0, 20, 40],
-//     LevelUpCondition_Spend : [100, 120, 150],
-//     SkillMatch: function(){
-//         if(this.LevelUpCondition_Hero[this.SkillLevel] <= Me.LV && this.LevelUpCondition_Spend[this.SkillLevel] <= Me.Coin){
-//             this.flag = true;
-//         } else {this.flag =false;}
-//     },
-//     flag: false
-// }
-
-
-
-// //index btn升級技能
-// function SkillLevelUp(){
-//     if(skillObject.flag){
-//          skillObject.SkillLevel += 1;
-//          Me.ATK += 10; //測試
-//          //show 主動技能的btn
-//         //主動技能實質內容是寫在另外的地方
-//         //這邊不是npc的被動技能
-//         //Me.coin扣掉 skillObject.LevelUpCondition_Spend  
-//     };
-// }
-
-
-// //主動技能 的 技能實質內容
-// function skillRealContent(){
-    
-
-// }
