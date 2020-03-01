@@ -37,12 +37,14 @@
         function levelUp(skill,skID){
         //判斷條件 暫時自己重寫
             if(skID != 0 && SkillArray[skID].LvUp[heroSkillLevel[skID]] <= Me.LV){
-                console.log("test");
                 SkillArray[skID].lv ++;
                 heroSkillLevel[skID]++;
                 //傳入參數: 技能名稱
                 $(`span.${skill}`).text(`Lv.${heroSkillLevel[skID]}`);
                 $(`div.actSkill span:nth-child(${skID})`).css("visibility","visible");
+
+                //扣除金錢function
+                spend(skID)
             }
             else if(skID == 0){
                 //排除第一個主角升級  
@@ -51,11 +53,12 @@
                 $(`span.${skill}`).text(`Lv.${heroSkillLevel[skID]}`);
                 return;
             }
-
-
         }
     
-    
+        function spend(skID){
+            Me.Coin -= SkillArray[skID].upSpend[SkillArray[skID].lv];
+        }
+
         $('#btn_hero').click(function(){panelgo("div.heroSkill")});
         $('#btn_creature').click(function(){panelgo("div.creatureSkill")})
         
@@ -86,22 +89,22 @@ var HSK = class HSK{
         this.times = 1;
         this.LvUp = [0,10,20,30,40,50];
         this.upSpend = [0,100,120,150,200,250];
-        this.skTime = [30,60,90,17,90];
-        this.coolTime = [100,160,180,23,720];
+        this.skTime = [0,30,60,90,17,90]; 
+        this.coolTime = [0, 100,160,180,23,720];
         //計時參數
         this.t_A = -1;
         this.t_B = -1;
 
     }
     SkOpen(skID){ //每秒確認....prototype連線
-        if(this.LvUp[this.lv-1] <= Me.LV && this.upSpend[this.lv-1] <= Me.Coin){
+        if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
             this.SKOpenFlag = true;
-            $(`div.heroSkill div:nth-child(${skID}) button`).text("A");
-            //$(`div.heroSkill div:nth-child(${skID}) button`).css("color","gray");
+            $(`div.heroSkill div:nth-child(${skID}) button`).text("可以升級");
+            $(`div.heroSkill div:nth-child(${skID}) button`).css("color","red");
         }else{
             this.SKOpenFlag = false;
-            $(`div.heroSkill div:nth-child(${skID}) button`).text("升級");
-            //$(`div.heroSkill div:nth-child(${skID}) button`).css("color","gray");
+            $(`div.heroSkill div:nth-child(${skID}) button`).text("不能升級");
+            $(`div.heroSkill div:nth-child(${skID}) button`).css("color","rgba(170, 170, 170, 0.637)");
         }
     }
 
@@ -157,8 +160,8 @@ class ActSkill_B extends HSK {
 
 
 
-var testSK = new ActSkill_B("test", 1);
-var origin = new ActSkill_B("origin", 1);
+var testSK = new ActSkill_B("test", 0);
+var origin = new ActSkill_B("origin", 0);
 
 var SkillArray = [Me,testSK, origin];
 

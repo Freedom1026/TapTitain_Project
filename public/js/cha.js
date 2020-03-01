@@ -57,6 +57,11 @@ class mainCha extends Cha {
         return this.sx;
     }
 
+    //SkOpen 補
+    SkOpen (skID){
+
+    }
+
 }
 
 class CreatureA extends Cha{
