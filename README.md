@@ -30,7 +30,7 @@ MVC框架
 * resize或refresh時 技能倒數計時會重新!  --->寫進LocalStorage裡面?
 * how to get LocalStorage?    --->reset裡面，但尚未完善code
 * 0.1+0.2類問題 所以要Math.floor
-
+* Me.coin在升級時沒有扣除 (連mysql後)
 
 ## 處理完的bug
 1. active skill　若技能等級不為0　應直接顯示
