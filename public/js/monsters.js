@@ -1,6 +1,20 @@
 var monstersImg = new Image();
 monstersImg.src = "img/testMon2.png";
 
+
+if(window.innerWidth <= 768){
+//RWD係數 -->寬度係數不同
+var RwdDx = canvas.width/3;
+//y軸位置之後要調整 -->目前依賴寬度
+var RwdDy = canvas.height/8;
+var RwdDw = canvas.width/5*2;
+//高度之後要調整 -->目前依賴寬度
+var RwdDh = RwdDw*1.2;
+ctx.fillStyle = "#FFA500";
+ctx.fillRect(RwdDx, RwdDy, RwdDw, RwdDh)
+}
+
+else{
 //RWD係數 -->寬度係數不同
 var RwdDx = canvas.width/3;
 //y軸位置之後要調整 -->目前依賴寬度
@@ -10,7 +24,7 @@ var RwdDw = canvas.width/5;
 var RwdDh = RwdDw*1.2;
 ctx.fillStyle = "#FFA500";
 ctx.fillRect(RwdDx, RwdDy, RwdDw, RwdDh)
-
+}
 
 
 var monstersProperty = class monstersProperty {
@@ -34,7 +48,7 @@ var monstersProperty = class monstersProperty {
         ctx.save();
         ctx.fillStyle ="#FFA500";
         if(this.hpbarContent > 0){
-            ctx.fillRect(RwdDx*1.2, 60, this.hpbarContent, 15);
+            ctx.fillRect(RwdDx*1.2, RwdDy, this.hpbarContent, 15);
         }
         ctx.restore();
     }

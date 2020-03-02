@@ -19,11 +19,11 @@ function test(){
     origin.SkOpen(3);
     //暫時自己畫coin 之後換成圖
     ctx.beginPath();
-    ctx.arc(RwdDx*1.4,RwdDy*1.4,10,0,2*Math.PI);
+    ctx.arc(RwdDx*1.4,RwdDy*1.4+10,10,0,2*Math.PI);
     ctx.fillStyle = "#FFA500";
     ctx.fill();
     ctx.font = "20px Arial";
-    ctx.fillText(Me.Coin, RwdDx*1.5, RwdDy*1.4+5);
+    ctx.fillText(Me.Coin, RwdDx*1.5, RwdDy*1.4 + 15);
     //C_A.attacked();
     canvas.onclick = FirstThing;
     if(ClickFlag){
