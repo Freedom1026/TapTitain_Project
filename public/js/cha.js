@@ -80,6 +80,8 @@ class CreatureA extends Cha{
     constructor(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight){
         super(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
         this.speed = 0;
+        this.lv = 0;
+        this.ATK = this.lv*20;
     }
     attacked(){
         this.sx += 450;
