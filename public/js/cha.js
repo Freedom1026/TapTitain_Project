@@ -64,8 +64,10 @@ class mainCha extends Cha {
         return this.sx;
     }
     attacked(){
-        this.sx += 200;
-        (this.sx > 400)? this.sx = 200 : this.sx=400;
+        this.sx += 450;
+        if(this.sx > 1200){
+            this.sx = 0;
+        }
         return this.sx;
     }
 
@@ -84,10 +86,8 @@ class CreatureA extends Cha{
         this.ATK = this.lv*20;
     }
     attacked(){
-        this.sx += 450;
-        if(this.sx > 900){
-            this.sx = 0;
-        }
+        this.sx += 225;
+        (this.sx >= 900)? this.sx = 0 : 0;
         return this.sx;
     }
 
@@ -102,11 +102,11 @@ class CreatureA extends Cha{
 
 
 //此處的Me 之後要加上--我的等級參數/金幣參數/破關關卡參數 利用get傳入
-var Me = new mainCha(chaimg, 0, 0, 200, 200, ChaDx, ChaDy, ChaDw, ChaDh);
+var Me = new mainCha(chaimg, 0, 0, 225, 225, ChaDx, ChaDy, ChaDw, ChaDh);
 
 
 
 //之後再來加入的npc紀錄，要記錄Me已經召喚的npc　以及其等級 利用get傳入
-var C_A = new CreatureA(creatures, 0, 0, 450, 450, 100, 100, ChaDw, ChaDh);
-var C_B = new CreatureA(creatures, 0, 450, 450, 450, 160, 160, ChaDw, ChaDh);
-var C_C = new CreatureA(creatures, 0, 0, 450, 450, 200, 200, ChaDw, ChaDh);
+var C_A = new CreatureA(chaimg, 0, 225, 225, 225, 100, 100, ChaDw, ChaDh);
+var C_B = new CreatureA(chaimg, 0, 450, 225, 225, 160, 160, ChaDw, ChaDh);
+var C_C = new CreatureA(chaimg, 0, 900, 225, 225, 200, 200, ChaDw, ChaDh);

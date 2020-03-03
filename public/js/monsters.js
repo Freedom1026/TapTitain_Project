@@ -66,7 +66,6 @@ var monstersProperty = class monstersProperty {
 
     attacked(){
         this.sx += 225;
-        //225 or 450
         (this.sx >= 900)? this.sx = 0 : 0;
         return this.sx;
     }
@@ -83,7 +82,7 @@ var NowMonster = new monstersProperty(monstersImg, 0, 0, 225, 225, RwdDx, RwdDy,
 
 
 function changeMonster(){
-let r = Math.floor(Math.random()*4)*225;
+let r = Math.floor(Math.random()*18)*225;
 NowMonster = new monstersProperty(monstersImg, 0, r, 225, 225, RwdDx, RwdDy, RwdDw, RwdDh, 10, 100); //array[index].img, array[index].sx
 //times係數依賴技能名稱 會不好維護
 NowMonster.attackedAmount = Me.ATK * origin.times;

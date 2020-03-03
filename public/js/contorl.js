@@ -12,7 +12,9 @@ function test(){
     C_A.draw();
     C_A.speedControl();
     C_B.draw();
+    C_B.speedControl();
     C_C.draw();
+    C_C.speedControl();
     //monster
     NowMonster.draw();
     //skill open or close
@@ -25,22 +27,25 @@ function test(){
     ctx.font = "20px Arial";
     ctx.fillText(Me.Coin, RwdDx*1.5, RwdDy*1.4 + 15);
     //C_A.attacked();
+
+    NowMonster.hpbar();
     canvas.onclick = FirstThing;
     if(ClickFlag){
         Me.attacked();
+        NowMonster.attacked();
         ctx.save();
         ctx.fillStyle = "#AF2770";
         ctx.font = "30px Arial";
         ctx.fillText(NowMonster.attackedAmount, RwdDx*1.2, RwdDy*4);
         ctx.restore();
     };
-    NowMonster.hpbar();
+    
 }
 
 function FirstThing(){
     ClickFlag = true;
     NowMonster.hpLose();
-    NowMonster.attacked();
+
     setTimeout(theNext, 300)
 }
 
