@@ -9,7 +9,7 @@ if(window.innerWidth <= 768){
 var ChaDx = canvas.width/10*3.5;
 //y軸位置之後要調整 -->目前依賴怪物位置
 var ChaDy = RwdDy + RwdDw*1.2;
-var ChaDw = canvas.width/12*3;
+var ChaDw = canvas.width/12*1.5;
 //高度之後要調整 -->目前依賴寬度
 var ChaDh = ChaDw;
 ctx.fillStyle = "#03fcd7";
@@ -27,6 +27,8 @@ ctx.fillStyle = "#03fcd7";
 ctx.fillRect(ChaDx, ChaDy, ChaDw, ChaDh)
 
 }
+
+
 
 
 
@@ -84,6 +86,8 @@ class CreatureA extends Cha{
         this.speed = 0;
         this.lv = 0;
         this.ATK = this.lv*20;
+        this.upSpend = [0,100,120,150,200,250,300,400];
+        this.SKOpenFlag = true;
     }
     attacked(){
         this.sx += 225;
@@ -95,8 +99,22 @@ class CreatureA extends Cha{
         this.speed ++;
         //         80*5=400ms                this.normal沒寫
         (this.speed % 5 == 0)? this.attacked():0;
+        NowMonster.hpAutoLose();
     }
 
+    SkOpen(skID){ //每秒確認....prototype連線
+        if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
+            this.SKOpenFlag = true;
+            $(`div.creatureSkill tr:nth-child(${skID * 2}) td:nth-child(3)`).text("可以升級");
+            $(`div.creatureSkill tr:nth-child(${skID * 2}) td:nth-child(3)`).css("color","red");
+            return this.SKOpenFlag;
+        }else{
+            this.SKOpenFlag = false;
+            $(`div.creatureSkill tr:nth-child(${skID * 2}) td:nth-child(3)`).text("不能升級");
+            $(`div.creatureSkill tr:nth-child(${skID * 2}) td:nth-child(3)`).css("color","rgba(170, 170, 170, 0.637)");
+            return this.SKOpenFlag;
+        }
+    }
 }
 
 
@@ -108,5 +126,50 @@ var Me = new mainCha(chaimg, 0, 0, 225, 225, ChaDx, ChaDy, ChaDw, ChaDh);
 
 //之後再來加入的npc紀錄，要記錄Me已經召喚的npc　以及其等級 利用get傳入
 var C_A = new CreatureA(chaimg, 0, 225, 225, 225, 100, 100, ChaDw, ChaDh);
-var C_B = new CreatureA(chaimg, 0, 450, 225, 225, 160, 160, ChaDw, ChaDh);
-var C_C = new CreatureA(chaimg, 0, 900, 225, 225, 200, 200, ChaDw, ChaDh);
+var C_B = new CreatureA(chaimg, 0, 450, 225, 225, 100, 160, ChaDw, ChaDh);
+var C_C = new CreatureA(chaimg, 0, 900, 225, 225, 100, 200, ChaDw, ChaDh);
+
+var chaLevel = [1, 10, 0];
+var C_array = [C_A, C_B, C_C];
+console.log(C_A)
+
+$(function(){
+    $.get("/home/get_Csk", function (e) {
+        var Data = JSON.parse(e);
+        
+        
+        C_array[0].lv = Data[0].A;
+        C_array[1].lv = Data[0].B;
+        C_array[2].lv = Data[0].C;
+
+
+    }).then(function(){
+            chaLevel.forEach(function(val,ind){
+                let now = ind + 1;
+                let lvShow = C_array[ind].lv;
+                
+                $(`div.creatureSkill tr:nth-child(${now * 2}) td:nth-child(3)`).text(`Lv.${lvShow}`);
+                if(val > 0){
+                // 角色顯示
+                ;
+                }
+            })
+    })
+})
+
+function ClevelUp(skill,skID){
+        skID -=1;
+        if(C_array[skID].SKOpenFlag){
+            C_array[skID].lv ++;
+            //傳入參數: 技能名稱
+            $(`td.${skill}`).text(`Lv.${C_array[skID].lv}`);
+
+            //扣除金錢function
+            Cspend(skID)
+        }
+
+    }
+
+    function Cspend(skID){
+        Me.Coin -= C_array[skID].upSpend[C_array[skID].lv];
+    }

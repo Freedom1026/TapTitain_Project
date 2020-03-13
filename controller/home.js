@@ -36,7 +36,7 @@ module.exports = function (request, response, controllerName) {
 	}
 
 
-	this.get_test = function () {
+	this.get_Hsk = function () {
 		var objResponse = this.response;
 		connection.query('select heroLv, heroSkLv_A, heroSkLv_B, coin from myself where id = ?', ['1'], function(err, rows){
 			if(err){
@@ -46,6 +46,18 @@ module.exports = function (request, response, controllerName) {
 			objResponse.send(JSON.stringify(rows));
 		})
 	}
+
+	this.get_Csk = function () {
+		var objResponse = this.response;
+		connection.query('select A, B, C from creatureskill where id = ?', ['1'], function(err, rows){
+			if(err){
+				console.log(JSON.stringify(err));
+				return;
+			}
+			objResponse.send(JSON.stringify(rows));
+		})
+	}
+
 }	
 
 

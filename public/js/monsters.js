@@ -19,9 +19,9 @@ else{
 var RwdDx = canvas.width/3;
 //y軸位置之後要調整 -->目前依賴寬度
 var RwdDy = canvas.height/8;
-var RwdDw = canvas.width/5;
+var RwdDw = canvas.width/4;
 //高度之後要調整 -->目前依賴寬度
-var RwdDh = RwdDw*1.2;
+var RwdDh = RwdDw;
 ctx.fillStyle = "#FFA500";
 ctx.fillRect(RwdDx, RwdDy, RwdDw, RwdDh)
 }
@@ -62,6 +62,14 @@ var monstersProperty = class monstersProperty {
             return this.attackedAmount, this.hpbarContent;
         }
         
+    }
+
+    hpAutoLose(){
+        this.hpbarContent -= C_A.ATK*20/this.hp;
+        if(this.hpbarContent <= 0){
+            changeMonster();
+            return this.attackedAmount, this.hpbarContent;
+    }
     }
 
     attacked(){

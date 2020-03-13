@@ -12,13 +12,12 @@
     
     //從資料庫取得目前技能等級
     let heroSkillLevel = [1, 0, 0];
+
  
 
     $(function(){
-            $.get("/home/get_test", function (e) {
+            $.get("/home/get_Hsk", function (e) {
                 var HeroData = JSON.parse(e);
-                
-                
                 
                 SkillArray[0].LV =(heroSkillLevel[0] = HeroData[0].heroLv);
                 SkillArray[1].lv =(heroSkillLevel[1] = HeroData[0].heroSkLv_A);
@@ -35,21 +34,17 @@
                     })
             })
 
-            //if (LocalStorage){
-                // call function timeReset
-            //}
+           
         })
 
 
 
         
         function levelUp(skill,skID){
-        //判斷條件 暫時自己重寫
-            if(skID != 0 && SkillArray[skID].LvUp[heroSkillLevel[skID]] <= Me.LV){
+            if(skID != 0 && SkillArray[skID].SKOpenFlag){
                 SkillArray[skID].lv ++;
-                heroSkillLevel[skID]++;
                 //傳入參數: 技能名稱
-                $(`span.${skill}`).text(`Lv.${heroSkillLevel[skID]}`);
+                $(`span.${skill}`).text(`Lv.${SkillArray[skID].lv}`);
                 $(`div.actSkill span:nth-child(${skID})`).css("visibility","visible");
 
                 //扣除金錢function
@@ -110,10 +105,12 @@ var HSK = class HSK{
             this.SKOpenFlag = true;
             $(`div.heroSkill div:nth-child(${skID}) button`).text("可以升級");
             $(`div.heroSkill div:nth-child(${skID}) button`).css("color","red");
+            return this.SKOpenFlag;
         }else{
             this.SKOpenFlag = false;
             $(`div.heroSkill div:nth-child(${skID}) button`).text("不能升級");
             $(`div.heroSkill div:nth-child(${skID}) button`).css("color","rgba(170, 170, 170, 0.637)");
+            return this.SKOpenFlag;
         }
     }
 
@@ -129,15 +126,12 @@ var HSK = class HSK{
     //設定計時時間   
     timeReset(ele){
         if(this.t_B <=0){
-            this.t_A = localStorage.getItem(this.skname+"_A") || this.skTime[this.lv];
-            this.t_B = localStorage.getItem(this.skname+"_B") || this.coolTime[this.lv];
-            //get LocalStorage (this.skname_B) || this.coolTime[this.lv];
+            
             this.timeStart = setInterval (()=>this.timeCount(ele) , 1000);
             //call function of content
             this.execute();
         }
     }
-
 
     //計時功能    ---->prototype
     timeCount(ele){
@@ -145,12 +139,12 @@ var HSK = class HSK{
             this.cancel();
             
             this.t_B -=1;
-            //set LocalStorage (this.skname_B, this.t_B);
+            
             $(ele).text(this.t_B);
             $(ele).css("background-color","pink");
             if(this.t_B <= 0){
                 $(ele).text("蠻");
-                //remove LocalStorage
+                
                 $(ele).css("background-color","red");
                 clearInterval(this.timeStart);
                 return this.t_B;
@@ -158,7 +152,6 @@ var HSK = class HSK{
         }else{
             
             this.t_A -= 1;
-            //set LocalStorage (this.skname_A, this.t_A);
             $(ele).text(this.t_A);
             $(ele).css("background-color","yellow");
         }
@@ -174,10 +167,15 @@ class ActSkill_B extends HSK {
     }
 }
 
+class ActSkill_C extends HSK {
+    constructor(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B){
+        super(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B);
+        this.upATK = [1,1.05,1.06,1.1,1.2,1.4,1.5,1.6];
+    }
+}
 
 
-
-var testSK = new ActSkill_B("test", 0);
+var testSK = new ActSkill_C("test", 0);
 var origin = new ActSkill_B("origin", 0);
 
 var SkillArray = [Me,testSK, origin];

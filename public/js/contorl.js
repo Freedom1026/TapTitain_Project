@@ -17,7 +17,8 @@ function test(){
     C_C.speedControl();
     //monster
     NowMonster.draw();
-    //skill open or close
+    //skill open or close 參數為css選擇器
+    testSK.SkOpen(2);
     origin.SkOpen(3);
     //暫時自己畫coin 之後換成圖
     ctx.beginPath();
