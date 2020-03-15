@@ -6,8 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/game.css">
     <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
 </head>
 <body>
 <!-- Stage -->
@@ -26,6 +28,16 @@
 <!-- 可隱藏板塊 固定 -->
 <div class="hideBlock">
 
+    <!-- panel of active skill -->
+    <div class="actSkill">
+        <span >
+            財
+        </span>
+        <span onclick="origin.timeReset(this)" id="actBTN_A">
+            蠻
+        </span>
+</div>
+
     <!-- basic information -->
     <div class="bascInfo">
         <p>目前每秒出傷害總和</p>
@@ -35,15 +47,6 @@
         <br>
     </div>
 
-    <!-- panel of active skill -->
-    <div class="actSkill">
-            <span >
-                財
-            </span>
-            <span onclick="origin.timeReset(this)" id="actBTN_A">
-                蠻
-            </span>
-    </div>
 
     <!-- panel of hero skill -->
     <div class="heroSkill">
@@ -157,7 +160,7 @@
         var ctx = canvas.getContext('2d');
         //隨著螢幕大小調整畫布大小
         //reload會有問題！！因為是重新載入　如果沒去讀取資料庫　會出大問題
-        window.onresize = function r(){location.reload()};
+        //window.onresize = function r(){location.reload()};
         //測試畫面
         //ctx.fillRect(0, 0, canvas.width, canvas.height);
         var bk = new Image();

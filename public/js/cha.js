@@ -115,6 +115,12 @@ class CreatureA extends Cha{
             return this.SKOpenFlag;
         }
     }
+    draw(){
+        if(this.lv > 0){
+            ctx.drawImage(this.image, this.sx, this.sy, this.sWidth, this.sHeight, this.dx, this.dy, this.dWidth, this.dHeight)
+        }
+        
+    }
 }
 
 
@@ -149,10 +155,6 @@ $(function(){
                 let lvShow = C_array[ind].lv;
                 
                 $(`div.creatureSkill tr:nth-child(${now * 2}) td:nth-child(3)`).text(`Lv.${lvShow}`);
-                if(val > 0){
-                // 角色顯示
-                ;
-                }
             })
     })
 })

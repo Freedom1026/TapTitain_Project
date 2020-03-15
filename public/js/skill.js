@@ -126,7 +126,8 @@ var HSK = class HSK{
     //設定計時時間   
     timeReset(ele){
         if(this.t_B <=0){
-            
+            this.t_A = this.skTime[this.lv];
+            this.t_B = this.coolTime[this.lv];
             this.timeStart = setInterval (()=>this.timeCount(ele) , 1000);
             //call function of content
             this.execute();
