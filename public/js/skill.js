@@ -115,13 +115,13 @@ var HSK = class HSK{
     }
 
     //click active rounded_btn
-    execute(){ //sk_a 成為參數被呼叫
-        this.times = this.upATK[this.lv];
-    }
+    // execute(){ //sk_a 成為參數被呼叫
+    //     this.times = this.upATK[this.lv];
+    // }
 
-    cancel(){
-        this.times = 1;
-    }
+    // cancel(){
+    //     this.times = 1;
+    // }
 
     //設定計時時間   
     timeReset(ele){
@@ -166,6 +166,14 @@ class ActSkill_B extends HSK {
         super(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B);
         this.upATK = [1,1.05,1.06,1.1,1.2,1.4,1.5,1.6];
     }
+    execute(){ 
+        this.times = this.upATK[this.lv];
+    }
+
+    cancel(){
+        this.times = 1;
+    }
+
 }
 
 class ActSkill_C extends HSK {
@@ -174,6 +182,14 @@ class ActSkill_C extends HSK {
         this.Plus = [1,1.05,1.06,1.1,1.2,1.4,1.5,1.6];
         this.moneyPlus = 1;
     }
+    execute(){ //sk_a 成為參數被呼叫
+        this.moneyPlus = this.Plus[this.lv];
+    }
+
+    cancel(){
+        this.moneyPlus = 1;
+    }
+
 }
 
 

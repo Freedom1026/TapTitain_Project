@@ -1,18 +1,20 @@
-setInterval(test, 30);
+setInterval(gameControl, 80);
 var ClickFlag = false;
 
 
 
-function test(){
+function gameControl(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     //background
     ctx.drawImage(bk,0, -40, 1200, 600);
     //creatures
     Me.draw();
     
+    //coin
     for(var i = 0; i < CoinArray.length; i++){
         CoinArray[i].draw();
     }
+    //recycle
 
     C_A.draw();
     C_A.speedControl();
@@ -72,5 +74,12 @@ function CoinDelete(e){
             CoinArray.splice( i, 1);
         }
     }
+    setTimeout(CoinClean, 10080);
+}
 
+function CoinClean(){
+    for(let i = 0; i < CoinArray.length ; i++){
+            Me.Coin += Math.ceil(CoinArray[i].value);
+            CoinArray.splice( i, 1);
+    }
 }
