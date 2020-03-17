@@ -1,6 +1,10 @@
 var monstersImg = new Image();
 monstersImg.src = "img/testMon2.png";
+var coinPic = new Image();
+coinPic.src = "img/coin.png";
 
+//目前破關進度
+var atStage = 1;
 
 if(window.innerWidth <= 768){
 //RWD係數 -->寬度係數不同
@@ -28,7 +32,7 @@ ctx.fillRect(RwdDx, RwdDy, RwdDw, RwdDh)
 
 
 var monstersProperty = class monstersProperty {
-    constructor(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight, hp, money){
+    constructor(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight, hp, money, attackedAmount){
         this.image = image;
         this.sx = sx;
         this.sy = sy;
@@ -41,7 +45,7 @@ var monstersProperty = class monstersProperty {
         this.hp = hp;
         this.money = money;
         this.hpbarContent = 150;
-        this.attackedAmount = 0;
+        this.attackedAmount = attackedAmount || 0;
     }
 
     hpbar(){
@@ -87,14 +91,37 @@ var monstersProperty = class monstersProperty {
 var NowMonster = new monstersProperty(monstersImg, 0, 0, 225, 225, RwdDx, RwdDy, RwdDw, RwdDh, 10, 100);
 //0 0 225 225
 
+var CoinArray = [];
 
 
 function changeMonster(){
+//哪個怪物
 let r = Math.floor(Math.random()*18)*225;
-NowMonster = new monstersProperty(monstersImg, 0, r, 225, 225, RwdDx, RwdDy, RwdDw, RwdDh, 10, 100); //array[index].img, array[index].sx
-//times係數依賴技能名稱 會不好維護
-NowMonster.attackedAmount = Me.ATK * origin.times;
-console.log(NowMonster.attackedAmount);
-//關卡切換 打倒怪物計數+1
+//怪物血量
+let hp = Math.floor(17.5 * Math.pow(1.39, Math.min(atStage, 115)) * Math.pow(1.13, Math.max(atStage-115, 0)))
+//現在攻擊數字
+let atked = NowMonster.attackedAmount;
+
+//金幣掉落
+for(var i = 0; i < 2; i++){
+    CoinArray.push(new CoinObj())
 }
 
+NowMonster = new monstersProperty(monstersImg, 0, r, 225, 225, RwdDx, RwdDy, RwdDw, RwdDh, hp, 100, atked); //array[index].img, array[index].sx
+
+//關卡切換 打倒怪物計數+1
+atStage += 1 ;
+}
+
+var CoinObj = class CoinObj {
+    constructor(){
+        this.dx = Math.floor(Math.random() * canvas.width);
+        this.dy = canvas.height -200;
+    }
+    draw(){
+        ctx.drawImage(coinPic, this.dx, this.dy, 50, 50);
+    }
+
+}
+
+var testCoin = new CoinObj();

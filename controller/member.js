@@ -24,7 +24,11 @@ module.exports = function (request, response, controllerName) {
 	
 
 	this.post_sign = function () {
-        console.log(this.request.body.acc);
+		//首字母以小寫開頭
+		let patt = /^[a-z]/;
+		//接受 數字、字母、底線
+		let patt2 = /[/w]/;
+		let acc = this.request.body.acc;
 		this.response.render(this.viewPath + "signup.html");
 	}
 	

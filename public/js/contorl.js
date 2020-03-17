@@ -1,4 +1,4 @@
-setInterval(test, 80);
+setInterval(test, 30);
 var ClickFlag = false;
 
 
@@ -9,12 +9,18 @@ function test(){
     ctx.drawImage(bk,0, -40, 1200, 600);
     //creatures
     Me.draw();
+    
+    for(var i = 0; i < CoinArray.length; i++){
+        CoinArray[i].draw();
+    }
+
     C_A.draw();
     C_A.speedControl();
     C_B.draw();
     C_B.speedControl();
     C_C.draw();
     C_C.speedControl();
+
     //monster
     NowMonster.draw();
     //skill open or close 參數為css選擇器
@@ -46,7 +52,6 @@ function test(){
 function FirstThing(){
     ClickFlag = true;
     NowMonster.hpLose();
-
     setTimeout(theNext, 300)
 }
 
