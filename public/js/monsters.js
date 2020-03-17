@@ -42,8 +42,8 @@ var monstersProperty = class monstersProperty {
         this.dy = dy;
         this.dWidth = dWidth;
         this.dHeight = dHeight;
-        this.hp = hp;
-        this.money = money;
+        this.hp = Math.floor(17.5 * Math.pow(1.39, Math.min(atStage, 115)) * Math.pow(1.13, Math.max(atStage-115, 0)));
+        this.money = this.hp * 0.08 + 0.02 * Math.min(atStage, 150);
         this.hpbarContent = 150;
         this.attackedAmount = attackedAmount || 0;
     }
@@ -97,31 +97,26 @@ var CoinArray = [];
 function changeMonster(){
 //哪個怪物
 let r = Math.floor(Math.random()*18)*225;
-//怪物血量
-let hp = Math.floor(17.5 * Math.pow(1.39, Math.min(atStage, 115)) * Math.pow(1.13, Math.max(atStage-115, 0)))
+
 //現在攻擊數字
 let atked = NowMonster.attackedAmount;
 
-//金幣掉落
-for(var i = 0; i < 2; i++){
-    CoinArray.push(new CoinObj())
-}
 
-NowMonster = new monstersProperty(monstersImg, 0, r, 225, 225, RwdDx, RwdDy, RwdDw, RwdDh, hp, 100, atked); //array[index].img, array[index].sx
+
+NowMonster = new monstersProperty(monstersImg, 0, r, 225, 225, RwdDx, RwdDy, RwdDw, RwdDh, atked); //array[index].img, array[index].sx
 
 //關卡切換 打倒怪物計數+1
 atStage += 1 ;
 }
 
 var CoinObj = class CoinObj {
-    constructor(){
+    constructor(v){
         this.dx = Math.floor(Math.random() * canvas.width);
         this.dy = canvas.height -200;
+        this.value = v;
     }
     draw(){
         ctx.drawImage(coinPic, this.dx, this.dy, 50, 50);
     }
 
 }
-
-var testCoin = new CoinObj();

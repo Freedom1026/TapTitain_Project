@@ -171,7 +171,8 @@ class ActSkill_B extends HSK {
 class ActSkill_C extends HSK {
     constructor(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B){
         super(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B);
-        this.upATK = [1,1.05,1.06,1.1,1.2,1.4,1.5,1.6];
+        this.Plus = [1,1.05,1.06,1.1,1.2,1.4,1.5,1.6];
+        this.moneyPlus = 1;
     }
 }
 
@@ -180,5 +181,4 @@ var testSK = new ActSkill_C("test", 0);
 var origin = new ActSkill_B("origin", 0);
 
 var SkillArray = [Me,testSK, origin];
-
 
