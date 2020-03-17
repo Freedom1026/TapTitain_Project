@@ -35,7 +35,7 @@ console.log("Server is running... Press 'Ctrl + C' to exit.");
 // 路由設定:
 // 格式:  /controllerName/actionName
 app.get("/", function (request, response) {
-    doControllerAction("home", "index", request, response);
+    doControllerAction("home", "game", request, response);
 });
 
 app.get("/:controllerName", function (request, response) {
@@ -49,7 +49,11 @@ app.get("/:controllerName/:actionName", function (request, response) {
     doControllerAction(controllerName, actionName, request, response);
 });
 
-
+app.post("/:controllerName/:actionName", function (request, response) {
+    var controllerName = request.params.controllerName;
+    var actionName = request.params.actionName;
+    doControllerAction("member", "post_sign", request, response);
+});
 
 // 呼叫 controller.action() 以處理 Client 端送來的請求
 function doControllerAction(controllerName, actionName, request, response) {

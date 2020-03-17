@@ -24,10 +24,14 @@ module.exports = function (request, response, controllerName) {
 	
 
     
-	this.index = function () {
-		this.response.render(this.viewPath + "index.html", 
+	this.game = function () {
+		this.response.render(this.viewPath + "game.html", 
 			{ MeLv: 1}
 		);
+	}
+	this.signup = function () {
+		this.response.render(this.viewPath + "signup.html");
+		//this.response.send("testhello");
 	}
 	
 
@@ -58,7 +62,12 @@ module.exports = function (request, response, controllerName) {
 		})
 	}
 
+	this.get_sign = function () {
+		this.response.render(this.viewPath + "index.html");
+	}
+	
 }	
+
 
 
 
