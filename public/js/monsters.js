@@ -95,18 +95,22 @@ var CoinArray = [];
 
 
 function changeMonster(){
-//哪個怪物
-let r = Math.floor(Math.random()*18)*225;
+    //哪個怪物
+    let r = Math.floor(Math.random()*18)*225;
+    //現在攻擊數字
+    let atked = NowMonster.attackedAmount;
+    //coin number
+    let coinNum = Math.floor(Math.random()*5)+1;
+    //each coin
+    let coinObt = NowMonster.money / coinNum;
+    for(let i = 0; i < coinNum; i++){
+        CoinArray.push(new CoinObj(coinObt));
+    }
 
-//現在攻擊數字
-let atked = NowMonster.attackedAmount;
+    NowMonster = new monstersProperty(monstersImg, 0, r, 225, 225, RwdDx, RwdDy, RwdDw, RwdDh, atked); //array[index].img, array[index].sx
 
-
-
-NowMonster = new monstersProperty(monstersImg, 0, r, 225, 225, RwdDx, RwdDy, RwdDw, RwdDh, atked); //array[index].img, array[index].sx
-
-//關卡切換 打倒怪物計數+1
-atStage += 1 ;
+    //關卡切換 打倒怪物計數+1
+    atStage += 1 ;
 }
 
 var CoinObj = class CoinObj {

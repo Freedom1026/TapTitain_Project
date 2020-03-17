@@ -49,7 +49,8 @@ function test(){
     
 }
 
-function FirstThing(){
+function FirstThing(e){
+    CoinDelete(e);
     ClickFlag = true;
     NowMonster.hpLose();
     setTimeout(theNext, 300)
@@ -58,4 +59,18 @@ function FirstThing(){
 function theNext(){ 
     ClickFlag = false;
     Me.normal();
+}
+
+function CoinDelete(e){
+  
+    for(let i = 0; i < CoinArray.length ; i++){
+        let PosX = e.offsetX - CoinArray[i].dx;
+        let PosY = e.offsetY - CoinArray[i].dy;
+        let dist = Math.hypot(PosX, PosY);
+        if(dist < 90){
+            Me.Coin += Math.ceil(CoinArray[i].value);
+            CoinArray.splice( i, 1);
+        }
+    }
+
 }
