@@ -194,7 +194,7 @@ class ActSkill_C extends HSK {
 
 
 var testSK = new ActSkill_C("test", 0);
-var origin = new ActSkill_B("origin", 0);
+var wild = new ActSkill_B("wild", 0);
 
-var SkillArray = [Me,testSK, origin];
+var SkillArray = [Me,testSK, wild];
 

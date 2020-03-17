@@ -27,7 +27,7 @@ function gameControl(){
     NowMonster.draw();
     //skill open or close 參數為css選擇器
     testSK.SkOpen(2);
-    origin.SkOpen(3);
+    wild.SkOpen(3);
     //暫時自己畫coin 之後換成圖
     ctx.beginPath();
     ctx.arc(RwdDx*1.4,RwdDy*1.4+10,10,0,2*Math.PI);
