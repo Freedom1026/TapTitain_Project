@@ -85,14 +85,20 @@ class CreatureA extends Cha{
         super(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
         this.speed = 0;
         this.lv = 0;
-        this.ATK = this.lv*20;
+        this.ATK = this.lv * 20;
         this.upSpend = [0,100,120,150,200,250,300,400];
         this.SKOpenFlag = true;
+        this.LvUp = [0,10,20,30,40,50,60,70,80,90,100];
     }
     attacked(){
         this.sx += 225;
         (this.sx >= 900)? this.sx = 0 : 0;
         return this.sx;
+    }
+
+    updateATK(){
+        this.ATK = this.lv * 2;
+        return this.ATK;
     }
 
     speedControl(){
@@ -150,12 +156,14 @@ $(function(){
 
 
     }).then(function(){
+            C_array[0].updateATK();
             chaLevel.forEach(function(val,ind){
                 let now = ind + 1;
                 let lvShow = C_array[ind].lv;
-                
                 $(`div.creatureSkill tr:nth-child(${now * 2}) td:nth-child(3)`).text(`Lv.${lvShow}`);
-            })
+            }
+            
+            )
     })
 })
 
@@ -163,6 +171,7 @@ function ClevelUp(skill,skID){
         skID -=1;
         if(C_array[skID].SKOpenFlag){
             C_array[skID].lv ++;
+            C_array[0].updateATK();
             //傳入參數: 技能名稱
             $(`td.${skill}`).text(`Lv.${C_array[skID].lv}`);
 

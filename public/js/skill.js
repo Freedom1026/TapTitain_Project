@@ -179,7 +179,7 @@ class ActSkill_B extends HSK {
 class ActSkill_C extends HSK {
     constructor(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B){
         super(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B);
-        this.Plus = [1,1.05,1.06,1.1,1.2,1.4,1.5,1.6];
+        this.Plus = [1,2,2.5,3.1,3.5,3.8,4,5];
         this.moneyPlus = 1;
     }
     execute(){ //sk_a 成為參數被呼叫
@@ -193,8 +193,8 @@ class ActSkill_C extends HSK {
 }
 
 
-var testSK = new ActSkill_C("test", 0);
+var fortune = new ActSkill_C("fortune", 0);
 var wild = new ActSkill_B("wild", 0);
 
-var SkillArray = [Me,testSK, wild];
+var SkillArray = [ Me, fortune, wild];
 

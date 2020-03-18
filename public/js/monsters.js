@@ -1,5 +1,5 @@
 var monstersImg = new Image();
-monstersImg.src = "img/testMon2.png";
+monstersImg.src = "img/testMon1.png";
 var coinPic = new Image();
 coinPic.src = "img/coin.png";
 
@@ -32,7 +32,7 @@ ctx.fillRect(RwdDx, RwdDy, RwdDw, RwdDh)
 
 
 var monstersProperty = class monstersProperty {
-    constructor(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight, hp, money, attackedAmount){
+    constructor(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight, attackedAmount){
         this.image = image;
         this.sx = sx;
         this.sy = sy;
@@ -69,7 +69,7 @@ var monstersProperty = class monstersProperty {
     }
 
     hpAutoLose(){
-        this.hpbarContent -= C_A.ATK*20/this.hp;
+        this.hpbarContent -= C_A.ATK/this.hp;
         if(this.hpbarContent <= 0){
             changeMonster();
             return this.attackedAmount, this.hpbarContent;
@@ -88,7 +88,7 @@ var monstersProperty = class monstersProperty {
 
 }
 
-var NowMonster = new monstersProperty(monstersImg, 0, 0, 225, 225, RwdDx, RwdDy, RwdDw, RwdDh, 10, 100);
+var NowMonster = new monstersProperty(monstersImg, 0, 0, 225, 225, RwdDx, RwdDy, RwdDw, RwdDh);
 //0 0 225 225
 
 var CoinArray = [];
@@ -102,7 +102,7 @@ function changeMonster(){
     //coin number
     let coinNum = Math.floor(Math.random()*5)+1;
     //each coin
-    let coinObt = NowMonster.money / coinNum;
+    let coinObt = NowMonster.money * fortune.moneyPlus / coinNum;
     for(let i = 0; i < coinNum; i++){
         CoinArray.push(new CoinObj(coinObt));
     }

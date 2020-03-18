@@ -14,7 +14,7 @@ function gameControl(){
     for(var i = 0; i < CoinArray.length; i++){
         CoinArray[i].draw();
     }
-    //recycle
+    
 
     C_A.draw();
     C_A.speedControl();
@@ -22,11 +22,12 @@ function gameControl(){
     C_B.speedControl();
     C_C.draw();
     C_C.speedControl();
-
+    NowMonster.hpAutoLose();
     //monster
     NowMonster.draw();
     //skill open or close 參數為css選擇器
-    testSK.SkOpen(2);
+    C_A.SkOpen(1);
+    fortune.SkOpen(2);
     wild.SkOpen(3);
     //暫時自己畫coin 之後換成圖
     ctx.beginPath();
