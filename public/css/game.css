@@ -36,14 +36,34 @@ canvas{
 
 /* 下面四個同屬一個區域 */
 
+@media screen and (max-width: 768px){
+
+    div.hideBlock{
+
+        background-color: red;
+        width: 100%;
+    }
+
+}
+
+@media screen and (min-width: 768px){
+
+    div.hideBlock{
+
+        background-color: yellow;
+        width: 60%;
+    }
+
+}
 div.hideBlock{
     position: relative;
     top:-70px;
 /* 這邊要分螢幕大小 */
-    background-color: red;
-    width: 50%;
+    /* background-color: yellow; */
+    /* width: 50%; */
     height: 20vh;
 }
+
 
 
 div.hideBlock, div.hideBlock div{
@@ -57,7 +77,7 @@ div.hideBlock, div.hideBlock div{
 div.bascInfo{
     padding: 7vh 0;
     height: 25vh;
-    background-color: white;
+    /* background-color: white; */
     position: absolute;
 }
 

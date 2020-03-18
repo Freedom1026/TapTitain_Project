@@ -29,7 +29,7 @@ MVC框架
 * 算不上BUG 但應把HSK中CLASS的function好好重新分配到底下技能(因為技能內容不同)
 * resize或refresh時 技能倒數計時會重新!  --->寫進LocalStorage裡面?
 * how to get LocalStorage?    --->reset裡面，但尚未完善code
-* 0.1+0.2 類問題 所以要Math.floor
+* 0.1 + 0.2 類問題 所以要Math.floor
 
 
 

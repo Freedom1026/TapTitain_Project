@@ -78,6 +78,12 @@ class mainCha extends Cha {
 
     }
 
+    //updateATK 補
+    updateATK(){
+        this.ATK = this.LV * 2;
+        return this.ATK;
+    }
+
 }
 
 class CreatureA extends Cha{
