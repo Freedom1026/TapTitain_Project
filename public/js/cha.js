@@ -80,7 +80,7 @@ class mainCha extends Cha {
 
     //updateATK 補
     updateATK(){
-        this.ATK = this.LV * 2;
+        this.ATK = this.LV * 2 + 20;
         return this.ATK;
     }
 

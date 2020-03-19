@@ -94,8 +94,22 @@ div.actSkill span{
     padding: 3vh;
     position: relative;
     z-index: 20;
-    background-color: white;
+    background-repeat: no-repeat;
+    color: white;
+    background-size: cover;
+    font-weight: bold;
+    /* background-color: white; */
 }
+
+span#actBTN_A{
+    background-image: url(../img/icon/fortune.png);
+}
+span#actBTN_B{
+    background-image: url(../img/icon/wild.png);
+}
+
+
+
 
 div.heroSkill{
     padding: 7vh 0;

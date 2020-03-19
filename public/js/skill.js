@@ -27,6 +27,7 @@
             }).then(function(){
                     heroSkillLevel.forEach(function(val,ind){
                         let now = ind + 1;
+                        Me.updateATK();
                         $(`div.heroSkill div:nth-child(${now}) span:nth-child(3)`).text(`Lv.${val}`);
                         if(val > 0){
                             $(`div.actSkill span:nth-child(${ind})`).css("visibility","visible");
@@ -53,6 +54,7 @@
             else if(skID == 0){
                 //排除第一個主角升級  
                 Me.LV++;
+                Me.updateATK();
                 heroSkillLevel[skID]++;
                 $(`span.${skill}`).text(`Lv.${heroSkillLevel[skID]}`);
                 return;
@@ -144,8 +146,7 @@ var HSK = class HSK{
             $(ele).text(this.t_B);
             $(ele).css("background-color","pink");
             if(this.t_B <= 0){
-                $(ele).text("蠻");
-                
+                $(ele).html("&ensp;&ensp;");
                 $(ele).css("background-color","red");
                 clearInterval(this.timeStart);
                 return this.t_B;

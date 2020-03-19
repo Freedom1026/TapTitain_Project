@@ -40,7 +40,7 @@ MVC框架
 4. upATK在act_Btn失效 -->忘記修改monster.hplose參數
 5. 怪物重生之後 atkAmount會變回20  -->忘了修改mosnter底下testSK to testSK2
 6. 乘以fortune會有bug  --->變數宣告先後問題
-* updateATK位置不對
+* updateATK位置不對  --->Me.lv 和其他已調整
 
 ## 思考問題點
 * 當技能等級為0，其對應冷卻值應為？   ---> 決定是0

@@ -111,6 +111,7 @@ function changeMonster(){
 
     //關卡切換 打倒怪物計數+1
     atStage += 1 ;
+    bk.src =`./img/stage/stage${Math.ceil(Math.random()*8)}.jpg`;
 }
 
 var CoinObj = class CoinObj {
