@@ -140,10 +140,12 @@ var HSK = class HSK{
     timeCount(ele){
         if(this.t_A <= 0){
             this.cancel();
-            
             this.t_B -=1;
-            
-            $(ele).text(this.t_B);
+            if(this.t_B < 10){
+                $(ele).text(`0${this.t_B}`);
+            }else{
+                $(ele).text(this.t_B);
+            }
             $(ele).css("background-color","pink");
             if(this.t_B <= 0){
                 $(ele).html("&ensp;&ensp;");
@@ -154,7 +156,11 @@ var HSK = class HSK{
         }else{
             
             this.t_A -= 1;
-            $(ele).text(this.t_A);
+            if(this.t_A < 10){
+                $(ele).text(`0${this.t_A}`);
+            }else{
+                $(ele).text(this.t_A);
+            }
             $(ele).css("background-color","yellow");
         }
     }
