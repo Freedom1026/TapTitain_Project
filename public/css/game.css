@@ -8,16 +8,16 @@ table{
 
 div.stage span:nth-child(1), div.stage span:nth-child(3){
     border-radius: 100%;
-    top: 2vh;
-    padding: 1vh;
+    top: 3vh;
+    padding: 15px;
     background-color: red;
     position: relative;
     z-index: 20;
 }
 
 div.stage span:nth-child(2){
-    padding: 2vh;
-    top: 2vh;
+    padding: 20px;
+    top: 3vh;
     border-radius: 100%;
     background-color: red;
     position: relative;

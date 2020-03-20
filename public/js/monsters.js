@@ -112,6 +112,17 @@ function changeMonster(){
     //關卡切換 打倒怪物計數+1
     atStage += 1 ;
     bk.src =`./img/stage/stage${Math.ceil(Math.random()*8)}.jpg`;
+
+    if(atStage < 10){
+    $('div.stage span:nth-child(2)').html(`&ensp;&ensp;${atStage}`);
+    }
+    else if(atStage > 9 &&atStage <100){
+        $('div.stage span:nth-child(2)').html(`&ensp;${atStage}`);
+    }
+    else{
+        $('div.stage span:nth-child(2)').html(atStage);
+    }
+
 }
 
 var CoinObj = class CoinObj {

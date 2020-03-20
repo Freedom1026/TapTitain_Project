@@ -50,6 +50,8 @@ function gameControl(){
         ctx.restore();
     };
     
+
+    $('div.bascInfo p:nth-child(2)').text(`點擊攻擊力${Me.ATK}`);
 }
 
 function FirstThing(e){
@@ -84,3 +86,4 @@ function CoinClean(){
             CoinArray.splice( i, 1);
     }
 }
+
