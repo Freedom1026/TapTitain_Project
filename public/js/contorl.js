@@ -12,9 +12,14 @@ function gameControl(){
     
     //coin
     for(var i = 0; i < CoinArray.length; i++){
+        console.log(CoinArray.length);
         CoinArray[i].draw();
+        CoinArray[i].updateY();
+        if(CoinArray[i].dy < RwdDy*1.4+10){
+            Me.Coin += Math.ceil(CoinArray[i].value);
+            CoinArray.splice( i, 1);
+        }
     }
-    
 
     C_A.draw();
     C_A.speedControl();
@@ -31,11 +36,11 @@ function gameControl(){
     wild.SkOpen(3);
     //暫時自己畫coin 之後換成圖
     ctx.beginPath();
-    ctx.arc(RwdDx*1.4,RwdDy*1.4+10,10,0,2*Math.PI);
+    ctx.arc(RwdDx*1.4,RwdDy*1.5 + 8 ,10,0,2*Math.PI);
     ctx.fillStyle = "#FFA500";
     ctx.fill();
     ctx.font = "20px Arial";
-    ctx.fillText(Me.Coin, RwdDx*1.5, RwdDy*1.4 + 15);
+    ctx.fillText(Me.Coin, RwdDx*1.5, RwdDy*1.5 + 16);
     //C_A.attacked();
 
     NowMonster.hpbar();
@@ -77,13 +82,16 @@ function CoinDelete(e){
             CoinArray.splice( i, 1);
         }
     }
-    setTimeout(CoinClean, 10080);
+
 }
 
-function CoinClean(){
-    for(let i = 0; i < CoinArray.length ; i++){
-            Me.Coin += Math.ceil(CoinArray[i].value);
-            CoinArray.splice( i, 1);
-    }
-}
+// function CoinClean(){
+//     for(let i = 0; i < CoinArray.length ; i++){
+//         CoinArray[i].dy --;
+        // if(CoinArray[i].dy < RwdDy*1.4+10){
+        //     Me.Coin += Math.ceil(CoinArray[i].value);
+        //     CoinArray.splice( i, 1);
+        // }
+//     }
+// }
 

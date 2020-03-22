@@ -19,8 +19,8 @@ else{
 //RWD係數 -->寬度係數不同
 var ChaDx = canvas.width/12*5.2;
 //y軸位置之後要調整 -->目前依賴怪物位置
-var ChaDy = RwdDy + RwdDw * 1.2;
-var ChaDw = canvas.width/24*3;
+var ChaDy = RwdDy + RwdDw * 1.4;
+var ChaDw = canvas.width/24*2;
 //高度之後要調整 -->目前依賴寬度
 var ChaDh = ChaDw;
 ctx.fillStyle = "#03fcd7";

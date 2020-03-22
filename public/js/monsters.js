@@ -1,5 +1,5 @@
 var monstersImg = new Image();
-monstersImg.src = "img/testMon1.png";
+monstersImg.src = "img/testMon3.png";
 var coinPic = new Image();
 coinPic.src = "img/coin.png";
 
@@ -13,7 +13,7 @@ var RwdDx = canvas.width/3;
 var RwdDy = canvas.height/8;
 var RwdDw = canvas.width/5*2;
 //高度之後要調整 -->目前依賴寬度
-var RwdDh = RwdDw*1.2;
+var RwdDh = RwdDw;
 ctx.fillStyle = "#FFA500";
 ctx.fillRect(RwdDx, RwdDy, RwdDw, RwdDh)
 }
@@ -52,7 +52,7 @@ var monstersProperty = class monstersProperty {
         ctx.save();
         ctx.fillStyle ="#FFA500";
         if(this.hpbarContent > 0){
-            ctx.fillRect(RwdDx*1.2, RwdDy, this.hpbarContent, 15);
+            ctx.fillRect(RwdDx*1.2, RwdDy*1.16, this.hpbarContent, 15);
         }
         ctx.restore();
     }
@@ -96,7 +96,7 @@ var CoinArray = [];
 
 function changeMonster(){
     //哪個怪物
-    let r = Math.floor(Math.random()*18)*225;
+    let r = Math.floor(Math.random()*30)*225;
     //現在攻擊數字
     let atked = NowMonster.attackedAmount;
     //coin number
@@ -107,11 +107,17 @@ function changeMonster(){
         CoinArray.push(new CoinObj(coinObt));
     }
 
+    for(var i = 0; i < CoinArray.length; i++){
+        CoinArray[i].deleteSelf();
+    }
+
     NowMonster = new monstersProperty(monstersImg, 0, r, 225, 225, RwdDx, RwdDy, RwdDw, RwdDh, atked); //array[index].img, array[index].sx
 
     //關卡切換 打倒怪物計數+1
     atStage += 1 ;
-    bk.src =`./img/stage/stage${Math.ceil(Math.random()*8)}.jpg`;
+    let rk = Math.ceil(Math.random()*8);
+    bk.src =`./img/stage/stage${rk}.jpg`;
+    $('div.stage span:nth-child(2)').css("background-image",`url(./img/stage/stage${rk}.jpg)`);
 
     if(atStage < 10){
     $('div.stage span:nth-child(2)').html(`&ensp;&ensp;${atStage}`);
@@ -128,11 +134,24 @@ function changeMonster(){
 var CoinObj = class CoinObj {
     constructor(v){
         this.dx = Math.floor(Math.random() * canvas.width);
-        this.dy = canvas.height -200;
+        this.dy = ChaDy;
         this.value = v;
+        this.start = false;
     }
     draw(){
         ctx.drawImage(coinPic, this.dx, this.dy, 50, 50);
     }
 
+    updateY(){
+        if(this.start == true){
+            this.dy --;
+        }
+    }
+
+    deleteSelf(){
+        console.log("i")
+        setTimeout(() => {
+            this.start = true;
+        }, 1000);
+    }
 }
