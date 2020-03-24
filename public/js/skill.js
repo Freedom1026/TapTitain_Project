@@ -65,16 +65,19 @@
             Me.Coin -= SkillArray[skID].upSpend[SkillArray[skID].lv];
         }
 
-        $('#btn_hero').click(function(){panelgo("div.heroSkill")});
-        $('#btn_creature').click(function(){panelgo("div.creatureSkill")})
         
-        function panelgo(pn){
+        $('#btn_hero').click(function(){panelgo("div.heroSkill",this)});
+        $('#btn_creature').click(function(){panelgo("div.creatureSkill",this)})
+        
+        function panelgo(pn,btn){
+            
             if($(pn).css("visibility") == "visible"){
                 $(pn).css("visibility","hidden");
-                // $(pn).css("display","none");
+                btn.style.backgroundColor = "white";  
                 }
                 else{
                 $(pn).css("visibility","visible")
+                btn.style.backgroundColor = "brown";
                 // $(pn).css("display","block");
                 }
             }
@@ -102,27 +105,20 @@ var HSK = class HSK{
         this.t_B = -1;
 
     }
-    SkOpen(skID){ //每秒確認....prototype連線
-        if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
-            this.SKOpenFlag = true;
-            $(`div.heroSkill div:nth-child(${skID}) button`).text("可以升級");
-            $(`div.heroSkill div:nth-child(${skID}) button`).css("color","red");
-            return this.SKOpenFlag;
-        }else{
-            this.SKOpenFlag = false;
-            $(`div.heroSkill div:nth-child(${skID}) button`).text("不能升級");
-            $(`div.heroSkill div:nth-child(${skID}) button`).css("color","rgba(170, 170, 170, 0.637)");
-            return this.SKOpenFlag;
-        }
-    }
 
-    //click active rounded_btn
-    // execute(){ //sk_a 成為參數被呼叫
-    //     this.times = this.upATK[this.lv];
-    // }
+    // SkOpen(skID){ //每秒確認
 
-    // cancel(){
-    //     this.times = 1;
+    //     if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
+    //         this.SKOpenFlag = true;
+    //         $(`div.heroSkill div:nth-child(${skID}) button`).text("可以升級");
+    //         $(`div.heroSkill div:nth-child(${skID}) button`).css("color","red");
+    //         return this.SKOpenFlag;
+    //     }else{
+    //         this.SKOpenFlag = false;
+    //         $(`div.heroSkill div:nth-child(${skID}) button`).text("不能升級");
+    //         $(`div.heroSkill div:nth-child(${skID}) button`).css("color","rgba(170, 170, 170, 0.637)");
+    //         return this.SKOpenFlag;
+    //     }
     // }
 
     //設定計時時間   
@@ -171,24 +167,25 @@ var HSK = class HSK{
 class ActSkill_B extends HSK {
     constructor(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B){
         super(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B);
-        this.upATK = [1,1.05,1.06,1.1,1.2,1.4,1.5,1.6];
-    }
-    execute(){ 
-        this.times = this.upATK[this.lv];
-    }
-
-    cancel(){
-        this.times = 1;
-    }
-
-}
-
-class ActSkill_C extends HSK {
-    constructor(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B){
-        super(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B);
         this.Plus = [1,2,2.5,3.1,3.5,3.8,4,5];
         this.moneyPlus = 1;
     }
+
+    SkOpen(skID){ //每秒確認
+
+        if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
+            this.SKOpenFlag = true;
+            $("#btn_02").text("可以升級");
+            $("#btn_02").css("color","red");
+            return this.SKOpenFlag;
+        }else{
+            this.SKOpenFlag = false;
+            $("#btn_02").text("不能升級");
+            $("#btn_02").css("color","rgba(170, 170, 170, 0.637)");
+            return this.SKOpenFlag;
+        }
+    }
+
     execute(){ //sk_a 成為參數被呼叫
         this.moneyPlus = this.Plus[this.lv];
     }
@@ -199,9 +196,41 @@ class ActSkill_C extends HSK {
 
 }
 
+class ActSkill_C extends HSK {
+    constructor(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B){
+        super(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B);
+        this.upATK = [1,1.05,1.06,1.1,1.2,1.4,1.5,1.6];
+    }
 
-var fortune = new ActSkill_C("fortune", 0);
-var wild = new ActSkill_B("wild", 0);
+    SkOpen(skID){ //每秒確認
+
+        if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
+            this.SKOpenFlag = true;
+            $("#btn_03").text("可以升級");
+            $("#btn_03").css("color","red");
+            return this.SKOpenFlag;
+        }else{
+            this.SKOpenFlag = false;
+            $("#btn_03").text("不能升級");
+            $("#btn_03").css("color","rgba(170, 170, 170, 0.637)");
+            return this.SKOpenFlag;
+        }
+    }
+
+    execute(){ 
+        this.times = this.upATK[this.lv];
+    }
+
+    cancel(){
+        this.times = 1;
+    }
+
+}
+
+
+
+var fortune = new ActSkill_B("fortune", 0);
+var wild = new ActSkill_C("wild", 0);
 
 var SkillArray = [ Me, fortune, wild];
 

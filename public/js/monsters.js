@@ -1,5 +1,5 @@
 var monstersImg = new Image();
-monstersImg.src = "img/testMon3.png";
+monstersImg.src = "img/testMon4.png";
 var coinPic = new Image();
 coinPic.src = "img/coin.png";
 
@@ -20,9 +20,9 @@ ctx.fillRect(RwdDx, RwdDy, RwdDw, RwdDh)
 
 else{
 //RWD係數 -->寬度係數不同
-var RwdDx = canvas.width/3;
+var RwdDx = canvas.width/8 * 3;
 //y軸位置之後要調整 -->目前依賴寬度
-var RwdDy = canvas.height/8;
+var RwdDy = canvas.height/8 * 1.5;
 var RwdDw = canvas.width/4;
 //高度之後要調整 -->目前依賴寬度
 var RwdDh = RwdDw;
@@ -52,7 +52,7 @@ var monstersProperty = class monstersProperty {
         ctx.save();
         ctx.fillStyle ="#FFA500";
         if(this.hpbarContent > 0){
-            ctx.fillRect(RwdDx*1.2, RwdDy*1.16, this.hpbarContent, 15);
+            ctx.fillRect(RwdDx*1.2, RwdDy/1.5, this.hpbarContent, 15);
         }
         ctx.restore();
     }
@@ -152,6 +152,6 @@ var CoinObj = class CoinObj {
         console.log("i")
         setTimeout(() => {
             this.start = true;
-        }, 1000);
+        }, 3000);
     }
 }

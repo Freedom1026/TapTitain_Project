@@ -7,9 +7,9 @@ MVC框架
 ## 待辦清單
 * 利用bcrypt加密密碼
 * 隨機道具
-* 關卡切換
-* 金幣掉落動畫
+* 關卡切換 1/2
 * 成就系統
+* Loading圖片問題
 -------------------
 * Me也寫一個SKOPEN 放到skillArray裡面 迴圈確認文字變更
 -------------------
@@ -18,11 +18,9 @@ MVC框架
 * 基本攻擊數字面板
 -------------------
 * 資料庫設計
-* 異生物繪圖
 * 異生物技能/升級等面板
 * 完整串接前後端
 * 儲值頁面要新增CAPTCHA驗證碼
-* 怪物數值計算
 * 怪物距離boss數量
 
 ## 等待修改的bug
@@ -40,11 +38,13 @@ MVC框架
 4. upATK在act_Btn失效 -->忘記修改monster.hplose參數
 5. 怪物重生之後 atkAmount會變回20  -->忘了修改mosnter底下testSK to testSK2
 6. 乘以fortune會有bug  --->變數宣告先後問題
-* updateATK位置不對  --->Me.lv 和其他已調整
+7. updateATK位置不對  --->Me.lv 和其他已調整
 
 ## 思考問題點
 * 當技能等級為0，其對應冷卻值應為？   ---> 決定是0
 * 對Me.LV console時 會出現 undefined
 
 ## 目前進度
-* 調整panel
+* 調整stage icon
+* panel background
+* detail

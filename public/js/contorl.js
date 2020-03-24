@@ -1,4 +1,14 @@
-setInterval(gameControl, 80);
+
+if(window.innerWidth <= 768 && window.innerWidth > window.innerHeight ){
+    //待修改
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.font = "20px Arial";
+    ctx.fillText("螢幕請直放", RwdDx*1.5, RwdDy*1.5 + 16);
+}
+else{
+    setInterval(gameControl, 80);
+}
+
 var ClickFlag = false;
 
 
@@ -6,13 +16,12 @@ var ClickFlag = false;
 function gameControl(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     //background
-    ctx.drawImage(bk,0, -40, 1200, 600);
+    ctx.drawImage(bk,0, 0, 1200, 800);
     //creatures
     Me.draw();
     
     //coin
     for(var i = 0; i < CoinArray.length; i++){
-        console.log(CoinArray.length);
         CoinArray[i].draw();
         CoinArray[i].updateY();
         if(CoinArray[i].dy < RwdDy*1.4+10){
@@ -36,11 +45,11 @@ function gameControl(){
     wild.SkOpen(3);
     //暫時自己畫coin 之後換成圖
     ctx.beginPath();
-    ctx.arc(RwdDx*1.4,RwdDy*1.5 + 8 ,10,0,2*Math.PI);
+    ctx.arc(RwdDx * 1.3,RwdDy + 8 ,10,0,2*Math.PI);
     ctx.fillStyle = "#FFA500";
     ctx.fill();
     ctx.font = "20px Arial";
-    ctx.fillText(Me.Coin, RwdDx*1.5, RwdDy*1.5 + 16);
+    ctx.fillText(Me.Coin, RwdDx * 1.3 + 15, RwdDy + 16);
     //C_A.attacked();
 
     NowMonster.hpbar();

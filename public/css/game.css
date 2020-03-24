@@ -105,7 +105,7 @@ div.actSkill span{
     top: 2vh;
     visibility: hidden;
     border-radius: 100%;
-    padding: 3vh;
+    padding: 2vh;
     position: relative;
     z-index: 20;
     background-repeat: no-repeat;
@@ -120,6 +120,12 @@ span#actBTN_A{
 }
 span#actBTN_B{
     background-image: url(../img/icon/wild.png);
+}
+
+
+div.heroSkill img{
+    width: 4vh;
+    
 }
 
 
@@ -159,3 +165,8 @@ div.changePanel {
 div.HSkillDetail{
     display: none;
 }
+
+.selectBTN{
+    background-color: green;
+}
+

@@ -1,6 +1,6 @@
 
 var chaimg = new Image();
-chaimg.src = "img/all.png";
+chaimg.src = "img/all2.png";
 var creatures = new Image();
 creatures.src = "img/testMon.png"
 
@@ -8,7 +8,8 @@ if(window.innerWidth <= 768){
     //RWD係數 -->寬度係數不同
 var ChaDx = canvas.width/10*3.5;
 //y軸位置之後要調整 -->目前依賴怪物位置
-var ChaDy = RwdDy + RwdDw*1.2;
+//依賴人物大小，因此寫在下方
+
 var ChaDw = canvas.width/12*1.5;
 //高度之後要調整 -->目前依賴寬度
 var ChaDh = ChaDw;
@@ -17,18 +18,17 @@ ctx.fillRect(ChaDx, ChaDy, ChaDw, ChaDh)
 }
 else{
 //RWD係數 -->寬度係數不同
-var ChaDx = canvas.width/12*5.2;
+var ChaDx = canvas.width/32 * 15;
 //y軸位置之後要調整 -->目前依賴怪物位置
 var ChaDy = RwdDy + RwdDw * 1.4;
 var ChaDw = canvas.width/24*2;
+var ChaDy = canvas.height - ChaDw*2;
 //高度之後要調整 -->目前依賴寬度
 var ChaDh = ChaDw;
 ctx.fillStyle = "#03fcd7";
 ctx.fillRect(ChaDx, ChaDy, ChaDw, ChaDh)
 
 }
-
-
 
 
 
@@ -143,9 +143,9 @@ var Me = new mainCha(chaimg, 0, 0, 225, 225, ChaDx, ChaDy, ChaDw, ChaDh);
 
 
 //之後再來加入的npc紀錄，要記錄Me已經召喚的npc　以及其等級 利用get傳入
-var C_A = new CreatureA(chaimg, 0, 225, 225, 225, 100, 100, ChaDw, ChaDh);
-var C_B = new CreatureA(chaimg, 0, 450, 225, 225, 100, 160, ChaDw, ChaDh);
-var C_C = new CreatureA(chaimg, 0, 900, 225, 225, 100, 200, ChaDw, ChaDh);
+var C_A = new CreatureA(chaimg, 0, 225, 225, 225, ChaDx*3/2, RwdDy, ChaDw, ChaDh);
+var C_B = new CreatureA(chaimg, 0, 450, 225, 225, ChaDx*3/2, RwdDy*2, ChaDw, ChaDh);
+var C_C = new CreatureA(chaimg, 0, 900, 225, 225, ChaDx*3/2, RwdDy*3, ChaDw, ChaDh);
 
 var chaLevel = [1, 10, 0];
 var C_array = [C_A, C_B, C_C];
