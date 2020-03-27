@@ -1,6 +1,6 @@
 
 var chaimg = new Image();
-chaimg.src = "img/all2.png";
+chaimg.src = "img/all3.png";
 var creatures = new Image();
 creatures.src = "img/testMon.png"
 
@@ -8,9 +8,9 @@ if(window.innerWidth <= 768){
     //RWD係數 -->寬度係數不同
 var ChaDx = canvas.width/10*3.5;
 //y軸位置之後要調整 -->目前依賴怪物位置
-//依賴人物大小，因此寫在下方
 
-var ChaDw = canvas.width/12*1.5;
+var ChaDw = canvas.width/12*2;
+var ChaDy = canvas.height - ChaDw*1.2;
 //高度之後要調整 -->目前依賴寬度
 var ChaDh = ChaDw;
 ctx.fillStyle = "#03fcd7";
@@ -20,8 +20,8 @@ else{
 //RWD係數 -->寬度係數不同
 var ChaDx = canvas.width/32 * 15;
 //y軸位置之後要調整 -->目前依賴怪物位置
-var ChaDy = RwdDy + RwdDw * 1.4;
-var ChaDw = canvas.width/24*2;
+
+var ChaDw = canvas.width/24*2.5;
 var ChaDy = canvas.height - ChaDw*2;
 //高度之後要調整 -->目前依賴寬度
 var ChaDh = ChaDw;

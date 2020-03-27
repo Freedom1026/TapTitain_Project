@@ -18,7 +18,7 @@ function gameControl(){
     //background
     ctx.drawImage(bk,0, 0, 1200, 800);
     //creatures
-    Me.draw();
+
     
     //coin
     for(var i = 0; i < CoinArray.length; i++){
@@ -60,10 +60,10 @@ function gameControl(){
         ctx.save();
         ctx.fillStyle = "#AF2770";
         ctx.font = "30px Arial";
-        ctx.fillText(NowMonster.attackedAmount, RwdDx*1.2, RwdDy*4);
+        ctx.fillText(NowMonster.attackedAmount, RwdDx*1.2, RwdDy*2);
         ctx.restore();
     };
-    
+    Me.draw();
 
     $('div.bascInfo p:nth-child(2)').text(`點擊攻擊力${Me.ATK}`);
 }

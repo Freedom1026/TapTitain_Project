@@ -10,7 +10,7 @@ if(window.innerWidth <= 768){
 //RWD係數 -->寬度係數不同
 var RwdDx = canvas.width/3;
 //y軸位置之後要調整 -->目前依賴寬度
-var RwdDy = canvas.height/8;
+var RwdDy = canvas.height/3;
 var RwdDw = canvas.width/5*2;
 //高度之後要調整 -->目前依賴寬度
 var RwdDh = RwdDw;
@@ -52,7 +52,12 @@ var monstersProperty = class monstersProperty {
         ctx.save();
         ctx.fillStyle ="#FFA500";
         if(this.hpbarContent > 0){
-            ctx.fillRect(RwdDx*1.2, RwdDy/1.5, this.hpbarContent, 15);
+            if(window.innerWidth <= 768){
+                ctx.fillRect(RwdDx, RwdDy/1.5, this.hpbarContent, 15);
+            }
+            else{ctx.fillRect(RwdDx*1.1, RwdDy/1.5, this.hpbarContent, 15);
+//            else{ctx.fillRect(RwdDx*1.1, RwdDy/1.5, 3, 15);
+            }
         }
         ctx.restore();
     }
