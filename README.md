@@ -28,7 +28,7 @@ MVC框架
 * resize或refresh時 技能倒數計時會重新!  --->寫進LocalStorage裡面?
 * how to get LocalStorage?    --->reset裡面，但尚未完善code
 * 0.1 + 0.2 類問題 所以要Math.floor
-* div.heroskill padding的部分是為了字不要被active skills擋住,但是scroll一樣會出問題
+* div.heroskill padding的部分是為了字不要被active skills擋住,但是scroll一樣會出問題 --->不要用padding 直接把視窗位置往下調整
 
 
 ## 處理完的bug
