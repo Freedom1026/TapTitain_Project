@@ -64,7 +64,7 @@ var monstersProperty = class monstersProperty {
 
     hpLose(){
         //time係數 依賴技能名稱會不好維護
-        this.attackedAmount =  Me.ATK * wild.times;
+        this.attackedAmount = Math.floor(Me.ATK * wild.times);
         this.hpbarContent -= this.attackedAmount*20/this.hp;
         if(this.hpbarContent <= 0){
             changeMonster();

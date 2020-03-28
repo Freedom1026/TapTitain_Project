@@ -23,6 +23,9 @@ module.exports = function (request, response, controllerName) {
 	this.viewPath = controllerName + "/";
 	
 
+	this.index = function(){
+		this.response.render(this.viewPath + "index.html");
+	}
     
 	this.game = function () {
 		this.response.render(this.viewPath + "game.html", 

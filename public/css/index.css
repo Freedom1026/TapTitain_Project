@@ -1,0 +1,12 @@
+body{
+  overflow: hidden;
+}
+
+.rightPlace{
+  position: absolute;
+  /* z-index: 100; */
+  left: 50%;
+  background-color: white;
+  width: 50%;
+  height: 100%;
+}

@@ -1,7 +1,28 @@
 body{
     text-align: center;
     overflow: hidden;
+
+    /* Keyword values */
+user-select: none;
+
+/* Global values */
+user-select: inherit;
+
+
+/* Mozilla-specific values */
+-moz-user-select: none;
+
+
+/* WebKit-specific values */
+-webkit-user-select: none;
+
+/* Microsoft-specific values */
+-ms-user-select: none;
+
 }
+
+
+
 
 @font-face {
     font-family: myfont;
@@ -64,8 +85,6 @@ canvas{
 
 @media screen and (max-width: 768px){
     div.hideBlock{
-
-        background-color: red;
         width: 100%;
     }
 
@@ -73,20 +92,13 @@ canvas{
 
 @media screen and (min-width: 768px){
     div.hideBlock{
-
-        /* background-color: rgb(0, 255, 98); */
         width: 60%;
     }
 
 }
 div.hideBlock{
     position: relative;
-
-/* 這邊要分螢幕大小 */
-    /* background-color: yellow; */
-    /* width: 50%; */
     height: 22vh;
-
 }
 
 
@@ -149,24 +161,25 @@ div.bascInfo{
 }
 
 
-div.heroSkill{
+div.creatureSkill td{
+    background-color: gray;
+}
+
+.borderPan{
     margin-top: 8vh;
     height: 20vh;
     visibility: hidden;
     position: absolute;
-    /* background-color: rgb(196, 132, 72); */
     overflow-y: scroll;
-}
-div.creatureSkill{
-    margin-top: 8vh;
-    height: 20vh;
-    visibility: hidden;
-    position: absolute;
-    background-color: rgb(196, 132, 72);
-    overflow-y: scroll;
+
+    border:10px solid green;
+    background-image: url(../img/base2.png);
+    background-size: contain
 }
 
-
+button{
+    border-radius: 20%;
+}
 
 
 div.changePanel {

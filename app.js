@@ -35,12 +35,12 @@ console.log("Server is running... Press 'Ctrl + C' to exit.");
 // 路由設定:
 // 格式:  /controllerName/actionName
 app.get("/", function (request, response) {
-    doControllerAction("home", "game", request, response);
+    doControllerAction("home", "index", request, response);
 });
 
 app.get("/:controllerName", function (request, response) {
     var controllerName = request.params.controllerName;
-    doControllerAction(controllerName, "test", request, response);
+    doControllerAction(controllerName, "game", request, response);
 });
 
 app.get("/:controllerName/:actionName", function (request, response) {

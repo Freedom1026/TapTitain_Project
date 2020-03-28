@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //push itemName是個物件
+        //不存session 存localstorage
+        var buythings = [];
+        function whichBuy(itemName) {
+            if(coin >= 200){
+            buythings.push(itemName);
+            localStorage.setItem("item", JSON.stringify(buythings));
+            coin -= 200;
+            localStorage.setItem("Coin", coin);
+            Money.innerHTML = "$:" + localStorage.getItem("Coin");
+                alert("購買成功!")
+            }
+            else{
+                alert("錢不夠");
+            }
+        }
+
+        //解析在畫面上
+        var item = JSON.parse(localStorage.getItem("item"));
+    </script>
+</body>
+</html>
