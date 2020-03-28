@@ -172,7 +172,7 @@ div.creatureSkill td{
     position: absolute;
     overflow-y: scroll;
 
-    border:10px solid green;
+    border-top:10px solid green;
     background-image: url(../img/base2.png);
     background-size: contain
 }
