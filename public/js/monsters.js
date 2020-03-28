@@ -93,7 +93,7 @@ var monstersProperty = class monstersProperty {
 
 }
 
-var NowMonster = new monstersProperty(monstersImg, 0, 0, 225, 225, RwdDx, RwdDy, RwdDw, RwdDh);
+var NowMonster = new monstersProperty(monstersImg, 0, 0, 220, 220, RwdDx, RwdDy, RwdDw, RwdDh);
 //0 0 225 225
 
 var CoinArray = [];
@@ -116,7 +116,7 @@ function changeMonster(){
         CoinArray[i].deleteSelf();
     }
 
-    NowMonster = new monstersProperty(monstersImg, 0, r, 225, 225, RwdDx, RwdDy, RwdDw, RwdDh, atked); //array[index].img, array[index].sx
+    NowMonster = new monstersProperty(monstersImg, 0, r, 220, 220, RwdDx, RwdDy, RwdDw, RwdDh, atked); //array[index].img, array[index].sx
 
     //關卡切換 打倒怪物計數+1
     atStage += 1 ;
@@ -125,13 +125,19 @@ function changeMonster(){
     $('div.stage span:nth-child(2)').css("background-image",`url(./img/stage/stage${rk}.jpg)`);
 
     if(atStage < 10){
+    $('div.stage span:nth-child(1)').html(`&ensp;&ensp;${atStage - 1}`);
     $('div.stage span:nth-child(2)').html(`&ensp;&ensp;${atStage}`);
+    $('div.stage span:nth-child(3)').html(`&ensp;&ensp;${atStage + 1}`);
     }
     else if(atStage > 9 &&atStage <100){
+        $('div.stage span:nth-child(1)').html(`&ensp;&ensp;${atStage - 1}`);
         $('div.stage span:nth-child(2)').html(`&ensp;${atStage}`);
+        $('div.stage span:nth-child(3)').html(`&ensp;&ensp;${atStage + 1}`);
     }
     else{
+        
         $('div.stage span:nth-child(2)').html(atStage);
+        $('div.stage span:nth-child(3)').html(`&ensp;&ensp;${atStage + 1}`);
     }
 
 }

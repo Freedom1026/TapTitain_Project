@@ -3,6 +3,11 @@ body{
     overflow: hidden;
 }
 
+@font-face {
+    font-family: myfont;
+    src: url(../img/icon/wt014.ttf);
+  }
+
 table{
     margin: auto;
 }
@@ -128,8 +133,14 @@ div.heroSkill img{
     
 }
 
+div.creatureSkill img{
+    width: 5vh;
+    
+}
 
 div.bascInfo{
+    font-family: myfont;
+    font-size: large;
     padding: 8vh 0;
     height: 25vh;
     background-size: contain;
@@ -139,14 +150,15 @@ div.bascInfo{
 
 
 div.heroSkill{
-    padding: 8vh 0;
-    height: 25vh;
+    margin-top: 8vh;
+    height: 20vh;
     visibility: hidden;
     position: absolute;
-    background-color: rgb(196, 132, 72);
+    /* background-color: rgb(196, 132, 72); */
+    overflow-y: scroll;
 }
 div.creatureSkill{
-    padding: 8vh 0;
+    margin-top: 8vh;
     height: 20vh;
     visibility: hidden;
     position: absolute;

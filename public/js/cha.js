@@ -1,6 +1,6 @@
 
 var chaimg = new Image();
-chaimg.src = "img/all3.png";
+chaimg.src = "img/all2.png";
 var creatures = new Image();
 creatures.src = "img/testMon.png"
 

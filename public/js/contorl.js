@@ -86,7 +86,7 @@ function CoinDelete(e){
         let PosX = e.offsetX - CoinArray[i].dx;
         let PosY = e.offsetY - CoinArray[i].dy;
         let dist = Math.hypot(PosX, PosY);
-        if(dist < 90){
+        if(dist < 50){
             Me.Coin += Math.ceil(CoinArray[i].value);
             CoinArray.splice( i, 1);
         }
