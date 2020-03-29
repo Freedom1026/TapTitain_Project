@@ -1,7 +1,7 @@
 body{
   overflow: hidden;
-  background-image: url(../img/space.jpg);
-  background-size: cover;
+
+
 }
 
 
@@ -15,7 +15,7 @@ body{
     border-radius: 5%;
     background-color: rgb(236, 236, 236);
     width: 40%;
-    height: 50%;
+    height: 60%;
   }
 }
 
@@ -24,13 +24,15 @@ body{
       text-align: center;
     }
     .rightPlace{
-      border-radius: 5%;
-      margin: 50% 35%;
-      padding: 10px;
-      text-align: center;
-      background-color: rgb(104, 93, 93);
-      width: 50%;
-      height: 50%;
+      /* border-radius: 5%; */
+      background-image: url(../img/space.jpg);
+      background-size: cover;
+      /* margin: 30% 25%; */
+      /* padding: 10px; */
+      /* text-align: center; */
+      /* background-color: rgb(104, 93, 93); */
+      
+      height: 100vh;
     }
   }
 

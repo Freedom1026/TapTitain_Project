@@ -48,7 +48,7 @@ function gameControl(){
     ctx.arc(RwdDx * 1.3,RwdDy + 8 ,10,0,2*Math.PI);
     ctx.fillStyle = "#FFA500";
     ctx.fill();
-    ctx.font = "20px Arial";
+    ctx.font = "20px myfont";
     ctx.fillText(Me.Coin, RwdDx * 1.3 + 15, RwdDy + 16);
     //C_A.attacked();
 

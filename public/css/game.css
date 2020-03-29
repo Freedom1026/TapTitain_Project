@@ -1,4 +1,6 @@
 body{
+    background-image: url(../img/base2.png);
+    background-size: contain;
     text-align: center;
     overflow: hidden;
 
@@ -21,7 +23,9 @@ user-select: inherit;
 
 }
 
-
+canvas{
+    box-shadow: 10px 0px 5em rgb(44, 25, 1);
+}
 
 
 @font-face {
@@ -99,6 +103,7 @@ canvas{
 div.hideBlock{
     position: relative;
     height: 22vh;
+
 }
 
 
@@ -184,6 +189,7 @@ button{
 
 div.changePanel {
     position: relative;
+    /* background-image: url(../img/base2.png); */
 }
 
 

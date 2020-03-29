@@ -144,8 +144,8 @@ var Me = new mainCha(chaimg, 0, 0, 225, 225, ChaDx, ChaDy, ChaDw, ChaDh);
 
 //之後再來加入的npc紀錄，要記錄Me已經召喚的npc　以及其等級 利用get傳入
 var C_A = new CreatureA(chaimg, 0, 225, 225, 225, ChaDx*3/2, RwdDy, ChaDw, ChaDh);
-var C_B = new CreatureA(chaimg, 0, 450, 225, 225, ChaDx*3/2, RwdDy*2, ChaDw, ChaDh);
-var C_C = new CreatureA(chaimg, 0, 900, 225, 225, ChaDx*3/2, RwdDy*3, ChaDw, ChaDh);
+var C_B = new CreatureA(chaimg, 0, 450, 225, 225, ChaDx*3/2, RwdDy*1.2, ChaDw, ChaDh);
+var C_C = new CreatureA(chaimg, 0, 900, 225, 225, ChaDx*3/2, RwdDy*1.4, ChaDw, ChaDh);
 
 var chaLevel = [1, 10, 0];
 var C_array = [C_A, C_B, C_C];

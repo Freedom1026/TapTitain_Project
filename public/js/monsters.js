@@ -22,7 +22,7 @@ else{
 //RWD係數 -->寬度係數不同
 var RwdDx = canvas.width/8 * 3;
 //y軸位置之後要調整 -->目前依賴寬度
-var RwdDy = canvas.height/8 * 1.5;
+var RwdDy = canvas.height/8 * 1.8;
 var RwdDw = canvas.width/4;
 //高度之後要調整 -->目前依賴寬度
 var RwdDh = RwdDw;
@@ -55,7 +55,7 @@ var monstersProperty = class monstersProperty {
             if(window.innerWidth <= 768){
                 ctx.fillRect(RwdDx, RwdDy/1.5, this.hpbarContent, 15);
             }
-            else{ctx.fillRect(RwdDx*1.1, RwdDy/1.5, this.hpbarContent, 15);
+            else{ctx.fillRect(RwdDx*1.1, RwdDy/1.2, this.hpbarContent, 15);
 //            else{ctx.fillRect(RwdDx*1.1, RwdDy/1.5, 3, 15);
             }
         }
