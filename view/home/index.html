@@ -7,26 +7,48 @@
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/space.css">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <title>Document</title>
 </head>
 <body>
 
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <!-- Brand -->
+        <a class="navbar-brand" href="#">Navbar</a>
+      
+        <!-- Toggler/collapsibe Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#">遊戲介紹</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">最新消息</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">會員專區</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">周邊商品</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    
+
     <img src="img/ship.png" alt=""  class="ship">
 
-    <ul class="nav nav-tabs pull-right">
-        <li class="active"><a href="#">首頁</a></li>
-        <li><a href="#">遊戲介紹</a></li>
-        <li><a href="#">最新消息</a></li>
-        <li><a href="#">會員專區</a></li>
-        <li><a href="#">周邊商品</a></li>
-      </ul>
-
-<div class="rightPlace">
+<div class="formPlace">
 <form action="">
-    <p>Game Start</p>
+    <img src="../img/title.png" alt="" class="mx-auto d-block">
     <div class="form-group mx-sm-3 mb-2">
         <label for="formGroupExampleInput">Account</label>
         <input type="text" class="form-control" id="formGroupExampleInput" placeholder="請輸入帳號">
@@ -40,6 +62,8 @@
       <button type="submit" class="btn btn-outline-success">登入</button>
       <button type="submit" class="btn btn-outline-success">註冊</button>
 </form>
+
+
 </div>
         
     
