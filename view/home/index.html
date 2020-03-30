@@ -14,6 +14,7 @@
     <title>Document</title>
 </head>
 <body>
+  <img src="../img/space.jpg" alt="" class="background">
 
     <nav class="navbar navbar-expand-md bg-dark navbar-dark">
         <!-- Brand -->
@@ -41,27 +42,61 @@
             </li>
           </ul>
         </div>
-      </nav>
+    </nav>
     
 
     <img src="img/ship.png" alt=""  class="ship">
 
+
 <div class="formPlace">
-<form action="">
-    <img src="../img/title.png" alt="" class="mx-auto d-block">
-    <div class="form-group mx-sm-3 mb-2">
-        <label for="formGroupExampleInput">Account</label>
-        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="請輸入帳號">
+
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#home">登入</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#register">註冊</a>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+
+    <div class="tab-pane container active" id="home">
+      <form action="">
+        <img src="../img/title.png" alt="" class="mx-auto d-block">
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="formGroupExampleInput">Account</label>
+            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="請輸入帳號">
+        </div>
+        <br>
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="inputPassword2">Password</label>
+            <input type="password" class="form-control" id="inputPassword2" placeholder="請輸入密碼">
+          </div>
+          <br>
+          <button type="submit" class="btn btn-outline-success">開始遊戲</button>
+          
+    </form>
     </div>
-    <br>
-    <div class="form-group mx-sm-3 mb-2">
-        <label for="inputPassword2">Password</label>
-        <input type="password" class="form-control" id="inputPassword2" placeholder="請輸入密碼">
-      </div>
-      <br>
-      <button type="submit" class="btn btn-outline-success">登入</button>
-      <button type="submit" class="btn btn-outline-success">註冊</button>
-</form>
+
+    <div class="tab-pane container" id="register">
+      <form action="">
+        <img src="../img/title.png" alt="" class="mx-auto d-block">
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="formGroupExampleInput">Account</label>
+            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="請輸入帳號">
+        </div>
+        <br>
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="inputPassword2">Password</label>
+            <input type="password" class="form-control" id="inputPassword2" placeholder="請輸入密碼">
+          </div>
+          <br>
+          
+          <button type="submit" class="btn btn-outline-success">註冊</button>
+    </form>
+    </div>
+  </div>
 
 
 </div>
