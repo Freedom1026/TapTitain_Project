@@ -23,19 +23,22 @@ module.exports = function (request, response, controllerName) {
 	this.viewPath = controllerName + "/";
 	
 	this.post_signAJAX = function () {
+		var objResponse = this.response;
 		 let acc = this.request.body.acc;
-		connection.query('SELECT COUNT(*) FROM `acps` WHERE account = ?', ['acc'], function(err, result){
+		 console.log(acc);
+		connection.query('SELECT COUNT(*) as n FROM `acps` WHERE account = ?', [acc], function(err, result){
 			if(err){
 				console.log(JSON.stringify(err));
 				return;
 			}
-			objResponse.send("錯誤是何時");
+			let testA =JSON.stringify(result);
+			objResponse.send(testA);
 		})
 	}
 	
 	this.post_sign = function () {
 		let acc = this.request.body.acc;
-		console.log(acc);
+		// console.log(acc);
 		this.response.render(this.viewPath + "signup.html");
 	}
 	

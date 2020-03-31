@@ -52,7 +52,7 @@ app.get("/:controllerName/:actionName", function (request, response) {
 app.post("/:controllerName/:actionName", function (request, response) {
     var controllerName = request.params.controllerName;
     var actionName = request.params.actionName;
-    doControllerAction("member", "post_sign", request, response);
+    doControllerAction(controllerName, actionName, request, response);
 });
 
 // 呼叫 controller.action() 以處理 Client 端送來的請求
