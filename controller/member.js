@@ -29,7 +29,7 @@ module.exports = function (request, response, controllerName) {
 				console.log(JSON.stringify(err));
 				return;
 			}
-			objResponse.send(JSON.stringify("我的資料"));
+			objResponse.send("錯誤是何時");
 		})
 	}
 	

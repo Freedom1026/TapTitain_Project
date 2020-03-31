@@ -57,8 +57,10 @@ app.post("/:controllerName/:actionName", function (request, response) {
 
 // 呼叫 controller.action() 以處理 Client 端送來的請求
 function doControllerAction(controllerName, actionName, request, response) {
-    var moduleName = "./controller/" + controllerName + ".js";
-    var controllerClass = require(moduleName);
-    var controller = new controllerClass(request, response, controllerName);
-    controller[actionName]();    
+    if(controllerName !== "js"){
+        let moduleName = "./controller/" + controllerName + ".js";
+        let controllerClass = require(moduleName);
+        let controller = new controllerClass(request, response, controllerName);
+        controller[actionName]();  
+    }
 }

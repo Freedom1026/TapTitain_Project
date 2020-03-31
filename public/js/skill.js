@@ -10,11 +10,6 @@
 //-------------技能-------------
 //拿jquery去抓技能圖示 顯示技能視窗
     
-    //從資料庫取得目前技能等級
-    let heroSkillLevel = [1, 0, 0];
-
- 
-
     $(function(){
             $.get("/home/get_Hsk", function (e) {
                 var HeroData = JSON.parse(e);

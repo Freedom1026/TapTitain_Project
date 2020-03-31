@@ -55,18 +55,18 @@ module.exports = function (request, response, controllerName) {
 	}
 
 	this.get_Csk = function () {
-		var objResponse = this.response;
-		connection.query('select A, B, C from creatureskill where id = ?', ['1'], function(err, rows){
-			if(err){
-				console.log(JSON.stringify(err));
-				return;
-			}
-			objResponse.send(JSON.stringify(rows));
-		})
+		// var objResponse = this.response;
+		// connection.query('select A, B, C from creatureskill where id = ?', ['1'], function(err, rows){
+		// 	if(err){
+		// 		console.log(JSON.stringify(err));
+		// 		return;
+		// 	}
+		// 	objResponse.send(JSON.stringify(rows));
+		// })
 	}
 
 	this.get_sign = function () {
-		this.response.render(this.viewPath + "signup.html");
+		this.response.render(this.viewPath + "index.html");
 	}
 	
 }	
