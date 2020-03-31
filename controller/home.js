@@ -66,7 +66,7 @@ module.exports = function (request, response, controllerName) {
 	}
 
 	this.get_sign = function () {
-		this.response.render(this.viewPath + "index.html");
+		this.response.render(this.viewPath + "signup.html");
 	}
 	
 }	

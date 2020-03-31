@@ -22,13 +22,20 @@ module.exports = function (request, response, controllerName) {
     this.response = response;
 	this.viewPath = controllerName + "/";
 	
-
+	this.post_signAJAX = function () {
+		 let acc = this.request.body.acc;
+		connection.query('SELECT COUNT(*) FROM `acps` WHERE account = ?', ['acc'], function(err, result){
+			if(err){
+				console.log(JSON.stringify(err));
+				return;
+			}
+			objResponse.send(JSON.stringify("我的資料"));
+		})
+	}
+	
 	this.post_sign = function () {
-		//首字母以小寫開頭
-		let patt = /^[a-z]/;
-		//接受 數字、字母、底線
-		let patt2 = /[/w]/;
 		let acc = this.request.body.acc;
+		console.log(acc);
 		this.response.render(this.viewPath + "signup.html");
 	}
 	

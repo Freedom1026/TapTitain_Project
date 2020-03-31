@@ -19,18 +19,24 @@
             $.get("/home/get_Hsk", function (e) {
                 var HeroData = JSON.parse(e);
                 
-                SkillArray[0].LV =(heroSkillLevel[0] = HeroData[0].heroLv);
-                SkillArray[1].lv =(heroSkillLevel[1] = HeroData[0].heroSkLv_A);
-                SkillArray[2].lv =(heroSkillLevel[2] = HeroData[0].heroSkLv_B);
-
+                SkillArray[0].LV = HeroData[0].heroLv;
+                SkillArray[1].lv = HeroData[0].heroSkLv_A;
+                SkillArray[2].lv = HeroData[0].heroSkLv_B;
 
             }).then(function(){
-                    heroSkillLevel.forEach(function(val,ind){
-                        let now = ind + 1;
-                        Me.updateATK();
-                        $(`div.heroSkill div:nth-child(${now}) span:nth-child(3)`).text(`Lv.${val}`);
-                        if(val > 0){
-                            $(`div.actSkill span:nth-child(${ind})`).css("visibility","visible");
+                    SkillArray.forEach(function(val,ind){
+                        if(ind != 0){
+                            let now = ind + 1;
+                            Me.updateATK();
+                            $(`span.${val.skname}`).text(`Lv.${val.lv}`);
+                            if(val.lv > 0){
+                                $(`div.actSkill span:nth-child(${ind})`).css("visibility","visible");
+                            }
+                        }
+                        else{
+                            let now = ind + 1;
+                            Me.updateATK();
+                            $('span.origin').text(`Lv.${val.LV}`);
                         }
                     })
             })
@@ -53,10 +59,9 @@
             }
             else if(skID == 0){
                 //排除第一個主角升級  
-                Me.LV++;
                 Me.updateATK();
-                heroSkillLevel[skID]++;
-                $(`span.${skill}`).text(`Lv.${heroSkillLevel[skID]}`);
+                SkillArray[0].LV++;
+                $(`span.${skill}`).text(`Lv.${SkillArray[0].LV}`);
                 return;
             }
         }
