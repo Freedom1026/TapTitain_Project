@@ -25,7 +25,7 @@ module.exports = function (request, response, controllerName) {
 	this.post_signAJAX = function () {
 		var objResponse = this.response;
 		 let acc = this.request.body.acc;
-		 console.log(acc);
+		//  console.log(acc);
 		connection.query('SELECT COUNT(*) as n FROM `acps` WHERE account = ?', [acc], function(err, result){
 			if(err){
 				console.log(JSON.stringify(err));

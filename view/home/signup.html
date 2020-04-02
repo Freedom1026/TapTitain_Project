@@ -5,35 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/bootstrap.css">
+    <!-- <link rel="stylesheet" href="../css/bootstrap.css">
     <script src="../js/jquery-3.4.1.min.js"></script>
-    <script src="../js/popper.min.js"></script>
+    <script src="../js/popper.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script src="../js/vue.min.js"></script>
+    <style>
+        .accOC{
+            color: red;
+        }
+    </style>
 </head>
 <body>
-    <form method="POST" action="../member/post_sign" >
-        <label for="acc">帳號</label><input type="text" name="acc" id="acc">
-        <label for="pas">密碼</label><input type="text" name="pas">
-        <label for="pas">確認密碼</label><input type="text" name="pas">
-        <input type="submit">
-    </form>
-    <button onclick="chkAJAX()">確認帳號是否可用</button>
+    <div id="app">
+        <form method="POST" action="../member/post_sign" >
+            <label for="acc">帳號</label><input type="text" name="acc" v-model.lazy="account">
+            <p v-bind:class="{accOC :isacc}">帳號請以小寫字母開頭，長度需要八碼</p>
+            <p>{{isacc}}</p>
+            <p>{{msg}}</p>
+            <label for="pas">密碼</label><input type="text" name="pas" v-model.lazy="password">
+            <label for="pas">確認密碼</label><input type="text" name="pas">
+            <input type="submit">
+        </form>
+        <button onclick="chkAJAX()">確認帳號是否可用</button>
+
+    </div>
 </body>
 
 <script>
-    function chkAJAX(){
-        var acc = document.getElementById("acc").value;
-        $.ajax({
-        method: "POST",
-        url: "../member/post_signAJAX",
-        data: { acc: acc, location: "Boston" }
-        })
-        .done(function( msg ) {
-            let now = JSON.parse(msg);
-            now = now[0].n;
-            alert( "Data Saved: " + now);
-        });
-    }
+    const controlVue = new Vue({
+        el:'#app',
+        data:{
+            account:'',
+            password:'',
+            isacc:false,
+            msg:''
+        },
+        watch:{
+            account:function(newd,oldd){
+            this.regularRule();
+            }
+        },
+        methods:{
+            regularRule:function(){
+                let patt1 = /^[a-zA-Z]\w{8,12}$/;
+                let rule = patt1.test(this.account);
+                if(rule == false){
+                    this.isacc = true;
+                }
+                else if(rule == true){
+                    this.isacc = false;
+                }
+            },
+            used:function(){
+                axios.post('../member/post_signAJAX', { acc: this.account })
+                .then((res) => {
+                let accAdd = res.data[0].n;
+                if(accAdd >= 1){
+                    this.msg += '<br>此帳號已有人使用'
+                }
+                else{
+                    this.msg += '<br>此帳號可以使用'
+                }
+                })
+            .catch((error) => { console.error(error) })
+            }
+        }
+    })
+ 
 
+    // function chkAJAX(){
+    //     var acc = document.getElementById("acc").value;
+    //     axios.post('../member/post_signAJAX', { acc: acc })
+    //     .then((res) => { console.table(res.data) })
+    //     .catch((error) => { console.error(error) })
+    // }
 
 </script>
 </html>
