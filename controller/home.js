@@ -42,6 +42,10 @@ module.exports = function (request, response, controllerName) {
 		this.response.render(this.viewPath + "test.html");
 	}
 
+	this.firebase =function(){
+		this.response.render("testarea" + "/" + "firebase.html")
+	}
+
 
 	this.get_Hsk = function () {
 		var objResponse = this.response;
