@@ -86,13 +86,29 @@
         <div class="tab-pane container" id="register">
           <form action=""  onsubmit="event.preventDefault(); checkM();">
             <img src="../img/title.png" alt="" class="mx-auto d-block">
-            <div class="form-group mx-sm-3 mb-2">
-                <label>帳號</label>
-                <input type="text" class="form-control" placeholder="請輸入帳號" v-model="account">
-                <p :style="{display: rule_1}" class="format">帳號包含大小寫字母或數字<br>且為9碼以上，21碼以下<br>並以英文字母開頭</p>
-                <p>{{msg}}</p>
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-7">
+                  <div class="form-group mx-sm-3 mb-2">
+                  <label>中文全名</label>
+                  <input type="text" class="form-control" placeholder="請輸入真實姓名" maxlength="10" v-model="name">
+                  <p :style="{display: rule_1}" class="format">2-10個中文字</p>
+                  </div>
+                </div>
+                <div class="col-lg-5">
+                    <label for="gender">請選擇</label><select name="gender" id="g" class="custom-select mr-sm-2" v-model="gender">                      
+                      <option value="male">先生</option>
+                      <option value="female">女士</option>
+                    </select>
+                  
+                </div>
+              </div>
             </div>
-            <br>
+            <div class="form-group mx-sm-3 mb-2">
+              <label>信箱</label>
+              <input type="email" class="form-control" placeholder="請輸入信箱" v-model="mailbox">
+              <p :style="{display: mailbox_rule}" class="format">請正確填寫</p>
+          </div>
             <div class="form-group mx-sm-3 mb-2">
                 <label>密碼</label>
                 <input type="password" class="form-control" placeholder="請輸入密碼" v-model="password">
@@ -105,13 +121,43 @@
                 <p :style="{display: rule_3}" class="format">密碼不一致</p>
             </div>
               <br>
-            <div class="form-group mx-sm-3 mb-2">
-                <label>信箱</label>
-                <input type="email" class="form-control" placeholder="請輸入信箱">
-                <p class="format">說明</p>
+              <div class="form-group mx-sm-3 mb-2">
+                <label for="birthday">生日</label>
+                <input type="date" name="birthday" id="birthday" class="custom-select mr-sm-2" v-model="birthday">
+                <input type="text" style="display: none;" disabled v-model="hideBirth" >
             </div>
+              <div class="container">
+                <div class="form-row">
+                  <div class="col-lg-6">
+                    <div class="form-group mx-sm-3 mb-2">
+                    <label>市話</label>
+                    <input type="text" class="form-control" placeholder="市話" v-model="phone1">
+                    <p :style="{display: rule_4}" class="format">此欄位需8-10位數字</p>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group mx-sm-3 mb-2">
+                    <label>手機</label>
+                    <input type="text" class="form-control" placeholder="手機" v-model="phone2">
+                    <p :style="{display: rule_5}" class="format">此欄位需10位數字</p>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <label for="country">縣市<select name="country" id="country" class="custom-select mr-sm-2" v-model="city"></label>
+                      <option v-for="(item, index) in map">{{item.cityname}}</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label for="area">區<select name="country" id="area" class="custom-select mr-sm-2"  v-model="area"></label>
+                      <option v-for="(item, key, index) in map">{{item.areaname}}</option>
+                    </select>
+                  </div>
+
+              </div>
               <br>
-              
+                </div>
+
+
               <button type="submit" class="btn btn-outline-success mx-auto d-block">註冊</button>
               <br>
         </form>
