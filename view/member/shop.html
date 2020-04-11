@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Swiper demo</title>
+  <title>時空賊-周邊商品</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-
+  <link rel="icon" type="image/png" sizes="192x192" href="../img/favicon.ico" />
   <!-- Link Swiper's CSS -->
   <link rel="stylesheet" href="../css/swiper.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -14,7 +14,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
   <script src="../js/vue.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <title>Document</title>
+
   <!-- Demo styles -->
   <style>
     body {
@@ -41,7 +41,9 @@
       margin: auto;
       width: 80%;
     }
-
+    .card_self{
+      text-align: center;
+    }
     
   </style>
 </head>
@@ -49,7 +51,7 @@
 
     <nav class="navbar navbar-expand-md bg-dark navbar-dark">
         <!-- Brand -->
-        <a class="navbar-brand" href="../">Navbar</a>
+        <a class="navbar-brand" href="../"><img src="../img/LOGO.png" alt=""><img src="../img/title2.png" alt=""></a>
       
         <!-- Toggler/collapsibe Button -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -69,40 +71,58 @@
               <a class="nav-link" href="#">會員專區</a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="#">周邊商品</a>
+              <a class="nav-link" href="#"><i class="fa fa-shopping-cart"></i>
+                <span class="badge badge-dark">0</span></a>
             </li>
           </ul>
         </div>
     </nav>
     <div style="text-align: end;">
-      <i class="fa fa-shopping-cart" style="font-size: 48px;">
-      </i>
-      <span class="badge badge-dark" style="font-size:24px;">0</span>
+
     </div>
 
 
   <div class="carousel">
   <!-- Swiper -->
-  <div class="swiper-container">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide" style="background-image:url(./images/nature-1.jpg)"><div class="special">here's the word</div></div>
-      <div class="swiper-slide" style="background-image:url(./images/nature-2.jpg)"></div>
-      <div class="swiper-slide" style="background-image:url(./images/nature-3.jpg)"></div>
-      <div class="swiper-slide" style="background-image:url(./images/nature-4.jpg)"></div>
-      <div class="swiper-slide" style="background-image:url(./images/nature-5.jpg)"></div>
-      <div class="swiper-slide" style="background-image:url(./images/nature-6.jpg)"></div>
-      <div class="swiper-slide" style="background-image:url(./images/nature-7.jpg)"></div>
-      <div class="swiper-slide" style="background-image:url(./images/nature-8.jpg)"></div>
-      <div class="swiper-slide" style="background-image:url(./images/nature-9.jpg)"></div>
-      <div class="swiper-slide" style="background-image:url(./images/nature-1.jpg0)"></div>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" style="background-image:url(../img/goods/badge/1.png)"><div class="special">here's the word</div></div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/badge/2.png)"></div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/badge/3.png)"></div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/badge/4.png)"></div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/badge/5.png)"></div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/badge/6.png)"></div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/badge/7.png)"></div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/badge/8.png)"></div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/badge/9.png)"></div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/badge/10.png)"></div>
+      </div>
+      <!-- Add Pagination -->
+      <div class="swiper-pagination"></div>
     </div>
-    <!-- Add Pagination -->
-    <div class="swiper-pagination"></div>
   </div>
+
+  <div id='app'>
+  <div class="container">
+    <div class="row">
+      <goodbadge></goodbadge>
+      <goodbadge></goodbadge>
+      <goodbadge></goodbadge>
+      <goodbadge></goodbadge>
+    </div>
   </div>
 
 
-  <div>test</div>
+</div>
+  <template id="badge">
+    <div class="col-lg-3">
+      <div class="card_self">
+        <div class="imgcol"><img :src="imglocat" alt=""></div>
+        <div class="descriptioncol">價錢<br>款式<br>敘述</div>
+      </div>
+    </div>
+  </template>
+
 
   <!-- Swiper JS -->
   <script src="../js/swiper.min.js"></script>
@@ -125,6 +145,22 @@
         el: '.swiper-pagination',
       },
     });
+
+    Vue.component('goodbadge',{
+      data:function(){
+        return{
+          imglocat:"../img/goods/badge/9.png"
+        }
+      },
+      template:'#badge'
+    });
+
+    var vm = new Vue({
+      el:'#app',
+      data:{
+        imglocat:"../img/goods/badge/4.png"
+      }
+    })
   </script>
 </body>
 </html>

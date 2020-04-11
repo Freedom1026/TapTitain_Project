@@ -58,8 +58,8 @@ label{
     .ship{
       position: absolute;
       width: 20%;
-      left: 10%;
-      bottom: 10%;
+      right: 10%;
+      top: 13%;
       -webkit-filter: drop-shadow(12px 5px 7px rgba(0, 0, 0, 0.7));
         filter: drop-shadow(12px 5px 7px rgba(0, 0, 0, 0.7));
       z-index: -10;

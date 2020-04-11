@@ -1,57 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/space.css">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
-    <script src="../js/vue.min.js"></script>
-    <title>Document</title>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/space.css">
+  <link rel="icon" type="image/png" sizes="192x192" href="../img/favicon.ico" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+  <script src="../js/vue.min.js"></script>
+  <title>時空賊</title>
 </head>
+
 <body>
 
 
-    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-        <!-- Brand -->
-        <a class="navbar-brand" href="#">Navbar</a>
-      
-        <!-- Toggler/collapsibe Button -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <!-- Navbar links -->
-        <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="#">遊戲介紹</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">最新消息</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">會員專區</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../member/shop">周邊商品</a>
-            </li>
-          </ul>
-        </div>
-    </nav>
-  
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#"><img src="../img/LOGO.png" alt=""><img src="../img/title2.png" alt=""></a>
+
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#">遊戲介紹</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">最新消息</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">會員專區</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../member/shop">周邊商品</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
   <div id="app">
-    <img src="img/ship.png" alt=""  class="ship">
+    <img src="img/ship.png" alt="" class="ship">
 
 
     <div class="formPlace">
-    
+
       <ul class="nav nav-tabs">
         <li class="nav-item">
           <a class="nav-link active" data-toggle="tab" href="#home">登入</a>
@@ -60,125 +62,130 @@
           <a class="nav-link" data-toggle="tab" href="#register">註冊</a>
         </li>
       </ul>
-    
+
       <div class="tab-content">
-    
+
         <div class="tab-pane container active" id="home">
           <form action="">
             <img src="../img/title.png" alt="" class="mx-auto d-block">
             <div class="form-group mx-sm-3 mb-2">
-                <label>帳號</label>
-                <input type="text" class="form-control" placeholder="請輸入帳號">
+              <label>帳號</label>
+              <input type="text" class="form-control" placeholder="請輸入帳號">
             </div>
-            
+
             <br>
             <div class="form-group mx-sm-3 mb-2">
-                <label>密碼</label>
-                <input type="password" class="form-control" placeholder="請輸入密碼">
-              </div>
-              <br>
-              <button type="submit" class="btn btn-outline-success mx-auto d-block">開始遊戲</button>
-              <br>
-              
-        </form>
+              <label>密碼</label>
+              <input type="password" class="form-control" placeholder="請輸入密碼">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-outline-success mx-auto d-block">開始遊戲</button>
+            <br>
+
+          </form>
         </div>
-    
+
         <div class="tab-pane container" id="register">
-          <form action=""  onsubmit="event.preventDefault(); checkM();">
+          <form action="" onsubmit="event.preventDefault(); checkM();">
             <img src="../img/title.png" alt="" class="mx-auto d-block">
-            
-              <div class="row">
-                <div class="col-lg-7">
-                  <div class="form-group mx-sm-3 mb-2">
+
+            <div class="row">
+              <div class="col-lg-7">
+                <div class="form-group mx-sm-3 mb-2">
                   <label>中文全名</label>
                   <input type="text" class="form-control" placeholder="請輸入真實姓名" maxlength="10" v-model="name">
                   <p :style="{display: rule_1}" class="format">2-10個中文字</p>
-                  </div>
-                </div>
-                <div class="col-lg-5">
-                    <label for="gender">請選擇</label><select name="gender" id="g" class="custom-select mr-sm-2" v-model="gender">                      
-                      <option value="male">先生</option>
-                      <option value="female">女士</option>
-                    </select>
-                  
                 </div>
               </div>
-            
+              <div class="col-lg-5">
+                <label for="gender">請選擇</label><select name="gender" id="g" class="custom-select mr-sm-2"
+                  v-model="gender">
+                  <option value="male">先生</option>
+                  <option value="female">女士</option>
+                </select>
+
+              </div>
+            </div>
+
             <div class="form-group mx-sm-3 mb-2">
               <label>信箱</label>
               <input type="email" class="form-control" placeholder="請輸入信箱" v-model.lazy="mailbox">
               <p :style="{display: mailbox_rule}" class="format">請正確填寫</p>
             </div>
             <div class="form-group mx-sm-3 mb-2">
-                <label>密碼</label>
-                <input type="password" class="form-control" placeholder="請輸入密碼" v-model.lazy="password">
-                <p :style="{display: rule_2}" class="format">至少包含１個大寫字母、小寫字母、數字、符號<br>且至少六個字元</p>
+              <label>密碼</label>
+              <input type="password" class="form-control" placeholder="請輸入密碼" v-model="password">
+              <p :style="{display: rule_2}" class="format">至少包含１個大寫字母、小寫字母、數字、符號<br>且至少六個字元</p>
             </div>
-              <br>
             <div class="form-group mx-sm-3 mb-2">
-                <label>確認密碼</label>
-                <input type="password" class="form-control" placeholder="請確認密碼" v-model="confirm">
-                <p :style="{display: rule_3}" class="format">密碼不一致</p>
+              <label>確認密碼</label>
+              <input type="password" class="form-control" placeholder="請重新輸入密碼" v-model="confirm">
+              <p :style="{display: rule_3}" class="format">密碼不一致</p>
             </div>
-              <br>
-              <div class="form-group mx-sm-3 mb-2">
-                <label for="birthday">生日</label>
-                <input type="date" name="birthday" id="birthday" class="custom-select mr-sm-2" v-model="birthday">
-                <input type="text" style="display: none;" disabled v-model="hideBirth" >
+            <br>
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="birthday">生日</label>
+              <input type="date" name="birthday" id="birthday" class="custom-select mr-sm-2" v-model="birthday">
+              <input type="text" style="display: none;" disabled v-model="hideBirth">
             </div>
-              
-                <div class="form-row">
-                  <div class="col-lg-6">
-                    <div class="form-group mx-sm-3 mb-2">
-                    <label>市話</label>
-                    <input type="text" class="form-control" placeholder="市話" v-model="phone1">
-                    <p :style="{display: rule_4}" class="format">此欄位需8-10位數字</p>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="form-group mx-sm-3 mb-2">
-                    <label>手機</label>
-                    <input type="text" class="form-control" placeholder="手機" v-model="phone2">
-                    <p :style="{display: rule_5}" class="format">此欄位需10位數字</p>
-                    </div>
-                  </div>
+
+            <div class="form-row">
+              <div class="col-lg-6">
+                <div class="form-group mx-sm-3 mb-2">
+                  <label>市話</label>
+                  <input type="text" class="form-control" placeholder="02xxxxxxxx" v-model="phone1">
+                  <p :style="{display: rule_4}" class="format">此欄位需8-10位數字</p>
                 </div>
-                <p>地址</p>
-                <hr>
-                  <div class="row">
-                  <div class="col-lg-6">
-                    <label for="country" class="form-group mx-sm-3 mb-2">縣市<select name="country" id="country" class="custom-select mr-sm-2" v-model="city" @change="city_check($event.target.selectedOptions[0].index)"></label>
-                      <option v-for="(item, index) in city_map" :value="item.cityname">{{item.cityname}}</option>
-                    </select>
-                  </div>
-                  <div class="col-lg-6">
-                    <label for="area" class="form-group mx-sm-3 mb-2">區<select name="country" id="area" class="custom-select mr-sm-2"  v-model="area"></label>
-                      <option v-for="(item, index) in area_map" :value="item">{{item}}</option>
-                    </select>
-                  </div>
-                  </div>
-                  <div class="form-group mx-sm-3 mb-2">
-                    <input type="text" class="form-control" placeholder="詳細地址" v-model="address">
-                    <p :style="{display: rule_6}" class="format">請正確填寫</p>
-                  </div>
-              
-              <br>
-                
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group mx-sm-3 mb-2">
+                  <label>手機</label>
+                  <input type="text" class="form-control" placeholder="09xxxxxxxx" v-model="phone2">
+                  <p :style="{display: rule_5}" class="format">此欄位需10位數字</p>
+                </div>
+              </div>
+            </div>
+
+            <hr>
+            <label for="">地址</label>
+            <div class="row">
+              <div class="col-lg-6">
+                <label for="country" class="form-group mx-sm-3 mb-2">縣市<select name="country" id="country"
+                    class="custom-select mr-sm-2" v-model="city"
+                    @change="city_check($event.target.selectedOptions[0].index)"></label>
+                <option v-for="(item, index) in city_map" :value="item.cityname">{{item.cityname}}</option>
+                </select>
+              </div>
+              <div class="col-lg-6">
+                <label for="area" class="form-group mx-sm-3 mb-2">區<select name="country" id="area"
+                    class="custom-select mr-sm-2" v-model="area"></label>
+                <option v-for="(item, index) in area_map" :value="item">{{item}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+              <input type="text" class="form-control" placeholder="詳細地址" v-model="address">
+              <p :style="{display: rule_6}" class="format">請正確填寫</p>
+            </div>
+
+            <br>
 
 
-              <button type="submit" class="btn btn-outline-success mx-auto d-block">註冊</button>
-              <br>
-        </form>
+
+            <button type="submit" class="btn btn-outline-success mx-auto d-block">註冊</button>
+            <br>
+          </form>
         </div>
       </div>
-    
-    
+
+
     </div>
   </div>
 
 
-        <script src="../js/index.js"></script>
-    
+  <script src="../js/index.js"></script>
+
 
 </body>
+
 </html>

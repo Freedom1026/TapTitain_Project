@@ -19,7 +19,7 @@ app.use(session({
 }));
 
 //回絕icon要求 ----->之後再說
-app.get('/favicon.ico', (req, res) => res.status(204));
+// app.get('/favicon.ico', (req, res) => res.status(204));
 
 // 指定 esj 為 Express 的畫面處理引擎
 app.set('view engine', 'ejs');
