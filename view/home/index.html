@@ -86,7 +86,7 @@
         <div class="tab-pane container" id="register">
           <form action=""  onsubmit="event.preventDefault(); checkM();">
             <img src="../img/title.png" alt="" class="mx-auto d-block">
-            <div class="container">
+            
               <div class="row">
                 <div class="col-lg-7">
                   <div class="form-group mx-sm-3 mb-2">
@@ -103,15 +103,15 @@
                   
                 </div>
               </div>
-            </div>
+            
             <div class="form-group mx-sm-3 mb-2">
               <label>信箱</label>
-              <input type="email" class="form-control" placeholder="請輸入信箱" v-model="mailbox">
+              <input type="email" class="form-control" placeholder="請輸入信箱" v-model.lazy="mailbox">
               <p :style="{display: mailbox_rule}" class="format">請正確填寫</p>
-          </div>
+            </div>
             <div class="form-group mx-sm-3 mb-2">
                 <label>密碼</label>
-                <input type="password" class="form-control" placeholder="請輸入密碼" v-model="password">
+                <input type="password" class="form-control" placeholder="請輸入密碼" v-model.lazy="password">
                 <p :style="{display: rule_2}" class="format">至少包含１個大寫字母、小寫字母、數字、符號<br>且至少六個字元</p>
             </div>
               <br>
@@ -126,7 +126,7 @@
                 <input type="date" name="birthday" id="birthday" class="custom-select mr-sm-2" v-model="birthday">
                 <input type="text" style="display: none;" disabled v-model="hideBirth" >
             </div>
-              <div class="container">
+              
                 <div class="form-row">
                   <div class="col-lg-6">
                     <div class="form-group mx-sm-3 mb-2">
@@ -142,20 +142,28 @@
                     <p :style="{display: rule_5}" class="format">此欄位需10位數字</p>
                     </div>
                   </div>
-                  <div class="col-lg-4">
-                    <label for="country">縣市<select name="country" id="country" class="custom-select mr-sm-2" v-model="city"></label>
-                      <option v-for="(item, index) in map">{{item.cityname}}</option>
-                    </select>
-                  </div>
-                  <div class="col-lg-4">
-                    <label for="area">區<select name="country" id="area" class="custom-select mr-sm-2"  v-model="area"></label>
-                      <option v-for="(item, key, index) in map">{{item.areaname}}</option>
-                    </select>
-                  </div>
-
-              </div>
-              <br>
                 </div>
+                <p>地址</p>
+                <hr>
+                  <div class="row">
+                  <div class="col-lg-6">
+                    <label for="country" class="form-group mx-sm-3 mb-2">縣市<select name="country" id="country" class="custom-select mr-sm-2" v-model="city" @change="city_check($event.target.selectedOptions[0].index)"></label>
+                      <option v-for="(item, index) in city_map" :value="item.cityname">{{item.cityname}}</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-6">
+                    <label for="area" class="form-group mx-sm-3 mb-2">區<select name="country" id="area" class="custom-select mr-sm-2"  v-model="area"></label>
+                      <option v-for="(item, index) in area_map" :value="item">{{item}}</option>
+                    </select>
+                  </div>
+                  </div>
+                  <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control" placeholder="詳細地址" v-model="address">
+                    <p :style="{display: rule_6}" class="format">請正確填寫</p>
+                  </div>
+              
+              <br>
+                
 
 
               <button type="submit" class="btn btn-outline-success mx-auto d-block">註冊</button>

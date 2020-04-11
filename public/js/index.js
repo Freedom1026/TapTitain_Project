@@ -11,6 +11,7 @@ const controlVue = new Vue({
         birthday:'',
         phone1:'',
         phone2:'',
+        address:'',
         rule_1:'none',
         mailbox_rule:'none',
         rule_2:'none',
@@ -19,10 +20,12 @@ const controlVue = new Vue({
         hideBirth:0,
         rule_4:'none',
         rule_5:'none',
-        map: districtList,
-        city:'',
-        area:'',
-        index_city:''
+        city_map: districtList,
+        area_map:districtList[0].areaname,
+        city:'臺北市',
+        area:'中正區',
+        index_city:0,
+        rule_6:'none'
     },
     watch:{
         name(newd,oldd){
@@ -51,8 +54,8 @@ const controlVue = new Vue({
         city(){
             this.city_check();
         },
-        area(){
-
+        address(){
+            this.add_check();
         }
     },
     methods:{
@@ -67,7 +70,7 @@ const controlVue = new Vue({
             }
         },
         regularRule_mailbox(){
-            let patt=/^.*@\w*\.com$/;
+            let patt=/[a-zA-Z0-9]+@[a-zA-Z0-9.]+/;
             let rule = patt.test(this.mailbox);
             if(rule == false){
                 this.mailbox_rule ='block';
@@ -125,7 +128,7 @@ const controlVue = new Vue({
             }
         },
         phone2_check(){
-            let patt = /\d{10}$/;
+            let patt = /^09\d{8}$/;
             this.phone2 = this.phone2.replace(/-/gi,'');
             this.phone2 = this.phone2.replace(/\s/gi,'');
             let rule = patt.test(this.phone2);
@@ -136,10 +139,19 @@ const controlVue = new Vue({
                 this.rule_5 = 'block';
             }
         },
-        city_check(){
-            console.log(this.city);
+        city_check(self){
+            this.index_city = self;
+            this.area_map = districtList[this.index_city].areaname;
         },
-        area_check(){
+        add_check(){
+            let patt = /[^`~%@#$^*!&+'"?<>/\\]+/;
+            let rule = patt.test(this.address);
+            if(rule == true){
+                this.rule_6 = 'none';
+            }
+            else if(rule == false){
+                this.rule_6 = 'block'
+            }
 
         }
     }
