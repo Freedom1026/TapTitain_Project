@@ -45,7 +45,6 @@ module.exports = function (request, response, controllerName) {
 	this.shop = function(){
 		this.response.render(this.viewPath + "shop.html");
 	}
-	
 }	
 
 

@@ -105,20 +105,17 @@
   <div id='app'>
   <div class="container">
     <div class="row">
-      <goodbadge></goodbadge>
-      <goodbadge></goodbadge>
-      <goodbadge></goodbadge>
-      <goodbadge></goodbadge>
+      <goodbadge v-for="(item, index) in goods" :imgu="item.imgurl" :pn="item.pname"></goodbadge>
     </div>
   </div>
 
 
 </div>
   <template id="badge">
-    <div class="col-lg-3">
+    <div class="col-lg-3 col-6">
       <div class="card_self">
-        <div class="imgcol"><img :src="imglocat" alt=""></div>
-        <div class="descriptioncol">價錢<br>款式<br>敘述</div>
+        <div class="imgcol"><img :src="imgu" alt=""></div>
+        <div class="descriptioncol">{{pn}}<br>簡述<br>價格</div>
       </div>
     </div>
   </template>
@@ -147,17 +144,37 @@
     });
 
     Vue.component('goodbadge',{
-      data:function(){
-        return{
-          imglocat:"../img/goods/badge/9.png"
-        }
-      },
+      props:['imgu','pn'],
       template:'#badge'
     });
 
     var vm = new Vue({
       el:'#app',
       data:{
+        goods:[
+        {imgurl:"../img/goods/badge/1.png",
+        pname:"布布徽章"},
+        {imgurl:"../img/goods/badge/2.png",
+        pname:"四毛徽章"},
+        {imgurl:"../img/goods/badge/3.png",
+        pname:"三眼徽章"},
+        {imgurl:"../img/goods/badge/4.png",
+        pname:"四腳徽章"},
+        {imgurl:"../img/goods/badge/5.png",
+        pname:"毛毛徽章"},
+        {imgurl:"../img/goods/badge/6.png",
+        pname:"豬豬徽章"},
+        {imgurl:"../img/goods/badge/7.png",
+        pname:"小蛙徽章"},
+        {imgurl:"../img/goods/badge/8.png",
+        pname:"驚驚徽章"},
+        {imgurl:"../img/goods/badge/9.png",
+        pname:"Logo徽章"},
+        {imgurl:"../img/goods/badge/10.png",
+        pname:"凹嗚徽章"},
+        {imgurl:"../img/goods/badge/11.png",
+        pname:"Logo徽章"}
+        ],
         imglocat:"../img/goods/badge/4.png"
       }
     })

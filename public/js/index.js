@@ -28,9 +28,10 @@ const controlVue = new Vue({
         rule_6:'none'
     },
     watch:{
-        name(newd,oldd){
+        name(){
            this.regularRule_name();
-        },mailbox(){
+        },
+        mailbox(){
             this.regularRule_mailbox();
             if(this.rule_2 == 'none'){
                 this.used();
@@ -117,8 +118,8 @@ const controlVue = new Vue({
         },
         phone1_check(){
             let patt = /^\d{8,10}$/;
-            this.phone1 = this.phone1.replace(/-/gi,'');
-            this.phone1 = this.phone1.replace(/\s/gi,'');
+            this.phone1 = this.phone1.replace(/-/g,'');
+            this.phone1 = this.phone1.replace(/\s/g,'');
             let rule = patt.test(this.phone1);
             if(rule == true){
                 this.rule_4 = 'none';
