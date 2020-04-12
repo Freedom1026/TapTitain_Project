@@ -25,7 +25,8 @@ const controlVue = new Vue({
         city:'臺北市',
         area:'中正區',
         index_city:0,
-        rule_6:'none'
+        rule_6:'none',
+        sendornot:false
     },
     watch:{
         name(){
@@ -81,7 +82,7 @@ const controlVue = new Vue({
             }
         },
         regularRule_password(){
-            let patt =/^(?=.*[^a-zA-Z0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{6,}$/;
+            let patt =/^(?=.*[^a-zA-Z0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{6,20}$/;
             let rule = patt.test(this.password)
             if(rule == false){
                 this.rule_2 = 'block';
@@ -159,6 +160,30 @@ const controlVue = new Vue({
 })
 
 const checkM = function(){
-    console.log("'我應該出現'");
-    return false;
+    var errMSG = '';
+    if(controlVue.rule_1 !== 'none'){
+        errMSG += "R1";
+    }
+    if(controlVue.rule_2 !== 'none'){
+        errMSG += "R2";
+    }
+    if(controlVue.rule_3 !== 'none'){
+        errMSG += "R3";
+    }
+    if(controlVue.rule_4 !== 'none'){
+        errMSG += "R4";
+    }
+    if(controlVue.rule_5 !== 'none'){
+        errMSG += "R5";
+    }
+    if(controlVue.rule_6 !== 'none'){
+        errMSG += "R6";
+    }
+    if(errMSG !== ''){
+        console.log(errMSG);
+        return false;
+    }else{
+        return true;
+    }
+
 }

@@ -70,6 +70,10 @@
             <li class="nav-item">
               <a class="nav-link" href="#">會員專區</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><i class="fa fa-user" aria-hidden="true"></i>
+              登入/註冊</a>
+            </li>
             <li class="nav-item active">
               <a class="nav-link" href="#"><i class="fa fa-shopping-cart"></i>
                 <span class="badge badge-dark">0</span></a>
@@ -104,8 +108,9 @@
 
   <div id='app'>
   <div class="container">
+    <p>徽章專區</p>
     <div class="row">
-      <goodbadge v-for="(item, index) in goods" :imgu="item.imgurl" :pn="item.pname"></goodbadge>
+      <goodbadge v-for="(item, index) in goods" :imgu="item.imgurl" :pn="item.pname" :ppr="item.price"></goodbadge>
     </div>
   </div>
 
@@ -115,7 +120,9 @@
     <div class="col-lg-3 col-6">
       <div class="card_self">
         <div class="imgcol"><img :src="imgu" alt=""></div>
-        <div class="descriptioncol">{{pn}}<br>簡述<br>價格</div>
+        <div class="descriptioncol">{{pn}}<br>{{"$"+ppr}}<br>
+          <button @click="add(pn)">加入購物車</button>
+        </div>
       </div>
     </div>
   </template>
@@ -144,7 +151,14 @@
     });
 
     Vue.component('goodbadge',{
-      props:['imgu','pn'],
+      props:['imgu','pn','ppr'],
+      data:function(){
+        return{
+          add:function(price){
+            alert(price);
+          }
+        }
+      },
       template:'#badge'
     });
 
@@ -153,29 +167,36 @@
       data:{
         goods:[
         {imgurl:"../img/goods/badge/1.png",
-        pname:"布布徽章"},
+        pname:"布布徽章",
+        price:81},
         {imgurl:"../img/goods/badge/2.png",
-        pname:"四毛徽章"},
+        pname:"四毛徽章",
+        price:81},
         {imgurl:"../img/goods/badge/3.png",
-        pname:"三眼徽章"},
+        pname:"三眼徽章",
+        price:81},
         {imgurl:"../img/goods/badge/4.png",
-        pname:"四腳徽章"},
+        pname:"四腳徽章",
+        price:81},
         {imgurl:"../img/goods/badge/5.png",
-        pname:"毛毛徽章"},
+        pname:"毛毛徽章",
+        price:81},
         {imgurl:"../img/goods/badge/6.png",
-        pname:"豬豬徽章"},
+        pname:"豬豬徽章",
+        price:81},
         {imgurl:"../img/goods/badge/7.png",
-        pname:"小蛙徽章"},
+        pname:"小蛙徽章",
+        price:81},
         {imgurl:"../img/goods/badge/8.png",
-        pname:"驚驚徽章"},
-        {imgurl:"../img/goods/badge/9.png",
-        pname:"Logo徽章"},
+        pname:"驚驚徽章",
+        price:81},
         {imgurl:"../img/goods/badge/10.png",
-        pname:"凹嗚徽章"},
-        {imgurl:"../img/goods/badge/11.png",
-        pname:"Logo徽章"}
+        pname:"凹嗚徽章",
+        price:81},
+        {imgurl:"../img/goods/badge/9.png",
+        pname:"Logo徽章",
+        price:81},
         ],
-        imglocat:"../img/goods/badge/4.png"
       }
     })
   </script>
