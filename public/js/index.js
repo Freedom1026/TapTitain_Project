@@ -180,7 +180,7 @@ const checkM = function(){
         errMSG += "R6";
     }
     if(errMSG !== ''){
-        console.log(errMSG);
+        alert("請正確填寫!");
         return false;
     }else{
         return true;
