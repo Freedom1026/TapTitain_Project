@@ -172,7 +172,7 @@ $(window).on('beforeunload',function(){
     var newItem ={
         lv : Me.LV,
         stage : atStage,
-        coin : Me.coin,
+        coin : Me.Coin,
         sk_A : fortune.lv,
         sk_B : wild.lv
     };
