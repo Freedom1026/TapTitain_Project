@@ -7,82 +7,11 @@
 // var SkillDh = canvas.width /12;
 
 
+
+
 //-------------技能-------------
 //拿jquery去抓技能圖示 顯示技能視窗
     
-    $(function(){
-            $.get("/home/get_Hsk", function (e) {
-                var HeroData = JSON.parse(e);
-                
-                SkillArray[0].LV = HeroData[0].heroLv;
-                SkillArray[1].lv = HeroData[0].heroSkLv_A;
-                SkillArray[2].lv = HeroData[0].heroSkLv_B;
-
-            }).then(function(){
-                    SkillArray.forEach(function(val,ind){
-                        if(ind != 0){
-                            let now = ind + 1;
-                            Me.updateATK();
-                            $(`span.${val.skname}`).text(`Lv.${val.lv}`);
-                            if(val.lv > 0){
-                                $(`div.actSkill span:nth-child(${ind})`).css("visibility","visible");
-                            }
-                        }
-                        else{
-                            let now = ind + 1;
-                            Me.updateATK();
-                            $('span.origin').text(`Lv.${val.LV}`);
-                        }
-                    })
-            })
-
-           
-        })
-
-
-
-        
-        function levelUp(skill,skID){
-            if(skID != 0 && SkillArray[skID].SKOpenFlag){
-                SkillArray[skID].lv ++;
-                //傳入參數: 技能名稱
-                $(`span.${skill}`).text(`Lv.${SkillArray[skID].lv}`);
-                $(`div.actSkill span:nth-child(${skID})`).css("visibility","visible");
-
-                //扣除金錢function
-                spend(skID)
-            }
-            else if(skID == 0){
-                //排除第一個主角升級  
-                Me.updateATK();
-                SkillArray[0].LV++;
-                $(`span.${skill}`).text(`Lv.${SkillArray[0].LV}`);
-                return;
-            }
-        }
-    
-        function spend(skID){
-            Me.Coin -= SkillArray[skID].upSpend[SkillArray[skID].lv];
-        }
-
-        
-        $('#btn_hero').click(function(){panelgo("div.heroSkill",this)});
-        $('#btn_creature').click(function(){panelgo("div.creatureSkill",this)})
-        
-        function panelgo(pn,btn){
-            
-            if($(pn).css("visibility") == "visible"){
-                $(pn).css("visibility","hidden");
-                btn.style.backgroundColor = "white";  
-                }
-                else{
-                $(pn).css("visibility","visible")
-                btn.style.backgroundColor = "brown";
-                // $(pn).css("display","block");
-                }
-            }
-    
-
 //---------------------------------------上面是畫面function 下面是物件funciton
 
 
@@ -122,10 +51,10 @@ var HSK = class HSK{
     // }
 
     //設定計時時間   
-    timeReset(ele){
+    timeReset(ele, rA, rB){
         if(this.t_B <=0){
-            this.t_A = this.skTime[this.lv];
-            this.t_B = this.coolTime[this.lv];
+            this.t_A = rA | this.skTime[this.lv];
+            this.t_B = rB | this.coolTime[this.lv];
             this.timeStart = setInterval (()=>this.timeCount(ele) , 1000);
             //call function of content
             this.execute();
@@ -231,6 +160,118 @@ class ActSkill_C extends HSK {
 
 var fortune = new ActSkill_B("fortune", 0);
 var wild = new ActSkill_C("wild", 0);
+var SkillArray = [Me, fortune, wild];
 
-var SkillArray = [ Me, fortune, wild];
+$(window).on('beforeunload',function(){
+    //localstorage
+    localStorage.setItem('fortuneA', fortune.t_A);
+    localStorage.setItem('fortuneB', fortune.t_B);
+    localStorage.setItem('wildA', wild.t_A);
+    localStorage.setItem('wildB', wild.t_B);
+
+    var newItem ={
+        lv : Me.LV,
+        stage : atStage,
+        coin : Me.coin,
+        sk_A : fortune.lv,
+        sk_B : wild.lv
+    };
+
+    $.ajax({
+        type: "put",
+        url: "/member/record",
+        data: newItem
+    })
+
+
+    return false;
+})
+
+//---------------------------------------上面是畫面function 下面是物件funciton
+
+
+$(function(){
+    $.get("/home/get_Hsk", function (e) {
+        var HeroData = JSON.parse(e);
+        console.log(HeroData);
+        SkillArray[0].LV = HeroData[0].lv;
+        SkillArray[1].lv = HeroData[0].sk_A;
+        SkillArray[2].lv = HeroData[0].sk_B;
+
+    }).then(function(){
+            SkillArray.forEach(function(val,ind){
+                if(ind != 0){
+                    let now = ind + 1;
+                    Me.updateATK();
+                    $(`span.${val.skname}`).text(`Lv.${val.lv}`);
+                    if(val.lv > 0){
+                        $(`div.actSkill span:nth-child(${ind})`).css("visibility","visible");
+                    }
+                }
+                else{
+                    let now = ind + 1;
+                    Me.updateATK();
+                    $('span.origin').text(`Lv.${val.LV}`);
+                }
+            })
+    })
+
+    //localstorage
+    if(localStorage.getItem('fortuneA')){
+        let theRestAA = localStorage.getItem('fortuneA');
+        let theRestAB = localStorage.getItem('fortuneB');
+        fortune.timeReset('#actBTN_A', theRestAA, theRestAB);
+    }
+    
+    if(localStorage.getItem('wildB')){
+        let theRestBA = localStorage.getItem('wildA');
+        let theRestBB = localStorage.getItem('wildB');
+        wild.timeReset('#actBTN_B', theRestBA, theRestBB);
+    }
+
+   
+})
+
+
+
+
+function levelUp(skill,skID){
+    if(skID != 0 && SkillArray[skID].SKOpenFlag){
+        SkillArray[skID].lv ++;
+        //傳入參數: 技能名稱
+        $(`span.${skill}`).text(`Lv.${SkillArray[skID].lv}`);
+        $(`div.actSkill span:nth-child(${skID})`).css("visibility","visible");
+
+        //扣除金錢function
+        spend(skID)
+    }
+    else if(skID == 0){
+        //排除第一個主角升級  
+        Me.updateATK();
+        SkillArray[0].LV++;
+        $(`span.${skill}`).text(`Lv.${SkillArray[0].LV}`);
+        return;
+    }
+}
+
+function spend(skID){
+    Me.Coin -= SkillArray[skID].upSpend[SkillArray[skID].lv];
+}
+
+
+$('#btn_hero').click(function(){panelgo("div.heroSkill",this)});
+$('#btn_creature').click(function(){panelgo("div.creatureSkill",this)})
+
+function panelgo(pn,btn){
+    
+    if($(pn).css("visibility") == "visible"){
+        $(pn).css("visibility","hidden");
+        btn.style.backgroundColor = "white";  
+        }
+        else{
+        $(pn).css("visibility","visible")
+        btn.style.backgroundColor = "brown";
+        // $(pn).css("display","block");
+        }
+    }
 

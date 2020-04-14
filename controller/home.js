@@ -5,7 +5,7 @@ module.exports = function (request, response, controllerName) {
 		host : '127.0.0.1',
 		user : 'root',
 		password : '',
-		database : 'moontower'
+		database : 'time_thief'
 	});
 
 	connection.connect(function(err) {
@@ -24,13 +24,11 @@ module.exports = function (request, response, controllerName) {
 	
 
 	this.index = function(){
-		this.response.render(this.viewPath + "index.html");
+		this.response.render(this.viewPath + "index.html",{ Msg: request.session.errMsg});
 	}
     
 	this.game = function () {
-		this.response.render(this.viewPath + "game.html", 
-			{ MeLv: 1}
-		);
+		this.response.render(this.viewPath + "game.html");
 	}
 	this.signup = function () {
 		this.response.render(this.viewPath + "signup.html");
@@ -49,7 +47,8 @@ module.exports = function (request, response, controllerName) {
 
 	this.get_Hsk = function () {
 		var objResponse = this.response;
-		connection.query('select heroLv, heroSkLv_A, heroSkLv_B, coin from myself where id = ?', ['1'], function(err, rows){
+		let user = request.session.user;
+		connection.query('select lv, sk_A, sk_B, coin from myself where uid = ?', [user], function(err, rows){
 			if(err){
 				console.log(JSON.stringify(err));
 				return;

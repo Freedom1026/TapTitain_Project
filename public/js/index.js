@@ -8,7 +8,6 @@ const controlVue = new Vue({
         mailbox:'',
         password:'',
         confirm:'',
-        birthday:'',
         phone1:'',
         phone2:'',
         address:'',
@@ -17,7 +16,6 @@ const controlVue = new Vue({
         rule_2:'none',
         rule_3:'none',
         msg:'',
-        hideBirth:0,
         rule_4:'none',
         rule_5:'none',
         city_map: districtList,
@@ -43,9 +41,6 @@ const controlVue = new Vue({
         },
         confirm(){
             this.regularRule_confirm();
-        },
-        birthday(){
-            this.birthday_format();
         },
         phone1(){
             this.phone1_check();
@@ -113,10 +108,6 @@ const controlVue = new Vue({
             })
         .catch((error) => { console.error(error) })
         },
-        birthday_format(){
-            let date = new Date(this.birthday);
-            this.hideBirth = date.getTime()/1000;
-        },
         phone1_check(){
             let patt = /^\d{8,10}$/;
             this.phone1 = this.phone1.replace(/-/g,'');
@@ -136,9 +127,11 @@ const controlVue = new Vue({
             let rule = patt.test(this.phone2);
             if(rule == true){
                 this.rule_5 = 'none';
+                this.sendornot = true;
             }
             else if(rule == false){
                 this.rule_5 = 'block';
+                this.sendornot = false;
             }
         },
         city_check(self){
@@ -155,35 +148,42 @@ const controlVue = new Vue({
                 this.rule_6 = 'block'
             }
 
-        }
+        },
     }
 })
 
 const checkM = function(){
     var errMSG = '';
     if(controlVue.rule_1 !== 'none'){
+        event.preventDefault(); 
         errMSG += "R1";
     }
     if(controlVue.rule_2 !== 'none'){
+        event.preventDefault(); 
         errMSG += "R2";
     }
     if(controlVue.rule_3 !== 'none'){
+        event.preventDefault(); 
         errMSG += "R3";
     }
     if(controlVue.rule_4 !== 'none'){
+        event.preventDefault(); 
         errMSG += "R4";
     }
     if(controlVue.rule_5 !== 'none'){
+        event.preventDefault(); 
         errMSG += "R5";
     }
     if(controlVue.rule_6 !== 'none'){
+        event.preventDefault(); 
         errMSG += "R6";
+    }
+    if(controlVue.sendornot == false){
+        event.preventDefault(); 
     }
     if(errMSG !== ''){
         alert("請正確填寫!");
-        return false;
     }else{
-        return true;
     }
 
 }

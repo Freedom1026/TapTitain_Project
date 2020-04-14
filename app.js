@@ -14,7 +14,7 @@ app.use( express.static( "public" ) );
 var session = require('express-session');
 app.use(session({
     secret: 'secretKey',
-    resave: false,
+    resave: true,
     saveUninitialized: true
 }));
 
@@ -52,6 +52,12 @@ app.get("/:controllerName/:actionName", function (request, response) {
 app.post("/:controllerName/:actionName", function (request, response) {
     var controllerName = request.params.controllerName;
     var actionName = request.params.actionName;
+    doControllerAction(controllerName, actionName, request, response);
+});
+
+app.put("/:controllerName/:actionName", function (request, response) {
+    var controllerName = request.params.controllerName;
+    var actionName = "put_" + request.params.actionName;
     doControllerAction(controllerName, actionName, request, response);
 });
 
