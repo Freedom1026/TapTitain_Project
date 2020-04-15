@@ -49,9 +49,9 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
         <!-- Brand -->
-        <a class="navbar-brand" href="../"><img src="../img/LOGO.png" alt=""><img src="../img/title2.png" alt=""></a>
+        <a class="navbar-brand" href="../"><img src="../img/LOGO.png" alt="" style="height: 30px;"><img src="../img/title2.png" alt="" style="height: 30px;"></a>
       
         <!-- Toggler/collapsibe Button -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -120,7 +120,7 @@
     <div class="col-lg-3 col-6">
       <div class="card_self">
         <div class="imgcol"><img :src="imgu" alt=""></div>
-        <div class="descriptioncol">{{pn}}<br>{{"$"+ppr}}<br>
+        <div class="descriptioncol">{{pn}}<br>尺寸：直徑7.5cm<br>材質：金屬<br>{{"$"+ppr}}<br>
           <button @click="add(pn)">加入購物車</button>
         </div>
       </div>
