@@ -13,8 +13,6 @@ var ChaDw = canvas.width/12*2;
 var ChaDy = canvas.height - ChaDw*1.2;
 //高度之後要調整 -->目前依賴寬度
 var ChaDh = ChaDw;
-ctx.fillStyle = "#03fcd7";
-ctx.fillRect(ChaDx, ChaDy, ChaDw, ChaDh)
 }
 else{
 //RWD係數 -->寬度係數不同
@@ -25,9 +23,6 @@ var ChaDw = canvas.width/24*2.5;
 var ChaDy = canvas.height - ChaDw*2;
 //高度之後要調整 -->目前依賴寬度
 var ChaDh = ChaDw;
-ctx.fillStyle = "#03fcd7";
-ctx.fillRect(ChaDx, ChaDy, ChaDw, ChaDh)
-
 }
 
 
@@ -58,7 +53,7 @@ class mainCha extends Cha {
         //等級 可以直接載入
         this.LV = 1;
         //金幣 可以直接載入
-        this.Coin = 8000;
+        this.Coin = 0;
         this.LvUpSpend = [0,10,15,20,21,25,70]
     }    
     normal(){
@@ -154,11 +149,9 @@ console.log(C_A)
 $(function(){
     $.get("/home/get_Csk", function (e) {
         var Data = JSON.parse(e);
-        
-        
-        C_array[0].lv = Data[0].A;
-        C_array[1].lv = Data[0].B;
-        C_array[2].lv = Data[0].C;
+        C_array[0].lv = Data[0].yellow;
+        C_array[1].lv = Data[0].purple;
+        C_array[2].lv = Data[0].blue;
 
 
     }).then(function(){
@@ -183,6 +176,22 @@ function ClevelUp(skill,skID){
 
             //扣除金錢function
             Cspend(skID)
+
+            var newItem ={
+                lv : Me.LV,
+                stage : atStage,
+                coin : Me.Coin,
+                sk_A : fortune.lv,
+                sk_B : wild.lv,
+                yellow : C_A.lv,
+                purple : C_B.lv,
+                blue : C_C.lv
+            };
+            $.ajax({
+                type: "put",
+                url: "/member/record",
+                data: newItem
+            })
         }
 
     }

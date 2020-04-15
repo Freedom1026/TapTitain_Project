@@ -101,6 +101,7 @@ canvas{
 
 }
 div.hideBlock{
+    visibility: hidden;
     position: relative;
     height: 22vh;
 

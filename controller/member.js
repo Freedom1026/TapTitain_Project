@@ -96,13 +96,20 @@ module.exports = function (request, response, controllerName) {
 	}
 
 	this.put_record = function(){
+		//
 		let lv = request.body.lv;
         let stage = request.body.stage;
         let coin =request.body.coin;
         let sk_A = request.body.sk_A;
 		let sk_B = request.body.sk_B;
-		let uid = request.session.user
+
+		//
+		let yellow = request.body.yellow;
+		let purple = request.body.purple;
+		let blue = request.body.blue;
+		let uid = request.session.user;
 		connection.query('update myself set lv = ?, stage = ?, coin = ?, sk_A = ?, sk_B = ? where uid = ?',[lv, stage, coin, sk_A, sk_B, uid]);
+		connection.query('update creatureskill set yellow = ?, purple = ?, blue = ? where uid = ?',[yellow, purple, blue, uid]);
 	}
 
 

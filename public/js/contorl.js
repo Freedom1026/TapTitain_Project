@@ -6,7 +6,12 @@ if(window.innerWidth <= 768 && window.innerWidth > window.innerHeight ){
     ctx.fillText("螢幕請直放", RwdDx*1.5, RwdDy*1.5 + 16);
 }
 else{
-    setInterval(gameControl, 80);
+    
+    window.onload = function() {
+        $('.hideBlock').css("visibility","visible");
+        $('#pbar').css("display","none");
+        setInterval(gameControl, 80);
+    };
 }
 
 var ClickFlag = false;
@@ -51,7 +56,7 @@ function gameControl(){
     ctx.font = "20px myfont";
     ctx.fillText(Me.Coin, RwdDx * 1.3 + 15, RwdDy + 16);
     //C_A.attacked();
-
+// console.log(NowMonster);
     NowMonster.hpbar();
     canvas.onclick = FirstThing;
     if(ClickFlag){

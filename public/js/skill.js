@@ -12,8 +12,6 @@
 //-------------技能-------------
 //拿jquery去抓技能圖示 顯示技能視窗
     
-//---------------------------------------上面是畫面function 下面是物件funciton
-
 
 
 //設定技能基礎值
@@ -187,13 +185,19 @@ $(window).on('beforeunload',function(){
     return false;
 })
 
-//---------------------------------------上面是畫面function 下面是物件funciton
+//--------------------------------------- 下面是畫面function 上面是物件funciton (初始化設定)
 
 
 $(function(){
     $.get("/home/get_Hsk", function (e) {
         var HeroData = JSON.parse(e);
         console.log(HeroData);
+        Me.Coin = HeroData[0].coin;
+        atStage = HeroData[0].stage;
+        $('div.stage span:nth-child(1)').html(`&ensp;&ensp;${atStage - 1}`);
+        $('div.stage span:nth-child(2)').html(`&ensp;&ensp;${atStage}`);
+        $('div.stage span:nth-child(3)').html(`&ensp;&ensp;${atStage + 1}`);
+        initMonster();
         SkillArray[0].LV = HeroData[0].lv;
         SkillArray[1].lv = HeroData[0].sk_A;
         SkillArray[2].lv = HeroData[0].sk_B;
@@ -244,13 +248,43 @@ function levelUp(skill,skID){
 
         //扣除金錢function
         spend(skID)
+
+        //ajax
+        var newItem ={
+            lv : Me.LV,
+            stage : atStage,
+            coin : Me.Coin,
+            sk_A : fortune.lv,
+            sk_B : wild.lv
+        };
+        $.ajax({
+            type: "put",
+            url: "/member/record",
+            data: newItem
+        })
     }
     else if(skID == 0){
         //排除第一個主角升級  
         Me.updateATK();
         SkillArray[0].LV++;
         $(`span.${skill}`).text(`Lv.${SkillArray[0].LV}`);
-        return;
+
+        //ajax
+        var newItem ={
+            lv : Me.LV,
+            stage : atStage,
+            coin : Me.Coin,
+            sk_A : fortune.lv,
+            sk_B : wild.lv,
+            yellow : C_A.lv,
+            purple : C_B.lv,
+            blue : C_C.lv
+        };
+        $.ajax({
+            type: "put",
+            url: "/member/record",
+            data: newItem
+        })
     }
 }
 

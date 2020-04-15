@@ -4,7 +4,7 @@ var coinPic = new Image();
 coinPic.src = "img/coin.png";
 
 //目前破關進度
-var atStage = 1;
+var atStage;
 
 if(window.innerWidth <= 768){
 //RWD係數 -->寬度係數不同
@@ -14,8 +14,7 @@ var RwdDy = canvas.height/3;
 var RwdDw = canvas.width/5*2;
 //高度之後要調整 -->目前依賴寬度
 var RwdDh = RwdDw;
-ctx.fillStyle = "#FFA500";
-ctx.fillRect(RwdDx, RwdDy, RwdDw, RwdDh)
+
 }
 
 else{
@@ -26,8 +25,7 @@ var RwdDy = canvas.height/8 * 1.8;
 var RwdDw = canvas.width/4;
 //高度之後要調整 -->目前依賴寬度
 var RwdDh = RwdDw;
-ctx.fillStyle = "#FFA500";
-ctx.fillRect(RwdDx, RwdDy, RwdDw, RwdDh)
+
 }
 
 
@@ -93,8 +91,11 @@ var monstersProperty = class monstersProperty {
 
 }
 
-var NowMonster = new monstersProperty(monstersImg, 0, 0, 220, 220, RwdDx, RwdDy, RwdDw, RwdDh);
-//0 0 225 225
+function initMonster(){
+    this.NowMonster = new monstersProperty(monstersImg, 0, 0, 220, 220, RwdDx, RwdDy, RwdDw, RwdDh);
+    //0 0 225 225
+}
+
 
 var CoinArray = [];
 

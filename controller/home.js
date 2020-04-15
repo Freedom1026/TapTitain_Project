@@ -48,7 +48,7 @@ module.exports = function (request, response, controllerName) {
 	this.get_Hsk = function () {
 		var objResponse = this.response;
 		let user = request.session.user;
-		connection.query('select lv, sk_A, sk_B, coin from myself where uid = ?', [user], function(err, rows){
+		connection.query('select lv, stage, sk_A, sk_B, coin from myself where uid = ?', [user], function(err, rows){
 			if(err){
 				console.log(JSON.stringify(err));
 				return;
@@ -58,14 +58,15 @@ module.exports = function (request, response, controllerName) {
 	}
 
 	this.get_Csk = function () {
-		// var objResponse = this.response;
-		// connection.query('select A, B, C from creatureskill where id = ?', ['1'], function(err, rows){
-		// 	if(err){
-		// 		console.log(JSON.stringify(err));
-		// 		return;
-		// 	}
-		// 	objResponse.send(JSON.stringify(rows));
-		// })
+		var objResponse = this.response;
+		let user = request.session.user;
+		connection.query('select yellow, purple, blue from creatureskill where uid = ?', [user], function(err, rows){
+			if(err){
+				console.log(JSON.stringify(err));
+				return;
+			}
+			objResponse.send(JSON.stringify(rows));
+		})
 	}
 
 	this.get_sign = function () {

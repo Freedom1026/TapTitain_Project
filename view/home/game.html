@@ -20,6 +20,7 @@
     <span>&ensp;&ensp;2</span>
 </div>
 
+<p style="background-color:bule; width:100px" id="pbar">正在載入中....</p>
 
     <canvas></canvas>
 
@@ -166,8 +167,7 @@
         canvas.height = window.innerHeight/2*1.4;
         var ctx = canvas.getContext('2d');
         //隨著螢幕大小調整畫布大小
-        //reload會有問題！！因為是重新載入　如果沒去讀取資料庫　會出大問題
-        //window.onresize = function r(){location.reload()};
+        window.onresize = function r(){location.reload()};
         //測試畫面
         //ctx.fillRect(0, 0, canvas.width, canvas.height);
         var bk = new Image();
