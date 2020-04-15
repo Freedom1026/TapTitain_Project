@@ -172,7 +172,10 @@ $(window).on('beforeunload',function(){
         stage : atStage,
         coin : Me.Coin,
         sk_A : fortune.lv,
-        sk_B : wild.lv
+        sk_B : wild.lv,
+        yellow : C_A.lv,
+        purple : C_B.lv,
+        blue : C_C.lv
     };
 
     $.ajax({
@@ -255,7 +258,10 @@ function levelUp(skill,skID){
             stage : atStage,
             coin : Me.Coin,
             sk_A : fortune.lv,
-            sk_B : wild.lv
+            sk_B : wild.lv,
+            yellow : C_A.lv,
+            purple : C_B.lv,
+            blue : C_C.lv
         };
         $.ajax({
             type: "put",

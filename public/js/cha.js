@@ -84,6 +84,7 @@ class mainCha extends Cha {
 class CreatureA extends Cha{
     constructor(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight){
         super(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+        this.name = "monA";
         this.speed = 0;
         this.lv = 0;
         this.ATK = this.lv * 20;
@@ -144,7 +145,12 @@ var C_C = new CreatureA(chaimg, 0, 900, 225, 225, ChaDx*3/2, RwdDy*1.4, ChaDw, C
 
 var chaLevel = [1, 10, 0];
 var C_array = [C_A, C_B, C_C];
-console.log(C_A)
+
+//還沒完成時的偷懶方法
+C_A.name = "monA";
+C_B.name = "monB";
+C_C.name = "monC";
+
 
 $(function(){
     $.get("/home/get_Csk", function (e) {
@@ -155,14 +161,13 @@ $(function(){
 
 
     }).then(function(){
+        //初始化攻擊力調整
             C_array[0].updateATK();
-            chaLevel.forEach(function(val,ind){
-                let now = ind + 1;
+            C_array.forEach(function(val, ind){
+                let creatureName = C_array[ind].name;
                 let lvShow = C_array[ind].lv;
-                $(`div.creatureSkill tr:nth-child(${now * 2}) td:nth-child(3)`).text(`Lv.${lvShow}`);
-            }
-            
-            )
+                $(`td.${creatureName}`).text(`Lv.${lvShow}`);
+            })
     })
 })
 
@@ -173,6 +178,8 @@ function ClevelUp(skill,skID){
             C_array[0].updateATK();
             //傳入參數: 技能名稱
             $(`td.${skill}`).text(`Lv.${C_array[skID].lv}`);
+
+            //缺少攻擊力調整
 
             //扣除金錢function
             Cspend(skID)

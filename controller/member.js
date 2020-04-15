@@ -105,6 +105,7 @@ module.exports = function (request, response, controllerName) {
 
 		//
 		let yellow = request.body.yellow;
+		// console.log(yellow);
 		let purple = request.body.purple;
 		let blue = request.body.blue;
 		let uid = request.session.user;
