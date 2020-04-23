@@ -1,0 +1,79 @@
+<%- include("../private/header.html") %>
+
+<div class="container">
+
+<form action="">
+  <div class="row">
+    <div class="col-lg-12">
+        <h2>修改個人資料</h2>
+    </div>
+  </div>
+    <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">帳號(e-mail)</label>
+        <div class="col-sm-10">
+          <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com" disabled>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="myname" class="col-sm-2 col-form-label">中文姓名</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="myname" maxlength="10">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="bir" class="col-sm-2 col-form-label">生日</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="bir">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="phone" class="col-sm-2 col-form-label">市內電話</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="phone">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="mobile" class="col-sm-2 col-form-label">手機</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="mobile">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="form-group col-md-4">
+            <label for="inputCity">縣市</label>
+            <select id="inputCity" class="form-control">
+              <option selected>Choose...</option>
+              <option>...</option>
+            </select>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputArea">地區</label>
+            <select id="inputArea" class="form-control">
+              <option selected>Choose...</option>
+              <option>...</option>
+            </select>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="add">詳細地址</label>
+
+            <input type="text" class="form-control" id="add">
+
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-4">
+          
+        </div>
+        <div class="col-sm-2">
+          <input type="submit" class="form-control">
+        </div>
+        <div class="col-sm-2">
+          <input type="button" class="form-control" value="取消">
+        </div>
+    </div>
+
+</form>
+
+    
+</div>    
+    <%- include("../private/footer.html") %>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-tw">
 <head>
   <meta charset="utf-8">
   <title>時空賊-周邊商品</title>
@@ -18,10 +18,11 @@
   <!-- Demo styles -->
   <style>
     body {
-      background-image:url('../img/cart.png');
+      background:url('../img/member.png'), black;
+      background-repeat: repeat-x;
       font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
       font-size: 14px;
-      color:white;
+      /* color:white; */
       margin: 0;
       padding: 0;
     }
@@ -43,7 +44,22 @@
     }
     .card_self{
       text-align: center;
+      background-color: white;
+      border: 2px solid black;
+      border-radius: 10px;
     }
+    .descriptioncol{
+      text-align: left;
+    }
+    .imgcol img{
+      width: 80%;
+      
+    }
+    .imgcol{
+      /* background-color: rgb(178, 228, 230); */
+      border-radius: 10px;
+    }
+
     
   </style>
 </head>
@@ -68,14 +84,14 @@
               <a class="nav-link" href="#">最新消息</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">會員專區</a>
+              <a class="nav-link" href="/member/profile">會員專區</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#"><i class="fa fa-user" aria-hidden="true"></i>
               登入/註冊</a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="#"><i class="fa fa-shopping-cart"></i>
+              <a class="nav-link" href="/member/cart"><i class="fa fa-shopping-cart"></i>
                 <span class="badge badge-dark">0</span></a>
             </li>
           </ul>
@@ -91,38 +107,108 @@
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide" style="background-image:url(../img/goods/badge/1.png)"><div class="special">here's the word</div></div>
-        <div class="swiper-slide" style="background-image:url(../img/goods/badge/2.png)"></div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/bag/2.png)"></div>
         <div class="swiper-slide" style="background-image:url(../img/goods/badge/3.png)"></div>
-        <div class="swiper-slide" style="background-image:url(../img/goods/badge/4.png)"></div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/bag/4.png)"></div>
         <div class="swiper-slide" style="background-image:url(../img/goods/badge/5.png)"></div>
-        <div class="swiper-slide" style="background-image:url(../img/goods/badge/6.png)"></div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/bag/6.png)"></div>
         <div class="swiper-slide" style="background-image:url(../img/goods/badge/7.png)"></div>
-        <div class="swiper-slide" style="background-image:url(../img/goods/badge/8.png)"></div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/bag/8.png)"></div>
         <div class="swiper-slide" style="background-image:url(../img/goods/badge/9.png)"></div>
-        <div class="swiper-slide" style="background-image:url(../img/goods/badge/10.png)"></div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/bag/10.png)"></div>
       </div>
       <!-- Add Pagination -->
       <div class="swiper-pagination"></div>
     </div>
   </div>
 
-  <div id='app'>
+<div id='app'>
   <div class="container">
-    <p>徽章專區</p>
+    <p style="color: white;">大徽章專區</p>
     <div class="row">
-      <goodbadge v-for="(item, index) in goods" :imgu="item.imgurl" :pn="item.pname" :ppr="item.price"></goodbadge>
+      <goodbadge v-for="(item, index) in badges" :imgu="item.imgurl" :pn="item.pname" :ppr="item.price"></goodbadge>
+    </div>
+    <p style="color: white;">「猜猜我是誰」系列-帆布袋專區</p>
+    <div class="row">
+      <goodbag v-for="(item, index) in bags" :imgu="item.imgurl" :pn="item.pname" :ppr="item.price"></goodbag>
+    </div>
+    <div class="row">
+        <goodpillow v-for="(item, index) in pillows" :imgu="item.imgurl" :pn="item.pname" :ppr="item.price"></goodbag>
     </div>
   </div>
 
-
 </div>
+
+
   <template id="badge">
     <div class="col-lg-3 col-6">
       <div class="card_self">
         <div class="imgcol"><img :src="imgu" alt=""></div>
-        <div class="descriptioncol">{{pn}}<br>尺寸：直徑7.5cm<br>材質：金屬<br>{{"$"+ppr}}<br>
-          <button @click="add(pn)">加入購物車</button>
+        <div class="container">
+        <div class="descriptioncol">{{pn}}
+          <br>尺寸：直徑7.5cm
+          <br>材質：金屬
+          <br>{{"NT$ "+ppr}}
+          
+          <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">數量</span>
+            </div>
+            <input type="number" class="form-control form-control-sm" v-model="amount">
+          </div>
         </div>
+      </div>
+        <button @click="add(pn)">加入購物車</button>
+      </div>
+    </div>
+  </template>
+
+  <template id="bags">
+    <div class="col-lg-3 col-6">
+      <div class="card_self">
+        <div class="imgcol"><img :src="imgu" alt=""></div>
+        <div class="container">
+        <div class="descriptioncol">{{pn}}
+          <br>尺寸：30 x 36 cm (袋身)
+          <br>材質：棉、聚酯纖維
+          <br>{{"NT$ "+ppr}}
+          
+          <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">數量</span>
+            </div>
+            <input type="number" class="form-control form-control-sm" v-model="amount">
+          </div>
+        </div>
+      </div>
+        <button @click="add(pn)">加入購物車</button>
+      </div>
+    </div>
+  </template>
+
+  <template id="pillows">
+    <div class="col-lg-3 col-6">
+      <div class="card_self">
+        <div class="imgcol">
+          <video alt="" style="width: 80%;" muted @mouseover="hover_event($event.target)" @mouseleave="leave_event($event.target)">
+            <source :src="imgu">
+          </video>
+        </div>
+        <div class="container">
+        <div class="descriptioncol">{{pn}}
+          <br>尺寸：寬 45 × 高 45cm
+          <br>材質：棉、聚酯纖維
+          <br>{{"NT$ "+ppr}}
+          
+          <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">數量</span>
+            </div>
+            <input type="number" class="form-control form-control-sm" v-model="amount">
+          </div>
+        </div>
+      </div>
+        <button @click="add(pn)">加入購物車</button>
       </div>
     </div>
   </template>
@@ -154,18 +240,49 @@
       props:['imgu','pn','ppr'],
       data:function(){
         return{
+          amount:0,
           add:function(price){
-            alert(price);
+            alert(price + "數量" + this.amount);
           }
         }
       },
       template:'#badge'
     });
+    Vue.component('goodbag',{
+      props:['imgu','pn','ppr'],
+      data:function(){
+        return{
+          amount:0,
+          add:function(price){
+            alert(price + "數量" + this.amount);
+          }
+        }
+      },
+      template:'#bags'
+    });
+    Vue.component('goodpillow',{
+      props:['imgu','pn','ppr'],
+      data:function(){
+        return{
+          amount:0,
+          add:function(price){
+            alert(price + "數量" + this.amount);
+          },
+          hover_event:function(ele){
+            ele.play();
+          },
+          leave_event:function(ele){
+            ele.pause();
+          }
+        }
+      },
+      template:'#pillows'
+    });
 
     var vm = new Vue({
       el:'#app',
       data:{
-        goods:[
+        badges:[
         {imgurl:"../img/goods/badge/1.png",
         pname:"布布徽章",
         price:81},
@@ -190,13 +307,62 @@
         {imgurl:"../img/goods/badge/8.png",
         pname:"驚驚徽章",
         price:81},
-        {imgurl:"../img/goods/badge/10.png",
-        pname:"凹嗚徽章",
-        price:81},
         {imgurl:"../img/goods/badge/9.png",
-        pname:"Logo徽章",
-        price:81},
+        pname:"凹嗚徽章",
+        price:81}
         ],
+        bags:[
+        {imgurl:"../img/goods/bag/1.png",
+        pname:"帆布袋-A",
+        price:200},
+        {imgurl:"../img/goods/bag/2.png",
+        pname:"帆布袋-B",
+        price:200},
+        {imgurl:"../img/goods/bag/3.png",
+        pname:"帆布袋-C",
+        price:200},
+        {imgurl:"../img/goods/bag/4.png",
+        pname:"帆布袋-D",
+        price:200},
+        {imgurl:"../img/goods/bag/5.png",
+        pname:"帆布袋-E",
+        price:200},
+        {imgurl:"../img/goods/bag/6.png",
+        pname:"帆布袋-F",
+        price:200},
+        {imgurl:"../img/goods/bag/7.png",
+        pname:"小黃帆布袋",
+        price:230},
+        {imgurl:"../img/goods/bag/8.png",
+        pname:"小紫帆布袋",
+        price:230},
+        {imgurl:"../img/goods/bag/9.png",
+        pname:"小藍帆布袋",
+        price:230},
+        {imgurl:"../img/goods/bag/10.png",
+        pname:"主角帆布袋",
+        price:230},
+        ],
+        pillows:[
+          {imgurl:"../img/goods/pillow/1.mp4",
+        pname:"大眼抱枕",
+        price:690},
+        {imgurl:"../img/goods/pillow/2.mp4",
+        pname:"四腳抱枕",
+        price:690},
+        {imgurl:"../img/goods/pillow/3.mp4",
+        pname:"豬豬抱枕",
+        price:690},
+        {imgurl:"../img/goods/pillow/4.mp4",
+        pname:"小蛙抱枕",
+        price:690},
+        {imgurl:"../img/goods/pillow/5.mp4",
+        pname:"布布抱枕",
+        price:690},
+        {imgurl:"../img/goods/pillow/6.mp4",
+        pname:"四毛抱枕",
+        price:690}
+        ]
       }
     })
   </script>

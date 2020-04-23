@@ -92,7 +92,7 @@ module.exports = function (request, response, controllerName) {
 			}
 		})
 
-		this.response.redirect('/home');
+		this.response.redirect('/');
 	}
 
 	this.put_record = function(){
@@ -118,6 +118,15 @@ module.exports = function (request, response, controllerName) {
 	this.shop = function(){
 		this.response.render(this.viewPath + "shop.html");
 	}
+
+	this.cart = function(){
+		this.response.render(this.viewPath + "cart.html");
+	}
+	
+	this.profile = function(){
+		this.response.render(this.viewPath + "mydata.html");
+	}
+
 }	
 
 

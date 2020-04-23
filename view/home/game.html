@@ -20,10 +20,13 @@
     <span>&ensp;&ensp;2</span>
 </div>
 
+
+<!-- Hero skill details -->
+
+    
 <p style="background-color:bule; width:100px" id="pbar">正在載入中....</p>
 
     <canvas></canvas>
-
 
 
 
@@ -57,26 +60,25 @@
         </div>
         <br>
         <div>
-            <span><img src="../img/icon/fortune.png" alt=""></span><span>財富之力</span>
+            <span><img src="../img/icon/fortune.png" alt="" onclick="showDetail(1)"></span><span>財富之力</span>
             <span class="fortune">lv.0</span>
             <button id="btn_02" onclick="levelUp('fortune',1)">Level up</button>
         </div>
         <br>
         <div>
-            <span><img src="../img/icon/wild.png" alt=""></span><span>蠻荒之力</span>
+            <span><img src="../img/icon/wild.png" alt=""  onclick="showDetail(2)"></span><span>蠻荒之力</span>
             <span class="wild">lv.0</span>
             <button id="btn_03" onclick="levelUp('wild',2)">Level up</button>
         </div>
     </div>    
-            
-
+        
     
     <!-- panel of creature -->
     <div class="creatureSkill borderPan">   
         <table>
             <tr>
                 <td><img src="../img/icon/c1.jpg" alt=""></td>
-                <td>耶魯</td>
+                <td>小黃</td>
                 <td></td>
                 <td></td>
             </tr>
@@ -94,7 +96,7 @@
             </tr>
             <tr>
                 <td><img src="../img/icon/c2.jpg" alt=""></td>
-                <td>生物名稱</td>
+                <td>小紫</td>
                 <td></td>
                 <td></td>
             </tr>
@@ -112,7 +114,7 @@
             </tr>
             <tr>
                 <td><img src="../img/icon/c3.jpg" alt=""></td>
-                <td>生物名稱</td>
+                <td>小藍</td>
                 <td></td>
                 <td></td>
             </tr>
@@ -145,15 +147,10 @@
 <button id="btn_buy">道具購買</button>
 </div>
 
-
-<!-- Hero skill details -->
 <div class="HSkillDetail">
-<p>img + 技能名稱</p>
-<p>lv.___</p>
-<div class="description">技能說明: <span>持續時間</span><span>冷卻時間</span></div>
-<button id="debug_btn">debug</button>
+    <div class="description">技能說明: <span>持續時間</span><span>冷卻時間</span></div>
+    <button onclick="closeDetail()">關閉</button>
 </div>
-
 
 
 

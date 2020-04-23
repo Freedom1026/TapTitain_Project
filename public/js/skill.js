@@ -69,10 +69,9 @@ var HSK = class HSK{
             }else{
                 $(ele).text(this.t_B);
             }
-            $(ele).css("background-color","pink");
+            $(ele).css("color","red");
             if(this.t_B <= 0){
                 $(ele).html("&ensp;&ensp;");
-                $(ele).css("background-color","red");
                 clearInterval(this.timeStart);
                 return this.t_B;
             }
@@ -84,7 +83,7 @@ var HSK = class HSK{
             }else{
                 $(ele).text(this.t_A);
             }
-            $(ele).css("background-color","yellow");
+            $(ele).css("color","white");
         }
     }
     
@@ -96,6 +95,8 @@ class ActSkill_B extends HSK {
         super(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B);
         this.Plus = [1,2,2.5,3.1,3.5,3.8,4,5];
         this.moneyPlus = 1;
+        this.cname = "財富之力";
+        this.imgwhere = '../img/icon/fortune.png';
     }
 
     SkOpen(skID){ //每秒確認
@@ -127,6 +128,8 @@ class ActSkill_C extends HSK {
     constructor(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B){
         super(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B);
         this.upATK = [1,1.05,1.06,1.1,1.2,1.4,1.5,1.6];
+        this.cname = "蠻荒之力";
+        this.imgwhere = '../img/icon/wild.png';
     }
 
     SkOpen(skID){ //每秒確認
@@ -315,3 +318,19 @@ function panelgo(pn,btn){
         }
     }
 
+function showDetail(skid){
+    let name = SkillArray[skid].cname;
+    let img = SkillArray[skid].imgwhere;
+    let lv = SkillArray[skid].lv;
+    let sktime = SkillArray[skid].skTime[lv];
+    let coolTime = SkillArray[skid].coolTime[lv];
+    console.log(sktime);
+    $("div.HSkillDetail").css("display","block");
+    $("div.description").html(`<p>技能名稱：${name}</p>
+    <p><span><img src="${img}" style="width: 4vh;"></span>　　　<span>Lv.${lv}</span></p>
+    <p>技能持續時間：${sktime}</p><p>技能冷卻時間：${coolTime}</p>`)
+}
+
+function closeDetail(){
+    $("div.HSkillDetail").css("display","none");
+}

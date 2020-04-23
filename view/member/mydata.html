@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="192x192" href="../img/favicon.ico" />
+    <title>個人資料</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <style>
+      @import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+      body{
+        font-family: "cwTeXYen", sans-serif;
+        background: url('../img/member.png'), black;
+        background-repeat: repeat-x;
+      }
+        .contbk{
+            background-color: rgb(207, 207, 207);
+            /* text-align: center; */
+            border: 1px solid white;
+            border-radius: 5px;
+            box-shadow: 5px 5px 5px black;
+        }
+    </style>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <!-- Brand -->
+        <a class="navbar-brand" href="../"><img src="../img/LOGO.png" alt=""><img src="../img/title2.png" alt=""></a>
+    
+        <!-- Toggler/collapsibe Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#">遊戲介紹</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">最新消息</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/member/profile">會員專區</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../member/shop">周邊商品</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <h4>會員專區</h4>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 contbk">
+                <ul>
+                  <h4>實體商品</h4>
+                  <hr>
+                <li><a href="/private/order">訂單查詢</a></li>
+                <li><a href="/private/inform">貨到通知</a></li>
+                </ul>          
+            </div>
+            <div class="col-lg-1"></div>
+            <div class="col-lg-3 contbk">
+                <ul><h4>個人資料</h4>
+                  <hr>
+                <li><a href="/private/personal">資料維護</a></li>
+                <li><a href="/private/password">修改密碼</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-1"></div>
+            <div class="col-lg-3 contbk">
+                <ul><h4>點數儲值</h4>
+                  <hr>
+                <li><a href="/private/history">儲值紀錄</a></li>
+                <li><a href="/private/diamond">儲值點數</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-1"></div>
+        </div>
+    </div>
+
+    
+
+
+
+
+</body>
+</html>

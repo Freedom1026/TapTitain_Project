@@ -168,7 +168,7 @@ div.bascInfo{
 
 
 div.creatureSkill td{
-    background-color: gray;
+    background-color: rgb(221, 148, 53);
 }
 
 .borderPan{
@@ -193,12 +193,31 @@ div.changePanel {
     /* background-image: url(../img/base2.png); */
 }
 
+@media screen and (max-width: 768px){
+    div.HSkillDetail{
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 768px){
+    div.HSkillDetail{
+        width: 60%;
+
+    }
+
+
+    .selectBTN{
+        background-color: green;
+    }
+}
 
 div.HSkillDetail{
+    left: 0; 
+    right: 0;
+    top: 40%;
+    margin: auto;
     display: none;
+    position: absolute;
+    background-color: white;
+    z-index: 12;
 }
-
-.selectBTN{
-    background-color: green;
-}
-
