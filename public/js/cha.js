@@ -54,7 +54,7 @@ class mainCha extends Cha {
         this.LV = 1;
         //金幣 可以直接載入
         this.Coin = 0;
-        this.LvUpSpend = [0,10,15,20,21,25,70]
+        this.LvUpSpend = this.LV * 100
     }    
     normal(){
         this.sx = 0;
@@ -70,7 +70,13 @@ class mainCha extends Cha {
 
     //SkOpen 補
     SkOpen (skID){
-
+        if(this.LvUpSpend <= Me.Coin){
+            this.SKOpenFlag = true;
+            return this.SKOpenFlag;
+        }else{
+            this.SKOpenFlag = false;
+            return this.SKOpenFlag;
+        }
     }
 
     //updateATK 補
@@ -110,7 +116,10 @@ class CreatureA extends Cha{
         NowMonster.hpAutoLose();
     }
 
-    SkOpen(skID){ //每秒確認....prototype連線
+    SkOpen(skID){ 
+        $(`div.creatureSkill tr:nth-child(${skID+1}) td:nth-child(2)`).text(`DPS:${this.ATK}`);
+        $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(2)`).text(`金錢：${this.upSpend[this.lv]}`);
+        $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(3)`).text(`等級：${this.LvUp[this.lv]}`);
         if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
             this.SKOpenFlag = true;
             $(`div.creatureSkill tr:nth-child(${skID}) td:nth-child(5) button`).text("可以升級");
@@ -161,6 +170,9 @@ class CreatureB extends Cha{
     }
 
     SkOpen(skID){ 
+        $(`div.creatureSkill tr:nth-child(${skID+1}) td:nth-child(2)`).text(`DPS:${this.ATK}`);
+        $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(2)`).text(`金錢：${this.upSpend[this.lv]}`);
+        $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(3)`).text(`等級：${this.LvUp[this.lv]}`);
         if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
             this.SKOpenFlag = true;
             $(`div.creatureSkill tr:nth-child(${skID}) td:nth-child(5) button`).text("可以升級");
@@ -211,6 +223,9 @@ class CreatureC extends Cha{
     }
 
     SkOpen(skID){ //每秒確認....prototype連線
+        $(`div.creatureSkill tr:nth-child(${skID+1}) td:nth-child(2)`).text(`DPS:${this.ATK}`);
+        $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(2)`).text(`金錢：${this.upSpend[this.lv]}`);
+        $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(3)`).text(`等級：${this.LvUp[this.lv]}`);
         if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
             this.SKOpenFlag = true;
             $(`div.creatureSkill tr:nth-child(${skID}) td:nth-child(5) button`).text("可以升級");

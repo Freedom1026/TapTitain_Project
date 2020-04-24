@@ -211,7 +211,6 @@ $(function(){
     }).then(function(){
             SkillArray.forEach(function(val,ind){
                 if(ind != 0){
-                    let now = ind + 1;
                     Me.updateATK();
                     $(`span.${val.skname}`).text(`Lv.${val.lv}`);
                     if(val.lv > 0){
@@ -219,7 +218,6 @@ $(function(){
                     }
                 }
                 else{
-                    let now = ind + 1;
                     Me.updateATK();
                     $('span.origin').text(`Lv.${val.LV}`);
                 }
@@ -272,10 +270,11 @@ function levelUp(skill,skID){
         })
     }
     else if(skID == 0){
-        //排除第一個主角升級  
-        Me.updateATK();
+        //主角升級  
         SkillArray[0].LV++;
+        Me.updateATK();
         $(`span.${skill}`).text(`Lv.${SkillArray[0].LV}`);
+        mespand();
 
         //ajax
         var newItem ={
@@ -296,22 +295,28 @@ function levelUp(skill,skID){
     }
 }
 
+function mespand(){
+    Me.Coin -= Me.LvUpSpend;
+}
+
 function spend(skID){
     Me.Coin -= SkillArray[skID].upSpend[SkillArray[skID].lv];
 }
 
+const pnArray = ["div.heroSkill","div.creatureSkill","div.diamond"]
 
-$('#btn_hero').click(function(){panelgo("div.heroSkill",this)});
-$('#btn_creature').click(function(){panelgo("div.creatureSkill",this)})
+$('#btn_hero').click(function(){panelgo(0,this)});
+$('#btn_creature').click(function(){panelgo(1,this)})
+$('#btn_buy').click(function(){panelgo(2,this)})
 
-function panelgo(pn,btn){
+function panelgo(pnID,btn){
     
-    if($(pn).css("visibility") == "visible"){
-        $(pn).css("visibility","hidden");
+    if($(pnArray[pnID]).css("visibility") == "visible"){
+        $(pnArray[pnID]).css("visibility","hidden");
         btn.style.backgroundColor = "white";  
         }
         else{
-        $(pn).css("visibility","visible")
+        $(pnArray[pnID]).css("visibility","visible")
         btn.style.backgroundColor = "brown";
         // $(pn).css("display","block");
         }

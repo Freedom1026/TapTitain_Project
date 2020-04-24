@@ -152,7 +152,7 @@ div.heroSkill img{
 }
 
 div.creatureSkill img{
-    width: 5vh;
+    width: 6vh;
     
 }
 
@@ -170,9 +170,12 @@ div.bascInfo{
 div.creatureSkill td{
     background-color: rgb(221, 148, 53);
     vertical-align: middle;
+    width: 100px;
 }
 
-
+div.creatureSkill td.skillIcons{
+    font-size: x-small;
+}
 
 .borderPan{
     margin-top: 8vh;
@@ -221,6 +224,7 @@ div.HSkillDetail{
     margin: auto;
     display: none;
     position: absolute;
+    width: 40%;
     background-color: white;
     z-index: 12;
 }
@@ -230,6 +234,17 @@ div.optionsBtn{
     z-index: 10;
 }
 
+div.optionsBtn input{
+    width: 7vh;
+}
+
 div.cog{
+    left: 0; 
+    right: 0;
+    top: 40%;
+    background-color: white;
+    width: 40%;
+    position: absolute;
+    margin: auto;
     display: none;
 }

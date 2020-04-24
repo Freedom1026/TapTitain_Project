@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-tw">
 
 <head>
   <meta charset="UTF-8">
@@ -93,7 +93,7 @@
               <div class="col-lg-7">
                 <div class="form-group mx-sm-3 mb-2">
                   <label>中文全名</label><span class="badge badge-danger">必填</span>
-                  <input type="text" class="form-control" placeholder="請輸入真實姓名" maxlength="10" v-model="name" name="myname">
+                  <input type="text" class="form-control" placeholder="請輸入真實姓名" maxlength="10" v-model="name" name="myname" required>
                   <p :style="{display: rule_1}" class="format">2-10個中文字</p>
                 </div>
               </div>
@@ -109,18 +109,18 @@
 
             <div class="form-group mx-sm-3 mb-2">
               <label>信箱</label><span class="badge badge-danger">必填</span>
-              <input type="email" class="form-control" placeholder="請輸入信箱" v-model.lazy="mailbox" name="mail">
+              <input type="email" class="form-control" placeholder="請輸入信箱" v-model.lazy="mailbox" name="mail" required>
               <p :style="{display: mailbox_rule}" class="format">請正確填寫</p>
               {{msg}}
             </div>
             <div class="form-group mx-sm-3 mb-2">
               <label>密碼</label><span class="badge badge-danger">必填</span>
-              <input type="password" class="form-control" placeholder="請輸入密碼" v-model="password" name="password">
+              <input type="password" class="form-control" placeholder="請輸入密碼" v-model="password" name="password" required>
               <p :style="{display: rule_2}" class="format">至少包含１個大寫字母、小寫字母、數字、符號<br>且6-20個字元</p>
             </div>
             <div class="form-group mx-sm-3 mb-2">
               <label>確認密碼</label><span class="badge badge-danger">必填</span>
-              <input type="password" class="form-control" placeholder="請重新輸入密碼" v-model="confirm" >
+              <input type="password" class="form-control" placeholder="請重新輸入密碼" v-model="confirm" required>
               <p :style="{display: rule_3}" class="format">密碼不一致</p>
             </div>
             <br>
@@ -133,14 +133,14 @@
               <div class="col-lg-6">
                 <div class="form-group mx-sm-3 mb-2">
                   <label>市話</label><span class="badge badge-danger">必填</span>
-                  <input type="text" class="form-control" placeholder="0xxxxxxxxx" v-model="phone1" name="phone">
+                  <input type="text" class="form-control" placeholder="0xxxxxxxxx" v-model="phone1" name="phone" required>
                   <p :style="{display: rule_4}" class="format">此欄位需8-10位數字</p>
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="form-group mx-sm-3 mb-2">
                   <label>手機</label><span class="badge badge-danger">必填</span>
-                  <input type="text" class="form-control" placeholder="09xxxxxxxx" v-model="phone2" name="mobile">
+                  <input type="text" class="form-control" placeholder="09xxxxxxxx" v-model="phone2" name="mobile" required>
                   <p :style="{display: rule_5}" class="format">此欄位需10位數字</p>
                 </div>
               </div>
@@ -152,13 +152,13 @@
               <div class="col-lg-6">
                 <label for="country" class="form-group mx-sm-3 mb-2">縣市<select name="country" id="country"
                     class="custom-select mr-sm-2" v-model="city"
-                    @change="city_check($event.target.selectedOptions[0].index)" name="city"></label>
+                    @change="city_check($event.target.selectedOptions[0].index)" name="city" required></label>
                 <option v-for="(item, index) in city_map" :value="item.cityname">{{item.cityname}}</option>
                 </select>
               </div>
               <div class="col-lg-6">
                 <label for="area" class="form-group mx-sm-3 mb-2">區<select name="country" id="area"
-                    class="custom-select mr-sm-2" v-model="area" name="area"></label>
+                    class="custom-select mr-sm-2" v-model="area" name="area" required></label>
                 <option v-for="(item, index) in area_map" :value="item">{{item}}</option>
                 </select>
               </div>
@@ -169,7 +169,6 @@
             </div>
 
             <br>
-
 
 
             <button type="submit" class="btn btn-outline-success mx-auto d-block">註冊</button>

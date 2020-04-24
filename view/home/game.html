@@ -15,14 +15,10 @@
 <body>
 <!-- cog -->
 <div class="optionsBtn">
-    <button onclick="showCog()">cog</button>
-    <button>acheivement</button>
+    <input type="image" src="../img/icon/cog.png" onclick="showCog()">
+    <input type="image" src="../img/icon/reward.png">
 </div>
-<script>
-    function showCog(){
-        $("div.cog").css("display","block");
-    }
-</script>
+
 
 <!-- Stage -->
 <div class="stage">
@@ -84,7 +80,7 @@
     </div>    
         
     
-    <!-- panel of creature -->
+    <!-- panel of creatures -->
     <div class="creatureSkill borderPan">   
         <table>
             <tr>
@@ -98,12 +94,12 @@
                 <td  class="monA">LV.0</td>
                 <td>DPS:0</td>
                 <td></td>
-                <td></td>
             </tr>
             <tr>
                 <td class="skillIcons">升級條件</td>
                 <td>金錢：</td>
                 <td>等級：</td>
+
             </tr>
             <tr>
                 <td rowspan="3"><img src="../img/icon/c2.jpg" alt=""></td>
@@ -116,12 +112,13 @@
                 <td class="monB">LV.0</td>
                 <td>DPS:0</td>
                 <td></td>
-                <td></td>
+
             </tr>
             <tr>
                 <td class="skillIcons">升級條件</td>
                 <td>金錢：</td>
                 <td>等級：</td>
+
             </tr>
             <tr>
                 <td rowspan="3"><img src="../img/icon/c3.jpg" alt=""></td>
@@ -134,16 +131,23 @@
                 <td class="monC">LV.0</td>
                 <td>DPS:0</td>
                 <td></td>
-                <td></td>
+
                 
             </tr>
             <tr>
                 <td class="skillIcons">升級條件</td>
                 <td>金錢：</td>
                 <td>等級：</td>
+
             </tr>
 
         </table>
+    </div>
+
+    <div class="diamond borderPan">
+        <div>寶藏數量:        </div>
+        <div>img 所有技能冷卻歸零</div>
+        <div>img 即刻殺死眼前這個怪物</div>
     </div>
 
 </div>
@@ -165,7 +169,8 @@
 </div>
 
 <div class="cog">
-    <a href="">返回首頁</a>
+    <a href="/">退出遊戲</a><br>
+    <button onclick="closeCog()">返回遊戲</button>
 </div>
 
   
@@ -183,6 +188,13 @@
         //ctx.fillRect(0, 0, canvas.width, canvas.height);
         var bk = new Image();
         bk.src = "./img/stage/stage1.jpg"
+
+        function showCog(){
+        $("div.cog").css("display","block");
+        }
+        function closeCog(){
+        $("div.cog").css("display","none");
+        }
     </script>
 
 
