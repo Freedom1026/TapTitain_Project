@@ -169,7 +169,10 @@ div.bascInfo{
 
 div.creatureSkill td{
     background-color: rgb(221, 148, 53);
+    vertical-align: middle;
 }
+
+
 
 .borderPan{
     margin-top: 8vh;

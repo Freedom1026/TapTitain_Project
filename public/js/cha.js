@@ -113,13 +113,13 @@ class CreatureA extends Cha{
     SkOpen(skID){ //每秒確認....prototype連線
         if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
             this.SKOpenFlag = true;
-            $(`div.creatureSkill tr:nth-child(${skID * 3}) td:nth-child(3)`).text("可以升級");
-            $(`div.creatureSkill tr:nth-child(${skID * 3}) td:nth-child(3)`).css("color","red");
+            $(`div.creatureSkill tr:nth-child(${skID}) td:nth-child(5) button`).text("可以升級");
+            $(`div.creatureSkill tr:nth-child(${skID}) td:nth-child(5)`).css("color","red");
             return this.SKOpenFlag;
         }else{
             this.SKOpenFlag = false;
-            $(`div.creatureSkill tr:nth-child(${skID * 3}) td:nth-child(3)`).text("不能升級");
-            $(`div.creatureSkill tr:nth-child(${skID * 3}) td:nth-child(3)`).css("color","rgba(170, 170, 170, 0.637)");
+            $(`div.creatureSkill tr:nth-child(${skID * 3}) td:nth-child(5)  button`).text("不能升級");
+            $(`div.creatureSkill tr:nth-child(${skID * 3}) td:nth-child(5)`).css("color","rgba(170, 170, 170, 0.637)");
             return this.SKOpenFlag;
         }
     }
