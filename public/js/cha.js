@@ -118,8 +118,8 @@ class CreatureA extends Cha{
             return this.SKOpenFlag;
         }else{
             this.SKOpenFlag = false;
-            $(`div.creatureSkill tr:nth-child(${skID * 3}) td:nth-child(5)  button`).text("不能升級");
-            $(`div.creatureSkill tr:nth-child(${skID * 3}) td:nth-child(5)`).css("color","rgba(170, 170, 170, 0.637)");
+            $(`div.creatureSkill tr:nth-child(${skID}) td:nth-child(5) button`).text("不能升級");
+            $(`div.creatureSkill tr:nth-child(${skID}) td:nth-child(5)`).css("color","rgba(170, 170, 170, 0.637)");
             return this.SKOpenFlag;
         }
     }
@@ -131,7 +131,105 @@ class CreatureA extends Cha{
     }
 }
 
+class CreatureB extends Cha{
+    constructor(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight){
+        super(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+        this.name = "monB";
+        this.speed = 0;
+        this.lv = 0;
+        this.ATK = this.lv * 20;
+        this.upSpend = [0,100,120,150,200,250,300,400];
+        this.SKOpenFlag = true;
+        this.LvUp = [0,10,20,30,40,50,60,70,80,90,100];
+    }
+    attacked(){
+        this.sx += 225;
+        (this.sx >= 900)? this.sx = 0 : 0;
+        return this.sx;
+    }
 
+    updateATK(){
+        this.ATK = this.lv * 2;
+        return this.ATK;
+    }
+
+    speedControl(){
+        this.speed ++;
+        //         80*5=400ms                this.normal沒寫
+        (this.speed % 5 == 0)? this.attacked():0;
+        NowMonster.hpAutoLose();
+    }
+
+    SkOpen(skID){ 
+        if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
+            this.SKOpenFlag = true;
+            $(`div.creatureSkill tr:nth-child(${skID}) td:nth-child(5) button`).text("可以升級");
+            $(`div.creatureSkill tr:nth-child(${skID}) td:nth-child(5)`).css("color","red");
+            return this.SKOpenFlag;
+        }else{
+            this.SKOpenFlag = false;
+            $(`div.creatureSkill tr:nth-child(${skID}) td:nth-child(5) button`).text("不能升級");
+            $(`div.creatureSkill tr:nth-child(${skID}) td:nth-child(5)`).css("color","rgba(170, 170, 170, 0.637)");
+            return this.SKOpenFlag;
+        }
+    }
+    draw(){
+        if(this.lv > 0){
+            ctx.drawImage(this.image, this.sx, this.sy, this.sWidth, this.sHeight, this.dx, this.dy, this.dWidth, this.dHeight)
+        }
+        
+    }
+}
+
+class CreatureC extends Cha{
+    constructor(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight){
+        super(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+        this.name = "monC";
+        this.speed = 0;
+        this.lv = 0;
+        this.ATK = this.lv * 20;
+        this.upSpend = [0,100,120,150,200,250,300,400];
+        this.SKOpenFlag = true;
+        this.LvUp = [0,10,20,30,40,50,60,70,80,90,100];
+    }
+    attacked(){
+        this.sx += 225;
+        (this.sx >= 900)? this.sx = 0 : 0;
+        return this.sx;
+    }
+
+    updateATK(){
+        this.ATK = this.lv * 2;
+        return this.ATK;
+    }
+
+    speedControl(){
+        this.speed ++;
+        //         80*5=400ms                this.normal沒寫
+        (this.speed % 5 == 0)? this.attacked():0;
+        NowMonster.hpAutoLose();
+    }
+
+    SkOpen(skID){ //每秒確認....prototype連線
+        if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
+            this.SKOpenFlag = true;
+            $(`div.creatureSkill tr:nth-child(${skID}) td:nth-child(5) button`).text("可以升級");
+            $(`div.creatureSkill tr:nth-child(${skID}) td:nth-child(5)`).css("color","red");
+            return this.SKOpenFlag;
+        }else{
+            this.SKOpenFlag = false;
+            $(`div.creatureSkill tr:nth-child(${skID}) td:nth-child(5) button`).text("不能升級");
+            $(`div.creatureSkill tr:nth-child(${skID}) td:nth-child(5)`).css("color","rgba(170, 170, 170, 0.637)");
+            return this.SKOpenFlag;
+        }
+    }
+    draw(){
+        if(this.lv > 0){
+            ctx.drawImage(this.image, this.sx, this.sy, this.sWidth, this.sHeight, this.dx, this.dy, this.dWidth, this.dHeight)
+        }
+        
+    }
+}
 
 //此處的Me 之後要加上--我的等級參數/金幣參數/破關關卡參數 利用get傳入
 var Me = new mainCha(chaimg, 0, 0, 225, 225, ChaDx, ChaDy, ChaDw, ChaDh);
@@ -140,8 +238,8 @@ var Me = new mainCha(chaimg, 0, 0, 225, 225, ChaDx, ChaDy, ChaDw, ChaDh);
 
 //之後再來加入的npc紀錄，要記錄Me已經召喚的npc　以及其等級 利用get傳入
 var C_A = new CreatureA(chaimg, 0, 225, 225, 225, ChaDx*3/2, RwdDy, ChaDw, ChaDh);
-var C_B = new CreatureA(chaimg, 0, 450, 225, 225, ChaDx*3/2, RwdDy*1.2, ChaDw, ChaDh);
-var C_C = new CreatureA(chaimg, 0, 900, 225, 225, ChaDx*3/2, RwdDy*1.4, ChaDw, ChaDh);
+var C_B = new CreatureB(chaimg, 0, 450, 225, 225, ChaDx*3/2, RwdDy*1.2, ChaDw, ChaDh);
+var C_C = new CreatureC(chaimg, 0, 675, 225, 225, ChaDx*3/2, RwdDy*1.4, ChaDw, ChaDh);
 
 var chaLevel = [1, 10, 0];
 var C_array = [C_A, C_B, C_C];
@@ -162,8 +260,8 @@ $(function(){
 
     }).then(function(){
         //初始化攻擊力調整
-            C_array[0].updateATK();
             C_array.forEach(function(val, ind){
+                val.updateATK();
                 let creatureName = C_array[ind].name;
                 let lvShow = C_array[ind].lv;
                 $(`td.${creatureName}`).text(`Lv.${lvShow}`);
@@ -174,15 +272,15 @@ $(function(){
 function ClevelUp(skill,skID){
         skID -=1;
         if(C_array[skID].SKOpenFlag){
+            //扣除金錢function
+            Cspend(skID)
             C_array[skID].lv ++;
-            C_array[0].updateATK();
+            C_array[skID].updateATK();
             //傳入參數: 技能名稱
             $(`td.${skill}`).text(`Lv.${C_array[skID].lv}`);
 
             //缺少攻擊力調整
 
-            //扣除金錢function
-            Cspend(skID)
 
             var newItem ={
                 lv : Me.LV,

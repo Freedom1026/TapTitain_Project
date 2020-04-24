@@ -72,7 +72,8 @@ var monstersProperty = class monstersProperty {
     }
 
     hpAutoLose(){
-        this.hpbarContent -= C_A.ATK/this.hp;
+        let sumOfcreaures = C_A.ATK + C_B.ATK + C_C.ATK;
+        this.hpbarContent -= sumOfcreaures/this.hp;
         if(this.hpbarContent <= 0){
             changeMonster();
             return this.attackedAmount, this.hpbarContent;

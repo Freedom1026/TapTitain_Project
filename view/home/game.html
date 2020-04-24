@@ -13,6 +13,17 @@
     <script src="js/popper.min.js"></script>
 </head>
 <body>
+<!-- cog -->
+<div class="optionsBtn">
+    <button onclick="showCog()">cog</button>
+    <button>acheivement</button>
+</div>
+<script>
+    function showCog(){
+        $("div.cog").css("display","block");
+    }
+</script>
+
 <!-- Stage -->
 <div class="stage">
     <span>&ensp;&ensp;0</span>
@@ -81,7 +92,7 @@
                 <td>小黃</td>
                 <td></td>
                 <td></td>
-                <td><button onclick="ClevelUp('monA',1)">升級</button></td>
+                <td rowspan="3"><button onclick="ClevelUp('monA',1)">升級</button></td>
             </tr>
             <tr>
                 <td  class="monA">LV.0</td>
@@ -153,7 +164,9 @@
     <button onclick="closeDetail()">關閉</button>
 </div>
 
-
+<div class="cog">
+    <a href="">返回首頁</a>
+</div>
 
   
     <script>

@@ -224,3 +224,12 @@ div.HSkillDetail{
     background-color: white;
     z-index: 12;
 }
+
+div.optionsBtn{
+    position: absolute;
+    z-index: 10;
+}
+
+div.cog{
+    display: none;
+}

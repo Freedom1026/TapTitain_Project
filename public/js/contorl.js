@@ -46,6 +46,8 @@ function gameControl(){
     NowMonster.draw();
     //skill open or close 參數為css選擇器
     C_A.SkOpen(1);
+    C_B.SkOpen(4);
+    C_C.SkOpen(7);
     fortune.SkOpen(2);
     wild.SkOpen(3);
     //暫時自己畫coin 之後換成圖
@@ -69,8 +71,11 @@ function gameControl(){
         ctx.restore();
     };
     Me.draw();
-
+    let temp = Math.floor(NowMonster.hp * NowMonster.hpbarContent);
+    let temp2 = C_A.ATK + C_B.ATK + C_C.ATK;
+    $('div.bascInfo p:nth-child(1)').text(`怪物生命值${temp}`);
     $('div.bascInfo p:nth-child(2)').text(`點擊攻擊力${Me.ATK}`);
+    $('div.bascInfo p:nth-child(3)').text(`機器人輸出傷害總和${temp2}`);
 }
 
 function FirstThing(e){

@@ -247,13 +247,12 @@ $(function(){
 
 function levelUp(skill,skID){
     if(skID != 0 && SkillArray[skID].SKOpenFlag){
+        //扣除金錢function
+        spend(skID)
         SkillArray[skID].lv ++;
         //傳入參數: 技能名稱
         $(`span.${skill}`).text(`Lv.${SkillArray[skID].lv}`);
         $(`div.actSkill span:nth-child(${skID})`).css("visibility","visible");
-
-        //扣除金錢function
-        spend(skID)
 
         //ajax
         var newItem ={

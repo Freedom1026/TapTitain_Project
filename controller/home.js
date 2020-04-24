@@ -12,7 +12,7 @@ module.exports = function (request, response, controllerName) {
 		// if (err) throw err;
 		if (err) {
 			console.log(JSON.stringify(err));
-			console.log("資料庫連結錯誤");
+			console.log("資料庫連結錯誤_home");
 			return;
 		}
 	});
