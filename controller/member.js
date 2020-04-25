@@ -25,6 +25,7 @@ module.exports = function (request, response, controllerName) {
     this.request  = request;
     this.response = response;
 	this.viewPath = controllerName + "/";
+	var tempUser;
 	
 	this.post_signAJAX = function () {
 		var objResponse = this.response;
@@ -63,6 +64,7 @@ module.exports = function (request, response, controllerName) {
 							let sessionUser = JSON.stringify(row);
 							sessionUser = JSON.parse(sessionUser);
 							request.session.user = sessionUser[0].uid;
+							tempUser = request.session.user;
 							response.redirect('/home');
 						})
 
@@ -106,21 +108,23 @@ module.exports = function (request, response, controllerName) {
         let coin =request.body.coin;
         let sk_A = request.body.sk_A;
 		let sk_B = request.body.sk_B;
-
+		let diamond = request.body.diamond;
 		//
 		let yellow = request.body.yellow;
 		// console.log(yellow);
 		let purple = request.body.purple;
 		let blue = request.body.blue;
 		let uid = request.session.user;
-		connection.query('update myself set lv = ?, stage = ?, coin = ?, sk_A = ?, sk_B = ? where uid = ?',[lv, stage, coin, sk_A, sk_B, uid]);
+		connection.query('update myself set lv = ?, stage = ?, coin = ?, sk_A = ?, sk_B = ?, diamond = ? where uid = ?',[lv, stage, coin, sk_A, sk_B, diamond, uid]);
 		connection.query('update creatureskill set yellow = ?, purple = ?, blue = ? where uid = ?',[yellow, purple, blue, uid]);
 	}
 
 
 
 	this.shop = function(){
-		this.response.render(this.viewPath + "shop.html");
+		// console.log(request.session.user);
+		this.response.render(this.viewPath + "shop.html", 
+		{ userName: request.session.user });
 	}
 
 	this.cart = function(){

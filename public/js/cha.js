@@ -54,7 +54,8 @@ class mainCha extends Cha {
         this.LV = 1;
         //金幣 可以直接載入
         this.Coin = 0;
-        this.LvUpSpend = this.LV * 100
+        this.LvUpSpend = this.LV * 100;
+        this.diamond = 0;
     }    
     normal(){
         this.sx = 0;
@@ -72,16 +73,20 @@ class mainCha extends Cha {
     SkOpen (skID){
         if(this.LvUpSpend <= Me.Coin){
             this.SKOpenFlag = true;
+            $("#btn_01").text("可以升級");
+            $("#btn_01").css("color","red");
             return this.SKOpenFlag;
         }else{
             this.SKOpenFlag = false;
+            $("#btn_01").text("不能升級");
+            $("#btn_01").css("color","rgba(170, 170, 170, 0.637)");
             return this.SKOpenFlag;
         }
     }
 
     //updateATK 補
     updateATK(){
-        this.ATK = this.LV * 2 + 20;
+        this.ATK = this.LV * 20 + 3;
         return this.ATK;
     }
 
@@ -117,7 +122,7 @@ class CreatureA extends Cha{
     }
 
     SkOpen(skID){ 
-        $(`div.creatureSkill tr:nth-child(${skID+1}) td:nth-child(2)`).text(`DPS:${this.ATK}`);
+        $(`div.creatureSkill tr:nth-child(${skID+1}) td:nth-child(2)`).text(`攻擊力:${this.ATK}`);
         $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(2)`).text(`金錢：${this.upSpend[this.lv]}`);
         $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(3)`).text(`等級：${this.LvUp[this.lv]}`);
         if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
@@ -170,7 +175,7 @@ class CreatureB extends Cha{
     }
 
     SkOpen(skID){ 
-        $(`div.creatureSkill tr:nth-child(${skID+1}) td:nth-child(2)`).text(`DPS:${this.ATK}`);
+        $(`div.creatureSkill tr:nth-child(${skID+1}) td:nth-child(2)`).text(`攻擊力:${this.ATK}`);
         $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(2)`).text(`金錢：${this.upSpend[this.lv]}`);
         $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(3)`).text(`等級：${this.LvUp[this.lv]}`);
         if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
@@ -223,7 +228,7 @@ class CreatureC extends Cha{
     }
 
     SkOpen(skID){ //每秒確認....prototype連線
-        $(`div.creatureSkill tr:nth-child(${skID+1}) td:nth-child(2)`).text(`DPS:${this.ATK}`);
+        $(`div.creatureSkill tr:nth-child(${skID+1}) td:nth-child(2)`).text(`攻擊力:${this.ATK}`);
         $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(2)`).text(`金錢：${this.upSpend[this.lv]}`);
         $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(3)`).text(`等級：${this.LvUp[this.lv]}`);
         if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
@@ -259,10 +264,6 @@ var C_C = new CreatureC(chaimg, 0, 675, 225, 225, ChaDx*3/2, RwdDy*1.4, ChaDw, C
 var chaLevel = [1, 10, 0];
 var C_array = [C_A, C_B, C_C];
 
-//還沒完成時的偷懶方法
-C_A.name = "monA";
-C_B.name = "monB";
-C_C.name = "monC";
 
 
 $(function(){
@@ -301,6 +302,7 @@ function ClevelUp(skill,skID){
                 lv : Me.LV,
                 stage : atStage,
                 coin : Me.Coin,
+                diamond: Me.diamond,
                 sk_A : fortune.lv,
                 sk_B : wild.lv,
                 yellow : C_A.lv,

@@ -248,3 +248,12 @@ div.cog{
     margin: auto;
     display: none;
 }
+
+div.cog img,input{
+    width: 10vh;
+}
+
+div.diamond img{
+    width: 4vh;
+    left: 0px;
+}

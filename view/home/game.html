@@ -145,9 +145,13 @@
     </div>
 
     <div class="diamond borderPan">
-        <div>寶藏數量:        </div>
-        <div>img 所有技能冷卻歸零</div>
-        <div>img 即刻殺死眼前這個怪物</div>
+        <div><img src="../img/icon/treasure.png" alt=""><span id="damount">數量</span></div>
+        <div><img src="../img/icon/give.png" alt=""> 獲得大量寶藏
+        <button onclick="getmoney()">使用(20)</button></div>
+        <div><img src="../img/icon/cold.png" alt=""> 所有技能冷卻歸零
+        <button  onclick="coldtime()">使用(30)</button></div>
+        <div><img src="../img/icon/death.png" alt=""> 即刻殺死眼前這個怪物
+        <button onclick="killnow()">使用(40)</button></div>
     </div>
 
 </div>
@@ -169,7 +173,13 @@
 </div>
 
 <div class="cog">
-    <a href="/">退出遊戲</a><br>
+    <label>背景音樂<br>
+    <input type="image" src="../img/icon/bgmusic.png"></label>
+    <label>遊戲音效<br>
+    <input type="image" src="../img/icon/audio.png"></label>
+    <label>返回首頁<br>
+    <input type="image" src="../img/icon/return.png" onclick="goIndex()"></label>
+        <br>
     <button onclick="closeCog()">返回遊戲</button>
 </div>
 
@@ -194,6 +204,10 @@
         }
         function closeCog(){
         $("div.cog").css("display","none");
+        }
+
+        function goIndex(){
+            window.location.replace("/")
         }
     </script>
 

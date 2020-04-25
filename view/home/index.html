@@ -51,7 +51,12 @@
   <div id="app">
     <img src="img/ship.png" alt="" class="ship">
 
-
+    <% if (userName) { %>
+      <div class="formPlace">
+        <a href="/home">繼續遊戲</a><br>
+        <a href="/home/signout">登出</a>
+      </div>
+    <% } else  { %>
     <div class="formPlace">
 
       <ul class="nav nav-tabs">
@@ -179,6 +184,7 @@
 
 
     </div>
+    <% } %>
   </div>
 
   <script src="../js/address.js"></script>

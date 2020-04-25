@@ -48,6 +48,7 @@ function gameControl(){
     C_A.SkOpen(1);
     C_B.SkOpen(4);
     C_C.SkOpen(7);
+    Me.SkOpen(1);
     fortune.SkOpen(2);
     wild.SkOpen(3);
     //暫時自己畫coin 之後換成圖
@@ -114,3 +115,46 @@ function CoinDelete(e){
 //     }
 // }
 
+
+function getmoney(){
+    Me.Coin += 1000;
+    Me.diamond -= 20;
+    diaUpdate()
+}
+
+function coldtime(){
+    fortune.t_A = -1;
+    fortune.t_B = -1;
+    wild.t_A = -1;
+    wild.t_B = -1;
+    Me.diamond -= 30;
+    diaUpdate()
+}
+
+function killnow(){
+    changeMonster();
+    Me.diamond -= 40;
+    diaUpdate()
+}
+
+
+
+function diaUpdate(){
+    $('#damount').text(Me.diamond);
+    var newItem ={
+        lv : Me.LV,
+        stage : atStage,
+        coin : Me.Coin,
+        diamond: Me.diamond,
+        sk_A : fortune.lv,
+        sk_B : wild.lv,
+        yellow : C_A.lv,
+        purple : C_B.lv,
+        blue : C_C.lv
+    };
+    $.ajax({
+        type: "put",
+        url: "/member/record",
+        data: newItem
+    })
+}

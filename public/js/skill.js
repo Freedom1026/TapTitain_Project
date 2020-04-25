@@ -174,6 +174,7 @@ $(window).on('beforeunload',function(){
         lv : Me.LV,
         stage : atStage,
         coin : Me.Coin,
+        diamond: Me.diamond,
         sk_A : fortune.lv,
         sk_B : wild.lv,
         yellow : C_A.lv,
@@ -200,6 +201,8 @@ $(function(){
         console.log(HeroData);
         Me.Coin = HeroData[0].coin;
         atStage = HeroData[0].stage;
+        Me.diamond = HeroData[0].diamond;
+        $('#damount').text(Me.diamond);
         $('div.stage span:nth-child(1)').html(`&ensp;&ensp;${atStage - 1}`);
         $('div.stage span:nth-child(2)').html(`&ensp;&ensp;${atStage}`);
         $('div.stage span:nth-child(3)').html(`&ensp;&ensp;${atStage + 1}`);
@@ -257,6 +260,7 @@ function levelUp(skill,skID){
             lv : Me.LV,
             stage : atStage,
             coin : Me.Coin,
+            diamond: Me.diamond,
             sk_A : fortune.lv,
             sk_B : wild.lv,
             yellow : C_A.lv,
@@ -269,7 +273,7 @@ function levelUp(skill,skID){
             data: newItem
         })
     }
-    else if(skID == 0){
+    else if(skID == 0 && SkillArray[0].SKOpenFlag){
         //主角升級  
         SkillArray[0].LV++;
         Me.updateATK();
@@ -281,6 +285,7 @@ function levelUp(skill,skID){
             lv : Me.LV,
             stage : atStage,
             coin : Me.Coin,
+            diamond: Me.diamond,
             sk_A : fortune.lv,
             sk_B : wild.lv,
             yellow : C_A.lv,

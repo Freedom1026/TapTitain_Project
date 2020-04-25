@@ -28,15 +28,21 @@ module.exports = function (request, response, controllerName) {
 	
 
 	this.index = function(){
-		this.response.render(this.viewPath + "index.html",{ Msg: request.session.errMsg});
+		this.response.render(this.viewPath + "index.html",
+		{ userName:request.session.user, Msg: request.session.errMsg});
 	}
     
 	this.game = function () {
+		let respon = this.response;
+		if (!request.session.user) {
+			respon.redirect("/");
+			return;
+		}
 		this.response.render(this.viewPath + "game.html");
 	}
-	this.signup = function () {
-		this.response.render(this.viewPath + "signup.html");
-		//this.response.send("testhello");
+	this.signout = function () {
+		request.session.user = null;
+		this.response.redirect("/");
 	}
 	
 
@@ -52,7 +58,7 @@ module.exports = function (request, response, controllerName) {
 	this.get_Hsk = function () {
 		var objResponse = this.response;
 		let user = request.session.user;
-		connection.query('select lv, stage, sk_A, sk_B, coin from myself where uid = ?', [user], function(err, rows){
+		connection.query('select lv, stage, sk_A, sk_B, coin, diamond from myself where uid = ?', [user], function(err, rows){
 			if(err){
 				console.log(JSON.stringify(err));
 				return;
