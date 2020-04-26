@@ -1,0 +1,79 @@
+@import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+    body {
+      background:url('../img/member.png'), black;
+      background-repeat: repeat-x;
+      font-family: "cwTeXYen", sans-serif;
+      font-size: 14px;
+      /* color:white; */
+      margin: 0;
+      padding: 0;
+    }
+    .swiper-container {
+      width: 100%;
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+    .swiper-slide {
+      background-position: center;
+      background-size: cover;
+      width: 300px;
+      height: 300px;
+
+    }
+    div.carousel{
+      margin: auto;
+      width: 80%;
+    }
+    .card_self{
+      text-align: center;
+      background: white;
+      border: rgb(221, 201, 19) 1.5px solid;
+      box-shadow: 0 0 0 5px white;
+      border-radius: 10px;
+      margin: 10px 0px;
+    }
+    .descriptioncol{
+      padding: 10px;
+      text-align: left;
+    }
+
+    .descriptioncol p{
+        margin: -1px auto;
+    }
+
+    .good_title{
+        font-size: medium;
+    }
+    .imgcol img{
+      width: 80%;
+      
+    }
+    .imgcol{
+      /* background-color: rgb(178, 228, 230); */
+      border-radius: 10px;
+    }
+    
+    .descriptioncol p:nth-child(1){
+      background: linear-gradient(to left, rgb(255, 255, 255), rgb(255, 255, 255) 50%, rgb(212, 212, 212) 80%, rgb(160, 146, 146) 90%);
+      border-radius: 20px;
+    }
+
+    .descriptioncol p:nth-child(1)::before{
+      content:"品名：";
+      color:black;
+    }
+
+    .card_self button{
+        background: white;
+        border: rgb(221, 201, 19) 1.5px solid;
+        box-shadow: 0 0 0 5px white;
+        border-radius: 20px;
+    }
+
+    .card_self .good_title{
+        width: 80%;
+        border: rgb(221, 201, 19) 1.5px solid;
+        box-shadow: 0 0 0 5px white;
+        border-radius: 10px;
+        margin: 10px auto;
+    }

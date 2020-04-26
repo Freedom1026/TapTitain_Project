@@ -44,6 +44,7 @@ div.stage{
     margin-left: auto; 
     margin-right: auto; 
     position: absolute;
+
 }
 
 div.stage span:nth-child(1), div.stage span:nth-child(3){
@@ -56,7 +57,11 @@ div.stage span:nth-child(1), div.stage span:nth-child(3){
     text-shadow: 3px 2px rgb(26, 26, 26);
     position: relative;
     z-index: 20;
-    border:2px solid white;
+    border:4px solid rgb(190, 139, 219);
+
+    background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
+            linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
+            linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
 }
 
 div.stage span:nth-child(2){
@@ -71,7 +76,11 @@ div.stage span:nth-child(2){
     background-position: 104px 1000px;
     position: relative;
     z-index: 20;
-    border:4px solid white;
+    border:4px solid rgb(118, 51, 156);
+
+    background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
+    linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
+    linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
 }
 
 canvas{
@@ -104,7 +113,7 @@ div.hideBlock{
     visibility: hidden;
     position: relative;
     height: 22vh;
-
+    font-family: myfont;
 }
 
 
@@ -225,8 +234,19 @@ div.HSkillDetail{
     display: none;
     position: absolute;
     width: 40%;
-    background-color: white;
-    z-index: 12;
+    padding: 10px;
+    color: white;
+    background: url('../img/frame.png'),rgb(179, 151, 151);
+    border: dotted 1px yellow;
+    background-position: center;
+    object-fit: fill , none;
+    z-index: 20;
+    border-radius: 20px;
+    font-family: myfont;
+}
+
+div.HSkillDetail button{
+    color: black;
 }
 
 div.optionsBtn{
@@ -247,6 +267,12 @@ div.cog{
     position: absolute;
     margin: auto;
     display: none;
+    background: url('../img/frame.png'),rgb(179, 151, 151);
+    border: dotted 1px yellow;
+    background-position: center;
+    object-fit: fill , none;
+    border-radius: 20px;
+    z-index: 20;
 }
 
 div.cog img,input{

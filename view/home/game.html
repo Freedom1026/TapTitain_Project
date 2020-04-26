@@ -174,9 +174,9 @@
 
 <div class="cog">
     <label>背景音樂<br>
-    <input type="image" src="../img/icon/bgmusic.png"></label>
+    <input type="image" src="../img/icon/bgmusic-off.png" onclick="bgPlay(this)"></label>
     <label>遊戲音效<br>
-    <input type="image" src="../img/icon/audio.png"></label>
+    <input type="image" src="../img/icon/audio-off.png" onclick="collisionClick(this)"></label>
     <label>返回首頁<br>
     <input type="image" src="../img/icon/return.png" onclick="goIndex()"></label>
         <br>
@@ -196,8 +196,10 @@
         window.onresize = function r(){location.reload()};
         //測試畫面
         //ctx.fillRect(0, 0, canvas.width, canvas.height);
-        var bk = new Image();
+        const bk = new Image();
         bk.src = "./img/stage/stage1.jpg"
+        const audioEffect = new Audio("../img/audio/effect.mp3");
+        const BGmusic = new Audio("../img/audio/bkmusic.mp3");
 
         function showCog(){
         $("div.cog").css("display","block");

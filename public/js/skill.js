@@ -97,6 +97,7 @@ class ActSkill_B extends HSK {
         this.moneyPlus = 1;
         this.cname = "財富之力";
         this.imgwhere = '../img/icon/fortune.png';
+        this.description = "時間內金幣掉落增加";
     }
 
     SkOpen(skID){ //每秒確認
@@ -130,6 +131,7 @@ class ActSkill_C extends HSK {
         this.upATK = [1,1.05,1.06,1.1,1.2,1.4,1.5,1.6];
         this.cname = "蠻荒之力";
         this.imgwhere = '../img/icon/wild.png';
+        this.description = "時間內攻擊力增加";
     }
 
     SkOpen(skID){ //每秒確認
@@ -331,12 +333,14 @@ function showDetail(skid){
     let name = SkillArray[skid].cname;
     let img = SkillArray[skid].imgwhere;
     let lv = SkillArray[skid].lv;
+    let des = SkillArray[skid].description;
     let sktime = SkillArray[skid].skTime[lv];
     let coolTime = SkillArray[skid].coolTime[lv];
     console.log(sktime);
     $("div.HSkillDetail").css("display","block");
     $("div.description").html(`<p>技能名稱：${name}</p>
     <p><span><img src="${img}" style="width: 4vh;"></span>　　　<span>Lv.${lv}</span></p>
+    <p>${des}</p>
     <p>技能持續時間：${sktime}</p><p>技能冷卻時間：${coolTime}</p>`)
 }
 

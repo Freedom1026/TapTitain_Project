@@ -14,54 +14,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
   <script src="../js/vue.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-  <!-- Demo styles -->
-  <style>
-    body {
-      background:url('../img/member.png'), black;
-      background-repeat: repeat-x;
-      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-      font-size: 14px;
-      /* color:white; */
-      margin: 0;
-      padding: 0;
-    }
-    .swiper-container {
-      width: 100%;
-      padding-top: 50px;
-      padding-bottom: 50px;
-    }
-    .swiper-slide {
-      background-position: center;
-      background-size: cover;
-      width: 300px;
-      height: 300px;
-
-    }
-    div.carousel{
-      margin: auto;
-      width: 80%;
-    }
-    .card_self{
-      text-align: center;
-      background-color: white;
-      border: 2px solid black;
-      border-radius: 10px;
-    }
-    .descriptioncol{
-      text-align: left;
-    }
-    .imgcol img{
-      width: 80%;
-      
-    }
-    .imgcol{
-      /* background-color: rgb(178, 228, 230); */
-      border-radius: 10px;
-    }
-
-    
-  </style>
+  <link rel="stylesheet" href="../css/shop.css">
 </head>
 <body>
 
@@ -150,18 +103,20 @@
   <template id="badge">
     <div class="col-lg-3 col-6">
       <div class="card_self">
+        <div class="good_title">大徽章系列</div>
         <div class="imgcol"><img :src="imgu" alt=""></div>
         <div class="container">
-        <div class="descriptioncol">{{pn}}
-          <br>尺寸：直徑7.5cm
-          <br>材質：金屬
-          <br>{{"NT$ "+ppr}}
+        <div class="descriptioncol">
+          <p>{{pn}}</p>
+          <p>尺寸：<br>直徑7.5cm</p>
+          <p>材質：金屬</p>
+          <p>{{"NT$ "+ppr}}</p>
           
           <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text">數量</span>
             </div>
-            <input type="number" class="form-control form-control-sm" v-model="amount">
+            <input type="number" class="form-control form-control-sm" v-model="amount" min="0">
           </div>
         </div>
       </div>
@@ -173,18 +128,20 @@
   <template id="bags">
     <div class="col-lg-3 col-6">
       <div class="card_self">
+        <div class="good_title">「猜猜我是誰」系列</div>
         <div class="imgcol"><img :src="imgu" alt=""></div>
         <div class="container">
-        <div class="descriptioncol">{{pn}}
-          <br>尺寸：30 x 36 cm (袋身)
-          <br>材質：棉、聚酯纖維
-          <br>{{"NT$ "+ppr}}
+        <div class="descriptioncol">
+          <p>{{pn}}</p>
+          <p>尺寸：30 x 36 cm (袋身)</p>
+          <p>材質：棉、聚酯纖維</p>
+          <p>{{"NT$ "+ppr}}</p>
           
           <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text">數量</span>
             </div>
-            <input type="number" class="form-control form-control-sm" v-model="amount">
+            <input type="number" class="form-control form-control-sm" v-model="amount" min="0">
           </div>
         </div>
       </div>
@@ -196,22 +153,24 @@
   <template id="pillows">
     <div class="col-lg-3 col-6">
       <div class="card_self">
+        <div class="good_title">抱枕系列</div>
         <div class="imgcol">
           <video alt="" style="width: 80%;" muted @mouseover="hover_event($event.target)" @mouseleave="leave_event($event.target)">
             <source :src="imgu">
           </video>
         </div>
         <div class="container">
-        <div class="descriptioncol">{{pn}}
-          <br>尺寸：寬 45 × 高 45cm
-          <br>材質：棉、聚酯纖維
-          <br>{{"NT$ "+ppr}}
+        <div class="descriptioncol">
+          <p>{{pn}}</p>
+          <p>尺寸：寬 45 × 高 45cm</p>
+          <p>材質：棉、聚酯纖維</p>
+          <p>{{"NT$ "+ppr}}</p>
           
           <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text">數量</span>
             </div>
-            <input type="number" class="form-control form-control-sm" v-model="amount">
+            <input type="number" class="form-control form-control-sm" v-model="amount" min="0">
           </div>
         </div>
       </div>

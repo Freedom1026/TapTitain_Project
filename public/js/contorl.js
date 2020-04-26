@@ -1,5 +1,5 @@
 
-if(window.innerWidth <= 768 && window.innerWidth > window.innerHeight ){
+if(window.innerWidth <= 400 && window.innerWidth > window.innerHeight ){
     //待修改
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.font = "20px Arial";
@@ -81,6 +81,9 @@ function gameControl(){
 
 function FirstThing(e){
     CoinDelete(e);
+    if(flagAD){
+        audioEffect.play();
+    }
     ClickFlag = true;
     NowMonster.hpLose();
     setTimeout(theNext, 300)
@@ -117,24 +120,44 @@ function CoinDelete(e){
 
 
 function getmoney(){
-    Me.Coin += 1000;
-    Me.diamond -= 20;
-    diaUpdate()
+    let herespend = 20;
+    if(Me.diamond >= herespend){
+        Me.Coin += 1000;
+        Me.diamond -= herespend;
+        diaUpdate();
+    }
+    else{
+        console.log("儲值介面")
+    }
+
 }
 
 function coldtime(){
-    fortune.t_A = -1;
-    fortune.t_B = -1;
-    wild.t_A = -1;
-    wild.t_B = -1;
-    Me.diamond -= 30;
-    diaUpdate()
+    let herespend = 30;
+    if(Me.diamond >= herespend){
+        fortune.t_A = -1;
+        fortune.t_B = -1;
+        wild.t_A = -1;
+        wild.t_B = -1;
+        Me.diamond -= herespend;
+        diaUpdate();
+    }
+    else{
+        console.log("儲值介面")
+    }
+
 }
 
 function killnow(){
+    let herespend = 40;
+    if(Me.diamond >= herespend){
     changeMonster();
-    Me.diamond -= 40;
+    Me.diamond -= herespend;
     diaUpdate()
+}
+    else{
+        console.log("儲值介面")
+    }
 }
 
 
@@ -158,3 +181,35 @@ function diaUpdate(){
         data: newItem
     })
 }
+
+
+// 音效
+
+var flagBG = false;
+var flagAD = false;
+		function bgPlay(bbk){
+			console.log(bbk);
+			if(flagBG == false){
+                flagBG = true;
+                console.log(this.src);
+                bbk.src="../img/icon/bgmusic.png";
+				BGmusic.play();
+			}
+			else if(flagBG == true){
+                flagBG = false;
+                bbk.src="../img/icon/bgmusic-off.png";
+				BGmusic.pause();
+			}
+		}
+		function collisionClick(bbk){
+			console.log(bbk);
+			if(flagAD == false){
+                flagAD = true;
+                bbk.src='../img/icon/audio.png';
+                // bbk.setAttribute("src", "url('../img/icon/bgmusic.png')");
+			}
+			else if(flagAD == true){
+                flagAD = false;
+                bbk.src='../img/icon/audio-off.png';
+			}
+		}
