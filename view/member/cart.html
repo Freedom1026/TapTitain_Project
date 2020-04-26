@@ -70,7 +70,7 @@
         </tbody>
       </table>
 
-      <h3>付款與收件方式</h3>
+      <h3>聯絡資料</h3>
 
 <!-- 宅配 -->
 <div class="form-group row">
@@ -85,18 +85,25 @@
   <div class="col-lg-2">手機號碼</div>
   <div class="col-lg-3"><input type="text" maxlength="10" class="form-control"></div>
 </div>
-<div class="form-group row">
+<div class="form-group row" v-if="payway == 'ATM'">
   <div class="col-lg-2">收件地址</div>
   <div class="col-lg-5"><input type="text" minlength="12" class="form-control"></div>
 </div>
 <div class="form-group row">
-  <div class="col-lg-3"></div>
+  <div class="col-lg-3">選擇付款方式：</div>
   <div class="col-lg-3">
-    <button @click="gotomydata">修改個人資料</button>
+    <select name="pay" id="pay" v-model="payway">
+      <option value="ATM">ATM付款</option>
+      <option value="超商">超商付款</option>
+    </select>
   </div>
 </div>
+      <hr>
       
 <!-- 超市 -->
+
+<div v-if="payway == '超商'">
+  <h3>貨到付款</h3>
     <div class="form-group row">
       <div class="col-lg-12">
         <span>選擇超商</span>
@@ -132,7 +139,7 @@
 
       
     
-
+    </div>
   </div>
 </div>
 
@@ -155,6 +162,7 @@
     el:'#app',
     data:{
       brands:'',
+      payway:'',
       city:'縣市',
       area: '地區',
       index_city : 0,
@@ -189,9 +197,7 @@
         temar = temar.filter(word => patt2.test(word.分公司地址));
         this.ar = temar.filter(word => patt3.test(word.分公司地址));
       },
-      gotomydata(){
-        window.location.replace("http://stackoverflow.com");
-      }
+
     }
   })
 

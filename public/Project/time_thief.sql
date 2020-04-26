@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 
--- 伺服器版本： 10.4.8-MariaDB
--- PHP 版本： 7.3.11
+-- 產生時間： 2020-04-26 17:12:49
+-- 伺服器版本： 10.4.11-MariaDB
+-- PHP 版本： 7.2.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -173,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `creatureskill` (
 --
 
 INSERT INTO `creatureskill` (`uid`, `yellow`, `purple`, `blue`, `orange`) VALUES
-(21, 4, 3, 3, 0);
+(21, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -265,7 +264,7 @@ CREATE TABLE IF NOT EXISTS `myself` (
 --
 
 INSERT INTO `myself` (`uid`, `lv`, `stage`, `coin`, `diamond`, `sk_A`, `sk_B`, `achievement`) VALUES
-(21, 38, 18, 207, 20, 3, 1, 0);
+(21, 2, 2, 207, 200, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -279,11 +278,11 @@ CREATE TABLE IF NOT EXISTS `order_list` (
   `uid` int(10) NOT NULL,
   `order_id` int(10) NOT NULL,
   `purchase_date` int(10) NOT NULL,
-  `date_limit` int(10) NOT NULL,
   `item_id` int(5) NOT NULL,
   `product_id` varchar(10) NOT NULL,
   `product_price` int(5) NOT NULL,
   `product_n` int(10) NOT NULL,
+  `state` varchar(10) NOT NULL,
   PRIMARY KEY (`no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -295,25 +294,11 @@ CREATE TABLE IF NOT EXISTS `order_list` (
 
 DROP TABLE IF EXISTS `payment`;
 CREATE TABLE IF NOT EXISTS `payment` (
-  `method_pay` varchar(10) NOT NULL,
+  `name` varchar(10) NOT NULL,
   `order_id` int(10) NOT NULL,
   `amount` int(10) NOT NULL,
+  `paid` varchar(1) NOT NULL DEFAULT 'n',
   PRIMARY KEY (`order_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- 資料表結構 `state_change`
---
-
-DROP TABLE IF EXISTS `state_change`;
-CREATE TABLE IF NOT EXISTS `state_change` (
-  `user` varchar(10) NOT NULL,
-  `order_id` int(10) NOT NULL,
-  `change_date` int(10) NOT NULL,
-  `after_state` varchar(10) NOT NULL,
-  PRIMARY KEY (`change_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
