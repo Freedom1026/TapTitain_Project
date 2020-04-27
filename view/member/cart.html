@@ -85,10 +85,7 @@
   <div class="col-lg-2">手機號碼</div>
   <div class="col-lg-3"><input type="text" maxlength="10" class="form-control"></div>
 </div>
-<div class="form-group row" v-if="payway == 'ATM'">
-  <div class="col-lg-2">收件地址</div>
-  <div class="col-lg-5"><input type="text" minlength="12" class="form-control"></div>
-</div>
+
 <div class="form-group row">
   <div class="col-lg-3">選擇付款方式：</div>
   <div class="col-lg-3">
@@ -100,8 +97,12 @@
 </div>
       <hr>
       
+<!-- ATM -->
+<div class="form-group row" v-if="payway == 'ATM'">
+  <div class="col-lg-2">收件地址</div>
+  <div class="col-lg-5"><input type="text" minlength="12" class="form-control"></div>
+</div>
 <!-- 超市 -->
-
 <div v-if="payway == '超商'">
   <h3>貨到付款</h3>
     <div class="form-group row">
@@ -197,6 +198,11 @@
         temar = temar.filter(word => patt2.test(word.分公司地址));
         this.ar = temar.filter(word => patt3.test(word.分公司地址));
       },
+      get_data(){
+          axios.get('/private/user')
+          .then((res) => { console.table(res.data[0].name) })
+          .catch((error) => { console.error(error) })
+        }
 
     }
   })

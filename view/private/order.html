@@ -1,18 +1,18 @@
 <%- include("../private/header.html") %>
-<div class="container">
+<div class="container"  id="app">
 
 
     <table class="table table-striped">
         <thead>
             <tr>
-              <th scope="col">訂購日期</th>
+              <th scope="col">訂購日期{{get_data()}}</th>
               <th scope="col">付款方式</th>
               <th scope="col">處理狀態</th>
               <th scope="col">總額</th>
               <th scope="col">取消</th>
             </tr>
           </thead>
-          <tbody id="app">
+          <tbody>
             
             
           </tbody>
@@ -25,20 +25,7 @@
         
       },
       methods:{
-        get_data:function(){
-          axios.post('../member/post_signAJAX',
-          { acc: this.mailbox })
-            .then((res) => {
-            let accAdd = res.data[0].n;
-            if(accAdd >= 1){
-                this.msg = '此帳號已有人使用'
-            }
-            else{
-                this.msg = '此帳號可以使用'
-            }
-            })
-        .catch((error) => { console.error(error) })
-        }
+
       }
     })
   </script>

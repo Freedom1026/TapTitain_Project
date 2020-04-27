@@ -66,7 +66,7 @@
   <!-- Swiper -->
     <div class="swiper-container">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" style="background-image:url(../img/goods/badge/1.png)"><div class="special">here's the word</div></div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/badge/1.png)"></div>
         <div class="swiper-slide" style="background-image:url(../img/goods/bag/2.png)"></div>
         <div class="swiper-slide" style="background-image:url(../img/goods/badge/3.png)"></div>
         <div class="swiper-slide" style="background-image:url(../img/goods/bag/4.png)"></div>
@@ -86,7 +86,7 @@
   <div class="container">
     <p style="color: white;">大徽章專區</p>
     <div class="row">
-      <goodbadge v-for="(item, index) in badges" :imgu="item.imgurl" :pn="item.pname" :ppr="item.price"></goodbadge>
+      <goodbadge v-for="(item, index) in badges" :imgu="item.imgurl" :pn="item.pname" :ppr="item.price" @childs="local"></goodbadge>
     </div>
     <p style="color: white;">「猜猜我是誰」系列-帆布袋專區</p>
     <div class="row">
@@ -120,7 +120,7 @@
           </div>
         </div>
       </div>
-        <button @click="add(pn)">加入購物車</button>
+        <button @click="add(pn,ppr)">加入購物車</button>
       </div>
     </div>
   </template>
@@ -145,7 +145,7 @@
           </div>
         </div>
       </div>
-        <button @click="add(pn)">加入購物車</button>
+        <button @click="add(pn,ppr)">加入購物車</button>
       </div>
     </div>
   </template>
@@ -174,7 +174,7 @@
           </div>
         </div>
       </div>
-        <button @click="add(pn)">加入購物車</button>
+        <button @click="add(pn,ppr)">加入購物車</button>
       </div>
     </div>
   </template>
@@ -207,8 +207,17 @@
       data:function(){
         return{
           amount:0,
-          add:function(price){
-            alert(price + "數量" + this.amount);
+          add:function(pn, ppr){
+
+            if(this.amount != 0 ){
+              let objNew = {
+              name : pn,
+              price : ppr,
+              amount : this.amount,
+              sum : ppr * this.amount
+            }
+            this.$emit("childs", objNew);
+            }
           }
         }
       },
@@ -219,8 +228,8 @@
       data:function(){
         return{
           amount:0,
-          add:function(price){
-            alert(price + "數量" + this.amount);
+          add:function(pn, ppr){
+            alert(`pn ${pn}/ ppr ${ppr} /amount${this.amount} `);
           }
         }
       },
@@ -231,8 +240,8 @@
       data:function(){
         return{
           amount:0,
-          add:function(price){
-            alert(price + "數量" + this.amount);
+          add:function(pn, ppr){
+            alert(`pn ${pn}/ ppr ${ppr} /amount${this.amount} `);
           },
           hover_event:function(ele){
             ele.play();
@@ -248,6 +257,8 @@
     var vm = new Vue({
       el:'#app',
       data:{
+        buythings:[],
+        countthings:0,
         badges:[
         {imgurl:"../img/goods/badge/1.png",
         pname:"布布徽章",
@@ -329,6 +340,16 @@
         pname:"四毛抱枕",
         price:690}
         ]
+      },
+      methods:{
+        local(obj){
+          if(localStorage.getItem("cart_list")){
+              this.buythings = JSON.parse(localStorage.getItem("cart_list"));
+            }
+            this.buythings.push(obj);
+            localStorage.setItem("cart_list", JSON.stringify(this.buythings));
+            alert(`成功加入購物車`);
+        }
       }
     })
   </script>
