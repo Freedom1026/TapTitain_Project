@@ -9,6 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
     <script src="../js/convenience stores.js"></script>
     <script src="../js/address.js"></script>
     <title>購物車</title>
@@ -57,6 +58,7 @@
 
     <div class="container">
   <span v-once>{{parselist()}}</span>
+  <span v-once>{{get_data()}}</span>
       <table class="table table-striped table-dark">
         <thead>
           <tr>
@@ -224,8 +226,12 @@
       },
       get_data(){
           axios.get('/private/user')
-          .then((res) => { console.table(res.data[0].name) })
+          .then(function(res){
+            console.log(res.data[0].name);
+          })
           .catch((error) => { console.error(error) })
+          
+
         },
       parselist(){
         if(localStorage.getItem("cart_list")){

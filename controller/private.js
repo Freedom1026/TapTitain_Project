@@ -53,13 +53,13 @@ module.exports = function (request, response, controllerName) {
 
 	this.user = function(){
 		var objResponse = this.response;
-		let acc = 'developer@test.com';
-		connection.query('SELECT name, phone, mobile FROM `contact` WHERE account = ?', [acc], function(err, result){
+		let user = request.session.user;
+		connection.query('call dataM(?)', [user], function(err, result){
 			if(err){
 				console.log(JSON.stringify(err));
 				return;
 			}
-			let data =JSON.stringify(result);
+			let data =JSON.stringify(result[0]);
 			objResponse.send(data);
 		})
 	}

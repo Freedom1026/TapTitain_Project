@@ -138,7 +138,7 @@ module.exports = function (request, response, controllerName) {
 	this.get_cart = function(){
 		var objResponse = this.response;
 		let user = request.session.user;
-		connection.query('select name, phone, mobile from creatureskill where uid = ?', [user], function(err, rows){
+		connection.query('call dataM(?)', [user], function(err, rows){
 			if(err){
 				console.log(JSON.stringify(err));
 				return;
