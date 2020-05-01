@@ -91,14 +91,12 @@ module.exports = function (request, response, controllerName) {
 		let city = request.body.city || '臺北市';
 		let area = request.body.area || '中正區';
 		let detail = request.body.detail;
-		console.log(city);
-		console.log(area);
-		// connection.query('call register( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )', [mail, password, birthday, city, area, detail, myname, gender, phone, mobile], function(err, rows){
-		// 	if(err){
-		// 		console.log(JSON.stringify(err));
-		// 		return;
-		// 	}
-		// })
+		connection.query('call register( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )', [mail, password, birthday, city, area, detail, myname, gender, phone, mobile], function(err, rows){
+			if(err){
+				console.log(JSON.stringify(err));
+				return;
+			}
+		})
 
 		this.response.redirect('/');
 	}
@@ -135,6 +133,18 @@ module.exports = function (request, response, controllerName) {
 	
 	this.profile = function(){
 		this.response.render(this.viewPath + "mydata.html");
+	}
+
+	this.get_cart = function(){
+		var objResponse = this.response;
+		let user = request.session.user;
+		connection.query('select name, phone, mobile from creatureskill where uid = ?', [user], function(err, rows){
+			if(err){
+				console.log(JSON.stringify(err));
+				return;
+			}
+			objResponse.send(JSON.stringify(rows));
+		})
 	}
 
 	this.post_cart = function(){

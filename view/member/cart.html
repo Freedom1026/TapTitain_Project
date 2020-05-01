@@ -53,6 +53,7 @@
   </nav>
 
    <div id="app">
+<form action="">
 
     <div class="container">
   <span v-once>{{parselist()}}</span>
@@ -138,7 +139,7 @@
         <label for="menu">縣市</label>
         <select name="menu" id="menu" v-model="city" @change="reg_city($event.target.selectedOptions[0].index)">
           <option disabled selected>縣市</option>
-          <option v-for="item in citymenu" :value="item.cityname">{{item.cityname}}</option>
+          <option v-for="item in citymenu" :value="item">{{item}}</option>
         </select>
       </div>
       <div class="col-lg-2">
@@ -159,7 +160,10 @@
       
     
     </div>
+    <input type="submit">
   </div>
+    
+</form>
 </div>
 
 
@@ -178,8 +182,8 @@
       city:'縣市',
       area: '地區',
       index_city : 0,
-      citymenu: districtList,
-      areamenu: districtList[0].areaname,
+      citymenu: cityname_js,
+      areamenu: [],
       ar:[],
       total:0
     },
@@ -196,8 +200,13 @@
     },
     methods:{
       reg_city(index){
-        index -= 1;
-        this.areamenu = districtList[index].areaname;
+        index -=1;
+        let newAr = [];
+            areaname_js[index].forEach(function(val, ind){
+                newAr.push(val);
+            });
+            this.areamenu = newAr;
+
         let patt3 = new RegExp(this.area);
         let patt = new RegExp(this.brands);
         let patt2 = new RegExp(this.city);

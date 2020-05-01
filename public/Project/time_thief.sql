@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2020-04-26 17:12:49
+-- 產生時間： 2020-05-01 10:58:15
 -- 伺服器版本： 10.4.11-MariaDB
 -- PHP 版本： 7.2.29
 
@@ -27,6 +27,14 @@ DELIMITER $$
 --
 -- 程序
 --
+DROP PROCEDURE IF EXISTS `helloworld`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `helloworld` ()  NO SQL
+BEGIN
+	SET @va = 3;
+    SELECT name from contact WHERE account = 'developer@test.com';
+    SELECT @va;
+END$$
+
 DROP PROCEDURE IF EXISTS `register`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `register` (IN `acc` VARCHAR(50), IN `pas` VARCHAR(20), IN `bir` INT(10), IN `coun` VARCHAR(8), IN `are` VARCHAR(5), IN `de` VARCHAR(30), IN `na` VARCHAR(10), IN `ge` VARCHAR(2), IN `ph` INT(10), IN `mo` INT(10))  BEGIN
     
@@ -200,6 +208,22 @@ INSERT INTO `diamond` (`uid`, `modified_date`, `amount`, `diamond_card`, `the_re
 -- --------------------------------------------------------
 
 --
+-- 替換檢視表以便查看 `member_data`
+-- (請參考以下實際畫面)
+--
+DROP VIEW IF EXISTS `member_data`;
+CREATE TABLE IF NOT EXISTS `member_data` (
+`name` varchar(10)
+,`phone` int(10)
+,`mobile` int(10)
+,`country` varchar(5)
+,`area` varchar(8)
+,`detail` varchar(30)
+);
+
+-- --------------------------------------------------------
+
+--
 -- 資料表結構 `member_id`
 --
 
@@ -209,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `member_id` (
   `account` varchar(50) NOT NULL,
   PRIMARY KEY (`uid`),
   UNIQUE KEY `account` (`account`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
 
 --
 -- 傾印資料表的資料 `member_id`
@@ -314,6 +338,16 @@ CREATE TABLE IF NOT EXISTS `transfer` (
   `method_transfer` varchar(10) NOT NULL,
   PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- 檢視表結構 `member_data`
+--
+DROP TABLE IF EXISTS `member_data`;
+
+DROP VIEW IF EXISTS `member_data`;
+CREATE OR REPLACE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `member_data`  AS  select `contact`.`name` AS `name`,`contact`.`phone` AS `phone`,`contact`.`mobile` AS `mobile`,`address`.`country` AS `country`,`address`.`area` AS `area`,`address`.`detail` AS `detail` from ((`contact` join `address`) join (select `member_id`.`account` AS `account` from `member_id` where `member_id`.`uid` = 21) `tf`) where `contact`.`account` = `tf`.`account` and `address`.`uid` = 21 ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
