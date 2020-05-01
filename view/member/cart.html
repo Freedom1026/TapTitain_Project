@@ -54,7 +54,7 @@
   </nav>
 
    <div id="app">
-<form action="">
+
 
     <div class="container">
   <span v-once>{{parselist()}}</span>
@@ -162,10 +162,9 @@
       
     
     </div>
-    <input type="submit">
+    <button @click="output">output</button>
   </div>
-    
-</form>
+
 </div>
 
 
@@ -227,7 +226,12 @@
       get_data(){
           axios.get('/private/user')
           .then(function(res){
-            console.log(res.data[0].name);
+            vm.pkdata1 = res.data[0].name;
+            vm.pkdata2 = `0${res.data[0].phone}`;
+            vm.pkdata3 = `0${res.data[0].mobile}`;
+            let address = res.data[0].country + res.data[0].area + res.data[0].detail;
+            vm.pkdata4 = address;
+            console.log(res.data[0].name + res.data[0].phone)
           })
           .catch((error) => { console.error(error) })
           
@@ -259,6 +263,31 @@
           total += 45
         }
         this.total = total;
+      },
+      output(){
+        let ind = 0;
+        this.mylist.forEach(function(val){
+          let objPk = {
+            index: ind,
+            name: vm.pkdata1,
+            pname: val.name,
+            pprice: val.price,
+            pamount: val.amount,
+            psum : val.sum
+          }
+          ind ++;
+          console.log(objPk);
+        axios.post('/member/post_cart',
+        {
+        
+        }
+        )
+        })
+   
+          
+          // .catch((error) => { console.error(error) })
+          
+
       }
 
     }

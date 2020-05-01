@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2020-05-01 14:44:01
+-- 產生時間： 2020-05-01 17:40:12
 -- 伺服器版本： 10.4.11-MariaDB
 -- PHP 版本： 7.4.4
 
@@ -28,7 +28,7 @@ DELIMITER $$
 -- 程序
 --
 DROP PROCEDURE IF EXISTS `dataM`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `dataM` (`iuid` INT(10))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `dataM` (IN `iuid` INT(10))  BEGIN
 	SELECT name, phone, mobile, country, area, detail
     FROM contact, address, (
     SELECT account
@@ -65,6 +65,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `register` (IN `acc` VARCHAR(50), IN
     
     END$$
 
+DROP PROCEDURE IF EXISTS `reInd`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `reInd` (IN `iuid` INT(10))  BEGIN
+	INSERT INTO `transfer` (`uid`, `order_id`, `method_transfer`) VALUES (21, NULL, 'test');
+    SELECT LAST_INSERT_ID();
+END$$
+
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -87,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `address` (
 --
 
 INSERT INTO `address` (`uid`, `country`, `area`, `detail`) VALUES
-(21, '0', '0', '資策會');
+(21, '臺中市', '西屯區', '資策會');
 
 -- --------------------------------------------------------
 

@@ -148,24 +148,18 @@ module.exports = function (request, response, controllerName) {
 	}
 
 	this.post_cart = function(){
-		// let myname = request.body.myname;
-		// let gender = request.body.gender;
-		// let mail = request.body.mail;
-		// let password = request.body.password;
-		// let birthday= request.body.birthday;
-		// birthday = new Date(birthday);
-		// birthday = birthday.getTime()/1000;
+		// let receiver = request.body.receiver;
 		// let phone = request.body.phone;
 		// let mobile = request.body.mobile;
-		// let city = request.body.city | '臺北市';
-		// let area = request.body.area | '中正區';
-		// let detail = request.body.detail;
-		// connection.query('call register( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )', [mail, password, birthday, city, area, detail, myname, gender, phone, mobile], function(err, rows){
-		// 	if(err){
-		// 		console.log(JSON.stringify(err));
-		// 		return;
-		// 	}
-		// })
+		// let pay = request.body.pay;
+		
+		connection.query('CALL `testSet`();', [], function(err, rows){
+			if(err){
+				console.log(JSON.stringify(err));
+				return;
+			}
+			console.log(JSON.stringify(rows));
+		})
 
 		// 導向
 		// this.response.redirect('/');
