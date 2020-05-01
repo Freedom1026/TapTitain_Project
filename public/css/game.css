@@ -208,6 +208,11 @@ div.changePanel {
     /* background-image: url(../img/base2.png); */
 }
 
+div.changePanel button{
+    border-radius: 20%;
+    font-family: myfont;
+}
+
 @media screen and (max-width: 768px){
     div.HSkillDetail{
         width: 100%;

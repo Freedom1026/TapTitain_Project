@@ -52,7 +52,7 @@
             <% } %>
             <li class="nav-item active">
               <a class="nav-link" href="/member/cart"><i class="fa fa-shopping-cart"></i>
-                <span class="badge badge-dark">0</span></a>
+                <span class="badge badge-dark" id="cart_n">0</span></a>
             </li>
           </ul>
         </div>
@@ -83,6 +83,21 @@
   </div>
 
 <div id='app'>
+  <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false" style="position: fixed; z-index: 12; left: 80%;">
+    <div class="toast-header">
+      <img src="../img/LOGO.png" class="rounded mr-2" alt="...">
+      <strong class="mr-auto">訊息</strong>
+      <small>來自_購物車</small>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body">
+      {{product_name}}已成功加入購物車
+    </div>
+  </div>
+
+
   <div class="container">
     <p style="color: white;">大徽章專區</p>
     <div class="row">
@@ -90,12 +105,14 @@
     </div>
     <p style="color: white;">「猜猜我是誰」系列-帆布袋專區</p>
     <div class="row">
-      <goodbag v-for="(item, index) in bags" :imgu="item.imgurl" :pn="item.pname" :ppr="item.price"></goodbag>
+      <goodbag v-for="(item, index) in bags" :imgu="item.imgurl" :pn="item.pname" :ppr="item.price" @childs="local"></goodbag>
     </div>
     <div class="row">
-        <goodpillow v-for="(item, index) in pillows" :imgu="item.imgurl" :pn="item.pname" :ppr="item.price"></goodbag>
+        <goodpillow v-for="(item, index) in pillows" :imgu="item.imgurl" :pn="item.pname" :ppr="item.price" @childs="local"></goodbag>
     </div>
   </div>
+
+  <p v-once>{{initC()}}</p>
 
 </div>
 
@@ -216,7 +233,7 @@
               amount : this.amount,
               sum : ppr * this.amount
             }
-            this.$emit("childs", objNew);
+            this.$emit("childs", objNew, pn);
             }
           }
         }
@@ -229,7 +246,15 @@
         return{
           amount:0,
           add:function(pn, ppr){
-            alert(`pn ${pn}/ ppr ${ppr} /amount${this.amount} `);
+            if(this.amount != 0 ){
+              let objNew = {
+              name : pn,
+              price : ppr,
+              amount : this.amount,
+              sum : ppr * this.amount
+            }
+            this.$emit("childs", objNew, pn);
+            }
           }
         }
       },
@@ -241,7 +266,15 @@
         return{
           amount:0,
           add:function(pn, ppr){
-            alert(`pn ${pn}/ ppr ${ppr} /amount${this.amount} `);
+            if(this.amount != 0 ){
+              let objNew = {
+              name : pn,
+              price : ppr,
+              amount : this.amount,
+              sum : ppr * this.amount
+            }
+            this.$emit("childs", objNew, pn);
+            }
           },
           hover_event:function(ele){
             ele.play();
@@ -258,7 +291,8 @@
       el:'#app',
       data:{
         buythings:[],
-        countthings:0,
+        counthings:0,
+        product_name:'',
         badges:[
         {imgurl:"../img/goods/badge/1.png",
         pname:"布布徽章",
@@ -342,13 +376,26 @@
         ]
       },
       methods:{
-        local(obj){
+        initC(){
+          let tempc = 0;
           if(localStorage.getItem("cart_list")){
-              this.buythings = JSON.parse(localStorage.getItem("cart_list"));
-            }
+            this.buythings = JSON.parse(localStorage.getItem("cart_list"));
+              this.buythings.forEach(function(){
+                tempc += 1;
+              });
+              $('#cart_n').text(tempc);
+              this.counthings = tempc;
+              console.log(this.counthings);
+          }
+        },
+        local(obj, pn){
+            this.initC();
+            this.product_name = pn;
             this.buythings.push(obj);
             localStorage.setItem("cart_list", JSON.stringify(this.buythings));
-            alert(`成功加入購物車`);
+            this.counthings += 1;
+            $('#cart_n').text(this.counthings);
+            $('.toast').toast('show');
         }
       }
     })

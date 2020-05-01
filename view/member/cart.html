@@ -12,6 +12,16 @@
     <script src="../js/convenience stores.js"></script>
     <script src="../js/address.js"></script>
     <title>購物車</title>
+    <style>
+      .deleteCol:hover{
+        cursor: pointer;
+        color: red;
+        font-weight: bold;
+      }
+      .deleteCol{
+        color: yellow;
+      }
+    </style>
 </head>
 <body>
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
@@ -45,7 +55,7 @@
    <div id="app">
 
     <div class="container">
-
+  <span v-once>{{parselist()}}</span>
       <table class="table table-striped table-dark">
         <thead>
           <tr>
@@ -57,15 +67,23 @@
           </tr>
         </thead>
         <tbody>
+          <tr v-for="item,index in mylist">
+          <td @click="deletedata(index)" class="deleteCol">Delete</td>
+            <td>{{item.name}}</td>
+            <td>{{item.price}}</td>
+            <td>{{item.amount}}</td>
+            <td>NT${{item.sum}}</td>
+          </tr>
           <tr>
             <td colspan="3"></td>
             <td>運費</td>
-            <td>NT$</td>
+            <td v-if="payway == '超商'">NT$45</td>
+            <td v-if="payway == 'ATM'">NT$200</td>
           </tr>
           <tr>
             <th scope="row">總計</th>
             <td colspan="3"></td>
-            <td>NT$</td>
+            <td>NT${{total}}</td>
           </tr>
         </tbody>
       </table>
@@ -75,15 +93,15 @@
 <!-- 宅配 -->
 <div class="form-group row">
   <div class="col-lg-2">收件人</div>
-  <div class="col-lg-3"><input type="text" maxlength="10" class="form-control"></div>
+  <div class="col-lg-3"><input type="text" maxlength="10" class="form-control" v-model="pkdata1"></div>
 </div>
 <div class="form-group row">
   <div class="col-lg-2">聯絡電話</div>
-  <div class="col-lg-3"><input type="text" maxlength="10" class="form-control"></div>
+  <div class="col-lg-3"><input type="text" maxlength="10" class="form-control" v-model="pkdata2"></div>
 </div>
 <div class="form-group row">
   <div class="col-lg-2">手機號碼</div>
-  <div class="col-lg-3"><input type="text" maxlength="10" class="form-control"></div>
+  <div class="col-lg-3"><input type="text" maxlength="10" class="form-control" v-model="pkdata3"></div>
 </div>
 
 <div class="form-group row">
@@ -100,7 +118,7 @@
 <!-- ATM -->
 <div class="form-group row" v-if="payway == 'ATM'">
   <div class="col-lg-2">收件地址</div>
-  <div class="col-lg-5"><input type="text" minlength="12" class="form-control"></div>
+  <div class="col-lg-5"><input type="text" minlength="12" class="form-control" v-model="pkdata4"></div>
 </div>
 <!-- 超市 -->
 <div v-if="payway == '超商'">
@@ -146,30 +164,24 @@
 
 
 
-
-  <template>
-    <tr>
-      <td>-</td>
-      <td>name</td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-  </template>
-
-
 <script>
   var vm = new Vue({
     el:'#app',
     data:{
+      mylist:[],
       brands:'',
       payway:'',
+      pkdata1:'',
+      pkdata2:'',
+      pkdata3:'',
+      pkdata4:'',
       city:'縣市',
       area: '地區',
       index_city : 0,
       citymenu: districtList,
       areamenu: districtList[0].areaname,
-      ar:[]
+      ar:[],
+      total:0
     },
     watch:{
       brands:function(){
@@ -177,6 +189,9 @@
       },
       area:function(){
         this.reg_check();
+      },
+      payway:function(){
+        this.totalf();
       }
     },
     methods:{
@@ -202,7 +217,34 @@
           axios.get('/private/user')
           .then((res) => { console.table(res.data[0].name) })
           .catch((error) => { console.error(error) })
+        },
+      parselist(){
+        if(localStorage.getItem("cart_list")){
+          this.mylist = JSON.parse(localStorage.getItem("cart_list"));
         }
+        let total = 0
+        this.mylist.forEach(element => {
+          total += element.sum;
+        });
+        this.total = total;
+      },
+      deletedata(num){
+        this.mylist.splice(num, 1);
+        localStorage.setItem("cart_list", JSON.stringify(this.mylist));
+      },
+      totalf(){
+        let total = 0
+        this.mylist.forEach(element => {
+          total += element.sum;
+        });
+        if(this.payway == "ATM"){
+          total += 200;
+        }
+        else if(this.payway == "超商"){
+          total += 45
+        }
+        this.total = total;
+      }
 
     }
   })

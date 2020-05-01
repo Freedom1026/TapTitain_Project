@@ -17,8 +17,8 @@ const controlVue = new Vue({
         msg:'',
         rule_4:'none',
         rule_5:'none',
-        city_map: districtList,
-        area_map:districtList[0].areaname,
+        city_map: cityname_js,
+        area_map: [],
         city:'臺北市',
         area:'中正區',
         index_city:0,
@@ -46,9 +46,6 @@ const controlVue = new Vue({
         },
         phone2(){
             this.phone2_check();
-        },
-        city(){
-            this.city_check();
         },
         address(){
             this.add_check();
@@ -134,8 +131,11 @@ const controlVue = new Vue({
             }
         },
         city_check(self){
-            this.index_city = self;
-            this.area_map = districtList[this.index_city].areaname;
+            let newAr = [];
+            areaname_js[self].forEach(function(val, ind){
+                newAr.push(val);
+            });
+            this.area_map = newAr;
         },
         add_check(){
             let patt = /[^`~%@#$^*!&+'"?<>/\\]+/;

@@ -106,7 +106,7 @@
               </div>
               <div class="col-lg-5">
                 <label for="gender">請選擇</label><select name="gender" id="g" class="custom-select mr-sm-2"
-                  v-model="gender" name="gender">
+                  v-model="gender">
                   <option value="先生">先生</option>
                   <option value="女士">女士</option>
                 </select>
@@ -157,14 +157,14 @@
             <label for="">地址</label><span class="badge badge-danger">必填</span>
             <div class="row">
               <div class="col-lg-6">
-                <label for="country" class="form-group mx-sm-3 mb-2">縣市<select name="country" id="country"
+                <label for="country" class="form-group mx-sm-3 mb-2">縣市<select id="country"
                     class="custom-select mr-sm-2" v-model="city"
                     @change="city_check($event.target.selectedOptions[0].index)" name="city" required></label>
-                <option v-for="(item, index) in city_map" :value="item.cityname">{{item.cityname}}</option>
+                <option v-for="(item, index) in city_map" :value="item">{{item}}</option>
                 </select>
               </div>
               <div class="col-lg-6">
-                <label for="area" class="form-group mx-sm-3 mb-2">區<select name="country" id="area"
+                <label for="area" class="form-group mx-sm-3 mb-2">區<select id="area"
                     class="custom-select mr-sm-2" v-model="area" name="area" required></label>
                 <option v-for="(item, index) in area_map" :value="item">{{item}}</option>
                 </select>
