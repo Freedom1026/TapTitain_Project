@@ -1,4 +1,5 @@
 // 以 Express 建立 Web伺服器
+var PORT = process.env.PORT || 7777;
 var express = require("express");
 var app = express();
 
@@ -7,6 +8,19 @@ var bodyParser = require('body-parser');
 app.use( bodyParser.json() );
 app.use( bodyParser.urlencoded({extended: false}) );
 
+//socket
+var http = require('http');
+var server = http.Server(app);
+server.listen(PORT, function() {
+    console.log('Chat server running');
+  });
+const io = require('socket.io')(server);
+
+io.on('connection', function(socket) {
+    socket.on('message', function(msg) {
+      io.emit('message', msg);
+    });
+  });
 // Web伺服器的靜態檔案置於 public 資料夾
 app.use( express.static( "public" ) );
 
@@ -34,6 +48,7 @@ console.log("Server is running... Press 'Ctrl + C' to exit.");
 
 // 路由設定:
 // 格式:  /controllerName/actionName
+
 app.get("/", function (request, response) {
     doControllerAction("home", "index", request, response);
 });
@@ -63,10 +78,16 @@ app.put("/:controllerName/:actionName", function (request, response) {
 
 // 呼叫 controller.action() 以處理 Client 端送來的請求
 function doControllerAction(controllerName, actionName, request, response) {
-    if(controllerName !== "js"){
-        let moduleName = "./controller/" + controllerName + ".js";
-        let controllerClass = require(moduleName);
-        let controller = new controllerClass(request, response, controllerName);
-        controller[actionName]();  
+    try{
+        if(controllerName !== "js"){
+            let moduleName = "./controller/" + controllerName + ".js";
+            let controllerClass = require(moduleName);
+            let controller = new controllerClass(request, response, controllerName);
+            controller[actionName]();  
+        }
     }
+    catch (e){
+        console.log(JSON.stringify(e));
+    }
+
 }

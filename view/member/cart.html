@@ -251,6 +251,7 @@
       deletedata(num){
         this.mylist.splice(num, 1);
         localStorage.setItem("cart_list", JSON.stringify(this.mylist));
+        this.parselist();
       },
       totalf(){
         let total = 0

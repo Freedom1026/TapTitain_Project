@@ -47,6 +47,51 @@ module.exports = function (request, response, controllerName) {
 	this.diamond = function(){
 		this.response.render(this.viewPath + "diamond.html");
 	}
+	this.post_diamond = function(){
+		var objResponse = this.response;
+		let card = request.body.id;
+		let pas = request.body.ps;
+		let acc = request.body.ac;
+		console.log(card, pas, acc);
+		connection.query('call validTB(?, ?)', [card, pas], function(err, result){
+			if(err){
+				console.log(JSON.stringify(err));
+				return;
+			}
+			let getND =JSON.stringify(result[0]);
+			getND =JSON.parse(getND);
+			var getValid =getND[0].n;
+			var getCard =getND[0].diamond_card;
+			if(getValid == 1){
+				connection.query('SELECT COUNT(*) as n FROM `member_list` WHERE account = ? ',[acc],function(err,result){
+					if(err){
+						console.log(JSON.stringify(err));
+						return;
+					}
+					getND = JSON.stringify(result[0]);
+					getND = JSON.parse(getND);
+					if(getND.n == 1){
+						connection.query('call deposit(?, ?)',[acc, getCard],function(err){
+							if(err){
+								console.log(JSON.stringify(err));
+								return;
+							}
+						});
+						objResponse.send("儲值成功");
+					}
+					else{
+						objResponse.send("儲值失敗，此帳號不存在");
+					}
+				})
+			}
+			else{
+				
+				objResponse.send("此卡號無效");
+			}
+			
+		})
+	}
+
 	this.history = function(){
 		this.response.render(this.viewPath + "history.html");
 	}

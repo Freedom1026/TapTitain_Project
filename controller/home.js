@@ -21,7 +21,6 @@ module.exports = function (request, response, controllerName) {
         }
 	});
 
-
     this.request  = request;
     this.response = response;
 	this.viewPath = controllerName + "/";
@@ -47,7 +46,8 @@ module.exports = function (request, response, controllerName) {
 	
 
 	this.test = function(){
-		this.response.render(this.viewPath + "test.html");
+		this.response.redirect("localhost:7777/home/test");
+		// this.response.render("testarea" + "/" + "index.html");
 	}
 
 	this.firebase =function(){

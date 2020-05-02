@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 
--- 伺服器版本： 10.4.8-MariaDB
--- PHP 版本： 7.3.11
+-- 產生時間： 2020-05-02 16:40:20
+-- 伺服器版本： 10.4.11-MariaDB
+-- PHP 版本： 7.4.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -64,8 +63,7 @@ END$$
 
 DROP PROCEDURE IF EXISTS `deposit`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `deposit` (IN `iacc` VARCHAR(50), IN `cardid` VARCHAR(36))  BEGIN
-        
-    UPDATE cards_list SET state = 0
+	UPDATE cards_list SET state = 0
     WHERE diamond_card = cardid;
     
 	UPDATE myself SET diamond = (
@@ -112,16 +110,6 @@ VALUES (
     							)
 );
 
-
-
-               SELECT COUNT(*) as nc
-               FROM myself, member_id
-               WHERE member_id.uid = myself.uid
-                                     AND
-                        member_id.account = iacc;
-
-
-
 END$$
 
 DROP PROCEDURE IF EXISTS `orderF`$$
@@ -158,8 +146,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `register` (IN `acc` VARCHAR(50), IN
     
     END$$
 
-DROP PROCEDURE IF EXISTS `vaildTB`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `vaildTB` (`dmdc` VARCHAR(36), `pas` VARCHAR(24))  BEGIN
+DROP PROCEDURE IF EXISTS `validTB`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `validTB` (IN `dmdc` VARCHAR(36), IN `pas` VARCHAR(24))  BEGIN
 	SELECT COUNT(*) as n, diamond_card
     FROM cards_list
     WHERE cards_list.diamond_card = dmdc
@@ -213,7 +201,7 @@ CREATE TABLE IF NOT EXISTS `cards_list` (
 
 INSERT INTO `cards_list` (`diamond_card`, `password`, `state`) VALUES
 ('015a96c6-3586-4fe0-9d18-37a8df2edc5b', '5ea3c15633a9809fa2e8de4d', 0),
-('09d05517-fde4-4505-b5ed-7fa6b2dfed01', '5ea3c1562cb4fc244b76bf39', 1),
+('09d05517-fde4-4505-b5ed-7fa6b2dfed01', '5ea3c1562cb4fc244b76bf39', 0),
 ('1c7f5128-f406-4565-bb87-c69b5b92a893', '5ea3c156d4a4bea6ef4fcf61', 1),
 ('1e6833f4-7568-4ad4-a39f-ef7f16c2eeda', '5ea3c156909169f0a868de37', 1),
 ('239aea7e-fd82-47dd-b2bb-1f6e651af07a', '5ea3c156e838b58e22535ea4', 1),
@@ -299,19 +287,11 @@ DROP TABLE IF EXISTS `diamond`;
 CREATE TABLE IF NOT EXISTS `diamond` (
   `uid` int(10) NOT NULL,
   `modified_date` int(10) NOT NULL DEFAULT current_timestamp(),
-  `amount` int(10) NOT NULL,
+  `amount` int(10) NOT NULL DEFAULT 200,
   `diamond_card` varchar(36) NOT NULL,
   `the_rest` int(10) NOT NULL,
   PRIMARY KEY (`diamond_card`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- 傾印資料表的資料 `diamond`
---
-
-INSERT INTO `diamond` (`uid`, `modified_date`, `amount`, `diamond_card`, `the_rest`) VALUES
-(21, 1587791843, 200, '015a96c6-3586-4fe0-9d18-37a8df2edc5b', 200),
-(21, 2147483647, 0, '09d05517-fde4-4505-b5ed-7fa6b2dfed01', 620);
 
 -- --------------------------------------------------------
 
@@ -380,7 +360,7 @@ CREATE TABLE IF NOT EXISTS `myself` (
 --
 
 INSERT INTO `myself` (`uid`, `lv`, `stage`, `coin`, `diamond`, `sk_A`, `sk_B`, `achievement`) VALUES
-(21, 2, 2, 207, 620, 0, 1, 0);
+(21, 2, 2, 207, 820, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -407,8 +387,6 @@ CREATE TABLE IF NOT EXISTS `order_list` (
 --
 
 INSERT INTO `order_list` (`uid`, `order_id`, `purchase_date`, `item_id`, `product_name`, `product_price`, `product_n`, `fee`, `state`) VALUES
-(21, 1, 2147483647, 0, '小蛙徽章', 81, 2, NULL, '待付款'),
-(21, 2, 2147483647, 2, '小黃帆布袋', 230, 2, NULL, '待付款'),
 (21, 3, 2147483647, 1, '豬豬抱枕', 690, 2, NULL, '待付款'),
 (21, 4, 2147483647, 0, '小蛙徽章', 81, 2, NULL, '待付款'),
 (21, 5, 2147483647, 1, '豬豬抱枕', 690, 2, NULL, '待付款'),

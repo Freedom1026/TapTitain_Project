@@ -1,6 +1,6 @@
 <%- include("../private/header.html") %>
 <div class="container">
-    <form action="">
+    <form action="/private/post_diamond" method="POST">
         <div class="row">
             <div class="col-lg-12">
                 <h2>修改密碼</h2>
@@ -9,19 +9,27 @@
         <div class="form-group row">
             <label for="id" class="col-sm-2 col-form-label">序號</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" id="id">
+              <input type="text" class="form-control" id="id" name="id">
             </div>
         </div>
         <div class="form-group row">
             <label for="ps" class="col-sm-2 col-form-label">密碼</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" id="ps">
+              <input type="text" class="form-control" id="ps" name="ps">
             </div>
         </div>
         <div class="form-group row">
             <label for="ac" class="col-sm-2 col-form-label">帳號(e-mail)</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" id="ac">
+              <input type="text" class="form-control" id="ac" name="ac">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-2">
+              
+            </div>
+            <div class="col-sm-8">
+              <input type="submit" class="form-control">
             </div>
         </div>
     </form>

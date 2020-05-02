@@ -9,18 +9,5 @@
 <body>
     <p>hello</p>
     <p id="debug">content</p>
-
-    <script>
-        console.log($);
-        var test;
-        $(function(){
-            $.get("/home/get_test", function (e) {
-            HeroData = JSON.parse(e);
-            console.log(HeroData);
-            $("p#debug").text(HeroData[0].heroLv);
-            })
-        })
-       
-    </script>
 </body>
 </html>

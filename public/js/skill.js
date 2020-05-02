@@ -190,8 +190,6 @@ $(window).on('beforeunload',function(){
         data: newItem
     })
 
-
-    return false;
 })
 
 //--------------------------------------- 下面是畫面function 上面是物件funciton (初始化設定)

@@ -120,7 +120,6 @@ module.exports = function (request, response, controllerName) {
 	}
 
 
-
 	this.shop = function(){
 		// console.log(request.session.user);
 		this.response.render(this.viewPath + "shop.html", 
