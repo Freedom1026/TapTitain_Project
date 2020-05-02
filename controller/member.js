@@ -148,18 +148,86 @@ module.exports = function (request, response, controllerName) {
 	}
 
 	this.post_cart = function(){
-		// let receiver = request.body.receiver;
-		// let phone = request.body.phone;
-		// let mobile = request.body.mobile;
-		// let pay = request.body.pay;
+		let user = request.session.user;
+		let index = request.body.index;
+		let receiver = request.body.receiver;
+		let pname = request.body.pname;
+		let pprice = request.body.pprice;
+		let pamount = request.body.pamount;
+		let psum = request.body.psum;
+		let phone = request.body.phone;
+		let mobile = request.body.mobile;
+		let pay = request.body.payway;
 		
-		connection.query('CALL `testSet`();', [], function(err, rows){
-			if(err){
-				console.log(JSON.stringify(err));
-				return;
+		if(pay == "超商"){
+			var method_transfer = request.body.brands;
+			var convenience = request.body.convenience;
+			var state = "待出貨";
+			var fee;
+			if(index == 0){
+				fee = 45;
 			}
-			console.log(JSON.stringify(rows));
-		})
+			else{
+				fee = 0;
+			}
+
+			connection.query('CALL `orderF`(?, ?, ?, ?, ?, ?, ?);',
+			 [user, pname, pprice, pamount, index, fee, state], function(err, rows){
+				if(err){
+					console.log(JSON.stringify(err));
+					return;
+				}
+				var getoid = JSON.stringify(rows[0]);
+				getoid = JSON.parse(getoid);
+				getoid = getoid[0]["LAST_INSERT_ID()"];
+				console.log(getoid);
+
+				connection.query('CALL `cstoreF`(?, ?, ?, ?, ?, ?, ?, ?);',
+				[user, getoid, index, method_transfer, convenience, receiver, phone, mobile], function(err, rows){
+				   if(err){
+					   console.log(JSON.stringify(err));
+					   return;
+				   }
+			   })
+
+			});
+			
+			}
+		else if(pay == "ATM"){
+			var method_transfer = "宅配"
+			var atmsend = request.body.atmsend;
+			var state = "待付款";
+			var fee;
+			if(index == 0){
+				fee = 200;
+			}
+			else{
+				fee = 0;
+			}
+			
+			connection.query('CALL `orderF`(?, ?, ?, ?, ?, ?, ?);',
+			 [user, pname, pprice, pamount, index, fee, state], function(err, rows){
+				if(err){
+					console.log(JSON.stringify(err));
+					return;
+				}
+				var getoid = JSON.stringify(rows[0]);
+				getoid = JSON.parse(getoid);
+				getoid = getoid[0]["LAST_INSERT_ID()"];
+				console.log(getoid);
+
+				connection.query('CALL `atmF`(?, ?, ?, ?, ?, ?, ?, ?, ?);',
+				[user, getoid, index, psum, method_transfer, atmsend, receiver, phone, mobile], function(err, rows){
+				   if(err){
+					   console.log(JSON.stringify(err));
+					   return;
+				   }
+			   })
+
+			});			
+		}
+
+		// console.log(index,receiver,pname,pprice,pamount,psum,phone,mobile,method_transfer,atmsend,convenience,state)
 
 		// 導向
 		// this.response.redirect('/');

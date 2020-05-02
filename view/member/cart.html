@@ -153,8 +153,8 @@
       </div>
       <div class="col-lg-8">
         <label for="menu3">分店地址</label>
-        <select name="add_for_goods" id="menu3">
-          <option v-for="item in ar">{{item.分公司地址}}</option>
+        <select name="add_for_goods" id="menu3" v-model="cstore">
+          <option v-for="item in ar" :value="item.分公司地址">{{item.分公司地址}}</option>
         </select>
       </div>
     </div>
@@ -186,7 +186,8 @@
       citymenu: cityname_js,
       areamenu: [],
       ar:[],
-      total:0
+      total:0,
+      cstore:''
     },
     watch:{
       brands:function(){
@@ -269,19 +270,21 @@
         this.mylist.forEach(function(val){
           let objPk = {
             index: ind,
-            name: vm.pkdata1,
+            receiver: vm.pkdata1,
             pname: val.name,
             pprice: val.price,
             pamount: val.amount,
-            psum : val.sum
+            psum: val.sum,
+            phone: vm.pkdata2,
+            mobile: vm.pkdata3,
+            payway: vm.payway,
+            brands: vm.brands,
+            atmsend: vm.pkdata4,
+            convenience : vm.cstore,
           }
           ind ++;
           console.log(objPk);
-        axios.post('/member/post_cart',
-        {
-        
-        }
-        )
+        axios.post('/member/post_cart',objPk)
         })
    
           

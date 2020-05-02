@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2020-05-01 17:40:12
--- 伺服器版本： 10.4.11-MariaDB
--- PHP 版本： 7.4.4
+-- 產生時間： 
+-- 伺服器版本： 10.4.8-MariaDB
+-- PHP 版本： 7.3.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -27,6 +28,29 @@ DELIMITER $$
 --
 -- 程序
 --
+DROP PROCEDURE IF EXISTS `atmF`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `atmF` (IN `iuid` INT(10), IN `ioid` INT(10), IN `iidx` INT(10), IN `psum` INT(10), IN `brands` VARCHAR(60), IN `isendto` VARCHAR(60), IN `rece` VARCHAR(10), IN `pho` INT(10), IN `mob` INT(10))  NO SQL
+BEGIN
+
+INSERT INTO payment (name, order_id, iid, amount)
+VALUES ((SELECT name
+        FROM member_id, contact
+        WHERE member_id.uid = iuid AND
+        member_id.account = contact.account)
+        , ioid, iidx, psum);
+INSERT INTO transfer (uid, order_id, iid, method_transfer, sendto, receiver, phone, mobile)
+VALUES (iuid, ioid, iidx, brands, isendto, rece, pho, mob);
+
+END$$
+
+DROP PROCEDURE IF EXISTS `cstoreF`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cstoreF` (IN `iuid` INT(10), IN `ioid` INT(10), IN `iidx` INT(10), IN `brands` VARCHAR(10), IN `isendto` VARCHAR(60), IN `rece` VARCHAR(10), IN `pho` INT(10), IN `mob` INT(10))  BEGIN
+
+INSERT INTO transfer (uid, order_id, iid, method_transfer, sendto, receiver, phone, mobile)
+VALUES (iuid, ioid, iidx, brands, isendto,rece, pho, mob);
+
+END$$
+
 DROP PROCEDURE IF EXISTS `dataM`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `dataM` (IN `iuid` INT(10))  BEGIN
 	SELECT name, phone, mobile, country, area, detail
@@ -36,6 +60,75 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `dataM` (IN `iuid` INT(10))  BEGIN
         WHERE uid = iuid
     ) as tf
     WHERE contact.account = tf.account AND address.uid = iuid;
+END$$
+
+DROP PROCEDURE IF EXISTS `deposit`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deposit` (IN `iacc` VARCHAR(50), IN `cardid` VARCHAR(36))  BEGIN
+        
+    UPDATE cards_list SET state = 0
+    WHERE diamond_card = cardid;
+    
+	UPDATE myself SET diamond = (
+        SELECT form.rest
+        FROM(
+             SELECT(diamond + 200) as rest
+             FROM myself, member_id
+             WHERE member_id.uid = myself.uid
+                                     AND
+             member_id.account = iacc
+             ) as form
+    							)
+                                
+	WHERE uid = ( SELECT form.ud
+          FROM(
+               SELECT myself.uid as ud
+               FROM myself, member_id
+               WHERE member_id.uid = myself.uid
+                                     AND
+                        member_id.account = iacc
+               ) as form
+    			);
+
+INSERT INTO diamond (uid, diamond_card, the_rest)
+VALUES (
+( SELECT form.ud
+          FROM(
+               SELECT myself.uid as ud
+               FROM myself, member_id
+               WHERE member_id.uid = myself.uid
+                                     AND
+                        member_id.account = iacc
+               ) as form
+    			),
+    cardid,(
+        SELECT form.diamond
+        FROM(
+             SELECT diamond
+             FROM myself, member_id
+             WHERE member_id.uid = myself.uid
+                                     AND
+             member_id.account = iacc
+             ) as form
+    							)
+);
+
+
+
+               SELECT COUNT(*) as nc
+               FROM myself, member_id
+               WHERE member_id.uid = myself.uid
+                                     AND
+                        member_id.account = iacc;
+
+
+
+END$$
+
+DROP PROCEDURE IF EXISTS `orderF`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `orderF` (IN `iuid` INT(10), IN `pname` VARCHAR(10), IN `pprice` INT(10), IN `pamount` INT(10), IN `iindex` INT(10), IN `ifee` INT(10), IN `istate` VARCHAR(10))  BEGIN
+	INSERT INTO order_list (order_id, uid, item_id, product_name, product_price, product_n, fee, state)
+    VALUES (NULL, iuid, iindex, pname, pprice, pamount, ifee, istate);
+    SELECT LAST_INSERT_ID();
 END$$
 
 DROP PROCEDURE IF EXISTS `register`$$
@@ -65,10 +158,15 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `register` (IN `acc` VARCHAR(50), IN
     
     END$$
 
-DROP PROCEDURE IF EXISTS `reInd`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `reInd` (IN `iuid` INT(10))  BEGIN
-	INSERT INTO `transfer` (`uid`, `order_id`, `method_transfer`) VALUES (21, NULL, 'test');
-    SELECT LAST_INSERT_ID();
+DROP PROCEDURE IF EXISTS `vaildTB`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `vaildTB` (`dmdc` VARCHAR(36), `pas` VARCHAR(24))  BEGIN
+	SELECT COUNT(*) as n, diamond_card
+    FROM cards_list
+    WHERE cards_list.diamond_card = dmdc
+    	AND
+    	cards_list.password = pas
+        AND
+        state = 1;
 END$$
 
 DELIMITER ;
@@ -212,7 +310,8 @@ CREATE TABLE IF NOT EXISTS `diamond` (
 --
 
 INSERT INTO `diamond` (`uid`, `modified_date`, `amount`, `diamond_card`, `the_rest`) VALUES
-(21, 1587791843, 200, '015a96c6-3586-4fe0-9d18-37a8df2edc5b', 200);
+(21, 1587791843, 200, '015a96c6-3586-4fe0-9d18-37a8df2edc5b', 200),
+(21, 2147483647, 0, '09d05517-fde4-4505-b5ed-7fa6b2dfed01', 620);
 
 -- --------------------------------------------------------
 
@@ -281,7 +380,7 @@ CREATE TABLE IF NOT EXISTS `myself` (
 --
 
 INSERT INTO `myself` (`uid`, `lv`, `stage`, `coin`, `diamond`, `sk_A`, `sk_B`, `achievement`) VALUES
-(21, 2, 2, 207, 200, 0, 1, 0);
+(21, 2, 2, 207, 620, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -291,17 +390,48 @@ INSERT INTO `myself` (`uid`, `lv`, `stage`, `coin`, `diamond`, `sk_A`, `sk_B`, `
 
 DROP TABLE IF EXISTS `order_list`;
 CREATE TABLE IF NOT EXISTS `order_list` (
-  `no` int(10) NOT NULL AUTO_INCREMENT,
   `uid` int(10) NOT NULL,
-  `order_id` int(10) NOT NULL,
-  `purchase_date` int(10) NOT NULL,
+  `order_id` int(10) NOT NULL AUTO_INCREMENT,
+  `purchase_date` int(10) NOT NULL DEFAULT current_timestamp(),
   `item_id` int(5) NOT NULL,
-  `product_id` varchar(10) NOT NULL,
+  `product_name` varchar(10) NOT NULL,
   `product_price` int(5) NOT NULL,
   `product_n` int(10) NOT NULL,
+  `fee` int(10) DEFAULT NULL,
   `state` varchar(10) NOT NULL,
-  PRIMARY KEY (`no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  PRIMARY KEY (`order_id`,`item_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
+
+--
+-- 傾印資料表的資料 `order_list`
+--
+
+INSERT INTO `order_list` (`uid`, `order_id`, `purchase_date`, `item_id`, `product_name`, `product_price`, `product_n`, `fee`, `state`) VALUES
+(21, 1, 2147483647, 0, '小蛙徽章', 81, 2, NULL, '待付款'),
+(21, 2, 2147483647, 2, '小黃帆布袋', 230, 2, NULL, '待付款'),
+(21, 3, 2147483647, 1, '豬豬抱枕', 690, 2, NULL, '待付款'),
+(21, 4, 2147483647, 0, '小蛙徽章', 81, 2, NULL, '待付款'),
+(21, 5, 2147483647, 1, '豬豬抱枕', 690, 2, NULL, '待付款'),
+(21, 6, 2147483647, 2, '小黃帆布袋', 230, 2, NULL, '待付款'),
+(21, 7, 2147483647, 0, '小蛙徽章', 81, 2, NULL, '待付款'),
+(21, 8, 2147483647, 1, '豬豬抱枕', 690, 2, NULL, '待付款'),
+(21, 9, 2147483647, 2, '小黃帆布袋', 230, 2, NULL, '待付款'),
+(21, 10, 2147483647, 0, '小蛙徽章', 81, 2, NULL, '待付款'),
+(21, 11, 2147483647, 1, '豬豬抱枕', 690, 2, NULL, '待付款'),
+(21, 12, 2147483647, 2, '小黃帆布袋', 230, 2, NULL, '待付款'),
+(21, 13, 2147483647, 0, '小蛙徽章', 81, 2, 0, '45'),
+(21, 14, 2147483647, 1, '豬豬抱枕', 690, 2, 0, '45'),
+(21, 15, 2147483647, 2, '小黃帆布袋', 230, 2, 0, '45'),
+(21, 16, 2147483647, 0, '小蛙徽章', 81, 2, 45, '待出貨'),
+(21, 17, 2147483647, 1, '四腳抱枕', 690, 6, 45, '待出貨'),
+(21, 18, 2147483647, 0, '小蛙徽章', 81, 2, 200, '待付款'),
+(21, 19, 2147483647, 1, '四腳抱枕', 690, 6, 200, '待付款'),
+(21, 20, 2147483647, 0, '小蛙徽章', 81, 2, 200, '待付款'),
+(21, 21, 2147483647, 1, '四腳抱枕', 690, 6, 0, '待付款'),
+(21, 22, 2147483647, 0, '小蛙徽章', 81, 2, 45, '待出貨'),
+(21, 23, 2147483647, 1, '四腳抱枕', 690, 6, 0, '待出貨'),
+(21, 24, 2147483647, 0, '小蛙徽章', 81, 2, 200, '待付款'),
+(21, 25, 2147483647, 1, '四腳抱枕', 690, 6, 0, '待付款');
 
 -- --------------------------------------------------------
 
@@ -313,10 +443,29 @@ DROP TABLE IF EXISTS `payment`;
 CREATE TABLE IF NOT EXISTS `payment` (
   `name` varchar(10) NOT NULL,
   `order_id` int(10) NOT NULL,
+  `iid` int(10) NOT NULL,
   `amount` int(10) NOT NULL,
   `paid` varchar(1) NOT NULL DEFAULT 'n',
-  PRIMARY KEY (`order_id`)
+  PRIMARY KEY (`order_id`,`iid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- 傾印資料表的資料 `payment`
+--
+
+INSERT INTO `payment` (`name`, `order_id`, `iid`, `amount`, `paid`) VALUES
+('創建者', 7, 0, 162, 'n'),
+('創建者', 8, 1, 1380, 'n'),
+('創建者', 9, 2, 460, 'n'),
+('創建者', 10, 0, 162, 'n'),
+('創建者', 11, 1, 1380, 'n'),
+('創建者', 12, 2, 460, 'n'),
+('創建者', 18, 0, 162, 'n'),
+('創建者', 19, 1, 4140, 'n'),
+('創建者', 20, 0, 162, 'n'),
+('創建者', 21, 1, 4140, 'n'),
+('創建者', 24, 0, 162, 'n'),
+('創建者', 25, 1, 4140, 'n');
 
 -- --------------------------------------------------------
 
@@ -328,9 +477,39 @@ DROP TABLE IF EXISTS `transfer`;
 CREATE TABLE IF NOT EXISTS `transfer` (
   `uid` int(10) NOT NULL,
   `order_id` int(10) NOT NULL,
+  `iid` int(10) NOT NULL,
   `method_transfer` varchar(10) NOT NULL,
-  PRIMARY KEY (`order_id`)
+  `sendto` varchar(60) NOT NULL,
+  `receiver` varchar(10) NOT NULL,
+  `phone` int(10) NOT NULL,
+  `mobile` int(10) NOT NULL,
+  PRIMARY KEY (`order_id`,`iid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- 傾印資料表的資料 `transfer`
+--
+
+INSERT INTO `transfer` (`uid`, `order_id`, `iid`, `method_transfer`, `sendto`, `receiver`, `phone`, `mobile`) VALUES
+(21, 7, 0, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678),
+(21, 8, 1, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678),
+(21, 9, 2, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678),
+(21, 10, 0, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678),
+(21, 11, 1, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678),
+(21, 12, 2, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678),
+(21, 13, 0, '統一', '金門縣金城鎮東門里民族路七號一樓', '創建者', 212345678, 912345678),
+(21, 14, 1, '統一', '金門縣金城鎮東門里民族路七號一樓', '創建者', 212345678, 912345678),
+(21, 15, 2, '統一', '金門縣金城鎮東門里民族路七號一樓', '創建者', 212345678, 912345678),
+(21, 16, 0, '統一', '基隆市中正區義二路8號1樓', '創建者', 212345678, 912345678),
+(21, 17, 1, '統一', '基隆市中正區義二路8號1樓', '創建者', 212345678, 912345678),
+(21, 18, 0, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678),
+(21, 19, 1, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678),
+(21, 20, 0, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678),
+(21, 21, 1, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678),
+(21, 22, 0, '全家', '金門縣金城鎮南門里光前路39-5號', '創建者', 212345678, 912345678),
+(21, 23, 1, '全家', '金門縣金城鎮南門里光前路39-5號', '創建者', 212345678, 912345678),
+(21, 24, 0, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678),
+(21, 25, 1, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
