@@ -1,19 +1,60 @@
 <%- include("../private/header.html") %>
-<div class="container">
-
-
+<div id="app">
+  <span v-once>{{ajax_get()}}</span>
+  <div class="container">
     <table class="table table-striped">
         <thead>
             <tr>
-              <th scope="col">儲值編號</th>
-              <th scope="col">更動日期</th>
-              <th scope="col">增/減</th>
-              <th scope="col">鑽石數量</th>
-              <th scope="col">目前餘額</th>
+              <th scope="col">no.</th>
+              <th scope="col">儲值日期</th>
+              <th scope="col">儲值數量(單位:遊戲幣)</th>
+              <th scope="col">目前餘額(單位:遊戲幣)</th>
             </tr>
           </thead>
           <tbody>
+            <tr v-for="item, index in arr">
+              <td>{{index}}</td>
+              <td>{{item.time}}</td>
+              <td>{{item.num}}</td>
+              <td>{{item.rest}}</td>
+            </tr>
           </tbody>
     </table>
   </div>
+</div>
+
+<script>
+  const vm = new Vue({
+    el:'#app',
+    data:{
+      arr:[]
+    },
+    methods:{
+      ajax_get(){
+        axios.get('/private/get_history')
+          .then(function(res){
+            var newAR = [];
+            res.data.forEach(function(element, index){
+              let mytime = new Date(element.modified_date * 1000);
+              let myYear = mytime.getFullYear();
+              let myMonth = mytime.getMonth();
+              let myDate = mytime.getDate();
+              let stringDate =`${myYear}-${myMonth + 1}-${myDate}`;
+              let amount = element.amount;
+              let rest = element.the_rest;
+              let pkdata={
+                time: stringDate,
+                num: amount,
+                rest:rest
+              }
+              newAR.push(pkdata);
+            })
+            vm.arr = newAR;
+          })
+          .catch((error) => { console.error(error) })
+      }
+    
+    }
+  })
+</script>
     <%- include("../private/footer.html") %>

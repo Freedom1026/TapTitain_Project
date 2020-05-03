@@ -229,7 +229,7 @@ module.exports = function (request, response, controllerName) {
 		// console.log(index,receiver,pname,pprice,pamount,psum,phone,mobile,method_transfer,atmsend,convenience,state)
 
 		// 導向
-		// this.response.redirect('/');
+		this.response.redirect('/private/success');
 	}
 
 }	

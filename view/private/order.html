@@ -1,31 +1,111 @@
 <%- include("../private/header.html") %>
 <div class="container"  id="app">
 
-
-    <table class="table table-striped">
+<p v-once>{{get_data()}}</p>
+<p>{{codata()}}</p>
+    <table class="table">
         <thead>
             <tr>
               <th scope="col">訂購日期</th>
-              <th scope="col">付款方式</th>
+              <th scope="col">產品</th>
+              <th scope="col">數量</th>
+              <th scope="col">單價</th>
               <th scope="col">處理狀態</th>
-              <th scope="col">總額</th>
-              <th scope="col">取消</th>
+              <th scope="col">運費</th>
+              <th scope="col">總計</th>
             </tr>
           </thead>
           <tbody>
-            
+            <tr v-for="item in newd">
+              <td  v-if="item.pid == 0">{{item.date}}</td>
+              <td  v-if="item.pid !== 0"></td>
+              <td>{{item.pname}}</td>
+              <td>{{item.pn}}</td>
+              <td>{{item.price}}</td>
+              <td>{{item.state}}</td>
+              <td  v-if="item.fee == 0"></td>
+              <td  v-if="item.fee !== 0">{{item.fee}}</td>
+              <td  v-if="item.total == 0"></td>
+              <td  v-if="item.total !== 0">{{item.total}}</td>
+            </tr>
             
           </tbody>
     </table>
+
+
+<template>
+  <tr>
+    <td></td>
+  </tr>
+</template>
+
+
   </div> 
   <script>
+    
     var vm = new Vue({
       el:'#app',
       data:{
-        
+        newd:[]
       },
       methods:{
-
+        get_data:function(){
+          axios.get('/private/get_order')
+          .then(function(res){
+            var newOB = [];
+            var total = 0;
+            res.data.forEach(function(element, index) {
+              let iid = element.item_id;
+              let fee = element.fee;
+              let mytime = new Date(element.purchase_date * 1000);
+              let myYear = mytime.getFullYear();
+              let myMonth = mytime.getMonth();
+              let myDate = mytime.getDate();
+              let stringDate =`${myYear}-${myMonth + 1}-${myDate}`
+              // console.log(`購買日期${myYear}-${myMonth + 1}-${myDate}`);
+              let pname = element.product_name;
+              let pprice = element.product_price;
+              let pamount = element.product_n;
+              let state = element.state;
+              if(res.data[index + 1]){
+              var idr = res.data[index + 1].item_id; 
+              total += pprice * pamount;
+              total += fee;
+              var ouput_T = 0;
+                if(idr == 0){
+                  ouput_T = total;              
+                  total = 0;
+                }
+                else{
+                  ouput_T = 0;
+                }
+              }
+              if(index + 1 == res.data.length){
+                total += pprice * pamount;
+                ouput_T = total;              
+              }             
+             
+              let ABC = {
+                pid:iid,
+                date:stringDate,
+                fee:fee,
+                pname: pname,
+                price: pprice,
+                pn: pamount,
+                sum:pprice * pamount,
+                state:state,
+                total:ouput_T
+              };
+              newOB.push(ABC);
+              // console.log(ABC);
+            });
+            vm.newd = newOB;
+          })
+          .catch((error) => { console.error(error) })
+        },
+        codata:function(){
+          // console.log(this.newd);
+        }
       }
     })
   </script>

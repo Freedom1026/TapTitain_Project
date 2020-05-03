@@ -1,63 +1,55 @@
 <%- include("../private/header.html") %>
-
+<div id="app">
 <div class="container">
 
-<form action="">
+<form action="/private/post_update" method="POST">
   <div class="row">
     <div class="col-lg-12">
-        <h2>修改個人資料</h2>
+        <h2>修改個人資料</h2><span v-once>{{ajax_user()}}</span>
     </div>
   </div>
     <div class="form-group row">
         <label for="staticEmail" class="col-sm-2 col-form-label">帳號(e-mail)</label>
         <div class="col-sm-10">
-          <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com" disabled>
+          <input type="text" readonly class="form-control-plaintext" name="staticEmail" :value="email">
         </div>
     </div>
     <div class="form-group row">
         <label for="myname" class="col-sm-2 col-form-label">中文姓名</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="myname" maxlength="10">
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="bir" class="col-sm-2 col-form-label">生日</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="bir">
+          <input type="text" class="form-control" name="myname" maxlength="10" v-model="username" maxlength="10" minlength="2">
         </div>
     </div>
     <div class="form-group row">
         <label for="phone" class="col-sm-2 col-form-label">市內電話</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="phone">
+          <input type="text" class="form-control" name="phone" v-model="phone" minlength="8">
         </div>
     </div>
     <div class="form-group row">
         <label for="mobile" class="col-sm-2 col-form-label">手機</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="mobile">
+          <input type="text" class="form-control" name="mobile" v-model="mobile" minlength="10" required>
         </div>
     </div>
+    <p>---地址---</p>
     <div class="form-group row">
         <div class="form-group col-md-4">
-            <label for="inputCity">縣市</label>
-            <select id="inputCity" class="form-control">
-              <option selected>Choose...</option>
-              <option>...</option>
+            <label for="inputCity">縣市:{{city}}</label>
+            <select id="inputCity" class="form-control" name="city"
+            v-model="city" @change="city_check($event.target.selectedOptions[0].index)" required>
+              <option  v-for="(item, index) in city_map" :value="item">{{item}}</option>
             </select>
         </div>
         <div class="form-group col-md-4">
-            <label for="inputArea">地區</label>
-            <select id="inputArea" class="form-control">
-              <option selected>Choose...</option>
-              <option>...</option>
+            <label for="inputArea">地區:{{area}}</label>
+            <select id="inputArea" class="form-control" v-model="area" name="area" required>
+              <option v-for="(item, index) in area_map" :value="item">{{item}}</option>
             </select>
         </div>
         <div class="form-group col-md-4">
-          <label for="add">詳細地址</label>
-
-            <input type="text" class="form-control" id="add">
-
+          <label for="add">詳細地址:{{detail}}</label>
+            <input type="text" class="form-control" id="add" v-model="detail" name="detail" required>
         </div>
     </div>
     <div class="form-group row">
@@ -73,6 +65,47 @@
     </div>
 
 </form>
+</div>
+
+<script>
+var vm = new Vue({
+  el:'#app',
+  data:{
+    city_map: cityname_js,
+        area_map: [],
+        city:'臺北市',
+        area:'西屯區',
+        detail:'',
+        username:'',
+        phone:0,
+        mobile:0,
+        email:''
+  },
+  methods:{
+    city_check(self){
+            let newAr = [];
+            areaname_js[self].forEach(function(val, ind){
+                newAr.push(val);
+            });
+            this.area_map = newAr;
+        },
+    ajax_user(){
+      axios.get('/private/user')
+          .then(function(res){
+            vm.email = res.data[0].account;
+            vm.username = res.data[0].name;
+            vm.phone = `0${res.data[0].phone}`;
+            vm.mobile = `0${res.data[0].mobile}`;
+            vm.city = res.data[0].country;
+            vm.area = res.data[0].area;
+            vm.detail = res.data[0].detail;
+            console.log(vm.area);
+          })
+          .catch((error) => { console.error(error) })
+    }
+  }
+})
+</script>
 
     
 </div>    

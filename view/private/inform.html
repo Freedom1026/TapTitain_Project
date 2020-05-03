@@ -1,18 +1,91 @@
 <%- include("../private/header.html") %>
-<div class="container">
-  <table class="table table-striped">
-    <thead>
-        <tr>
-          <th scope="col">訂單編號</th>
-          <th scope="col">商品名稱</th>
-          <th scope="col">通知日期</th>
-          <th scope="col">狀態</th>
-          <th scope="col">到貨數量</th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-</table>
+<div id="app">
+    <div class="container"><span v-once>{{get_data()}}</span>
+    <table class="table table-striped">
+      <thead>
+          <tr>
+            <th scope="col">訂單日期</th>
+            <th scope="col">商品名稱</th>
+            <th scope="col">訂購數量</th>
+            <th scope="col">狀態</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in arr" v-if="item.state == '已出貨'">
+            <td  v-if="item.pid == 0">{{item.date}}</td>
+            <td  v-if="item.pid !== 0"></td>
+            <td>{{item.pname}}</td>
+            <td>{{item.pn}}</td>
+            <td>{{item.state}}</td>
+          </tr>
+        </tbody>
+  </table>
+  </div>
 </div>
+<script>
+  var vm = new Vue({
+    el:'#app',
+    data:{
+      arr:[]
+    },
+    methods:{
+      get_data:function(){
+          axios.get('/private/get_order')
+          .then(function(res){
+            var newOB = [];
+            var total = 0;
+            res.data.forEach(function(element, index) {
+              let iid = element.item_id;
+              let fee = element.fee;
+              let mytime = new Date(element.purchase_date * 1000);
+              let myYear = mytime.getFullYear();
+              let myMonth = mytime.getMonth();
+              let myDate = mytime.getDate();
+              let stringDate =`${myYear}-${myMonth + 1}-${myDate}`
+              // console.log(`購買日期${myYear}-${myMonth + 1}-${myDate}`);
+              let pname = element.product_name;
+              let pprice = element.product_price;
+              let pamount = element.product_n;
+              let state = element.state;
+              if(res.data[index + 1]){
+              var idr = res.data[index + 1].item_id; 
+              total += pprice * pamount;
+              total += fee;
+              var ouput_T = 0;
+                if(idr == 0){
+                  ouput_T = total;              
+                  total = 0;
+                }
+                else{
+                  ouput_T = 0;
+                }
+              }
+              if(index + 1 == res.data.length){
+                total += pprice * pamount;
+                ouput_T = total;              
+              }             
+             
+              let ABC = {
+                pid:iid,
+                date:stringDate,
+                fee:fee,
+                pname: pname,
+                price: pprice,
+                pn: pamount,
+                sum:pprice * pamount,
+                state:state,
+                total:ouput_T
+              };
+              newOB.push(ABC);
+              // console.log(ABC);
+            });
+            vm.arr = newOB;
+          })
+          .catch((error) => { console.error(error) })
+        }
+    }
+  })
+</script>
+
 
     <%- include("../private/footer.html") %>

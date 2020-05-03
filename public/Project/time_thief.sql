@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2020-05-02 16:40:20
--- 伺服器版本： 10.4.11-MariaDB
--- PHP 版本： 7.4.4
+-- 產生時間： 
+-- 伺服器版本： 10.4.8-MariaDB
+-- PHP 版本： 7.3.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -52,7 +53,7 @@ END$$
 
 DROP PROCEDURE IF EXISTS `dataM`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `dataM` (IN `iuid` INT(10))  BEGIN
-	SELECT name, phone, mobile, country, area, detail
+	SELECT name, phone, mobile, country, area, detail, contact.account
     FROM contact, address, (
     SELECT account
         FROM member_id
@@ -87,7 +88,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `deposit` (IN `iacc` VARCHAR(50), IN
                ) as form
     			);
 
-INSERT INTO diamond (uid, diamond_card, the_rest)
+INSERT INTO diamond (uid, diamond_card, modified_date, the_rest)
 VALUES (
 ( SELECT form.ud
           FROM(
@@ -98,7 +99,7 @@ VALUES (
                         member_id.account = iacc
                ) as form
     			),
-    cardid,(
+    cardid, unix_timestamp(CURRENT_TIMESTAMP),(
         SELECT form.diamond
         FROM(
              SELECT diamond
@@ -114,8 +115,8 @@ END$$
 
 DROP PROCEDURE IF EXISTS `orderF`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `orderF` (IN `iuid` INT(10), IN `pname` VARCHAR(10), IN `pprice` INT(10), IN `pamount` INT(10), IN `iindex` INT(10), IN `ifee` INT(10), IN `istate` VARCHAR(10))  BEGIN
-	INSERT INTO order_list (order_id, uid, item_id, product_name, product_price, product_n, fee, state)
-    VALUES (NULL, iuid, iindex, pname, pprice, pamount, ifee, istate);
+	INSERT INTO order_list (purchase_date, order_id, uid, item_id, product_name, product_price, product_n, fee, state)
+    VALUES (unix_timestamp(CURRENT_TIMESTAMP), NULL, iuid, iindex, pname, pprice, pamount, ifee, istate);
     SELECT LAST_INSERT_ID();
 END$$
 
@@ -179,7 +180,7 @@ CREATE TABLE IF NOT EXISTS `address` (
 --
 
 INSERT INTO `address` (`uid`, `country`, `area`, `detail`) VALUES
-(21, '臺中市', '西屯區', '資策會');
+(21, '金門縣', '金寧鄉', '資策會');
 
 -- --------------------------------------------------------
 
@@ -201,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `cards_list` (
 
 INSERT INTO `cards_list` (`diamond_card`, `password`, `state`) VALUES
 ('015a96c6-3586-4fe0-9d18-37a8df2edc5b', '5ea3c15633a9809fa2e8de4d', 0),
-('09d05517-fde4-4505-b5ed-7fa6b2dfed01', '5ea3c1562cb4fc244b76bf39', 0),
+('09d05517-fde4-4505-b5ed-7fa6b2dfed01', '5ea3c1562cb4fc244b76bf39', 1),
 ('1c7f5128-f406-4565-bb87-c69b5b92a893', '5ea3c156d4a4bea6ef4fcf61', 1),
 ('1e6833f4-7568-4ad4-a39f-ef7f16c2eeda', '5ea3c156909169f0a868de37', 1),
 ('239aea7e-fd82-47dd-b2bb-1f6e651af07a', '5ea3c156e838b58e22535ea4', 1),
@@ -252,7 +253,7 @@ CREATE TABLE IF NOT EXISTS `contact` (
 --
 
 INSERT INTO `contact` (`account`, `name`, `gender`, `phone`, `mobile`) VALUES
-('developer@test.com', '創建者', '女士', 212345678, 912345678);
+('developer@test.com', '創建者', '女士', 2147483647, 912345678);
 
 -- --------------------------------------------------------
 
@@ -286,12 +287,19 @@ INSERT INTO `creatureskill` (`uid`, `yellow`, `purple`, `blue`, `orange`) VALUES
 DROP TABLE IF EXISTS `diamond`;
 CREATE TABLE IF NOT EXISTS `diamond` (
   `uid` int(10) NOT NULL,
-  `modified_date` int(10) NOT NULL DEFAULT current_timestamp(),
+  `modified_date` int(10) NOT NULL,
   `amount` int(10) NOT NULL DEFAULT 200,
   `diamond_card` varchar(36) NOT NULL,
   `the_rest` int(10) NOT NULL,
   PRIMARY KEY (`diamond_card`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- 傾印資料表的資料 `diamond`
+--
+
+INSERT INTO `diamond` (`uid`, `modified_date`, `amount`, `diamond_card`, `the_rest`) VALUES
+(21, 1588488919, 200, '015a96c6-3586-4fe0-9d18-37a8df2edc5b', 1020);
 
 -- --------------------------------------------------------
 
@@ -360,7 +368,7 @@ CREATE TABLE IF NOT EXISTS `myself` (
 --
 
 INSERT INTO `myself` (`uid`, `lv`, `stage`, `coin`, `diamond`, `sk_A`, `sk_B`, `achievement`) VALUES
-(21, 2, 2, 207, 820, 0, 1, 0);
+(21, 2, 2, 207, 1020, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -372,7 +380,7 @@ DROP TABLE IF EXISTS `order_list`;
 CREATE TABLE IF NOT EXISTS `order_list` (
   `uid` int(10) NOT NULL,
   `order_id` int(10) NOT NULL AUTO_INCREMENT,
-  `purchase_date` int(10) NOT NULL DEFAULT current_timestamp(),
+  `purchase_date` int(10) NOT NULL,
   `item_id` int(5) NOT NULL,
   `product_name` varchar(10) NOT NULL,
   `product_price` int(5) NOT NULL,
@@ -380,36 +388,16 @@ CREATE TABLE IF NOT EXISTS `order_list` (
   `fee` int(10) DEFAULT NULL,
   `state` varchar(10) NOT NULL,
   PRIMARY KEY (`order_id`,`item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4;
 
 --
 -- 傾印資料表的資料 `order_list`
 --
 
 INSERT INTO `order_list` (`uid`, `order_id`, `purchase_date`, `item_id`, `product_name`, `product_price`, `product_n`, `fee`, `state`) VALUES
-(21, 3, 2147483647, 1, '豬豬抱枕', 690, 2, NULL, '待付款'),
-(21, 4, 2147483647, 0, '小蛙徽章', 81, 2, NULL, '待付款'),
-(21, 5, 2147483647, 1, '豬豬抱枕', 690, 2, NULL, '待付款'),
-(21, 6, 2147483647, 2, '小黃帆布袋', 230, 2, NULL, '待付款'),
-(21, 7, 2147483647, 0, '小蛙徽章', 81, 2, NULL, '待付款'),
-(21, 8, 2147483647, 1, '豬豬抱枕', 690, 2, NULL, '待付款'),
-(21, 9, 2147483647, 2, '小黃帆布袋', 230, 2, NULL, '待付款'),
-(21, 10, 2147483647, 0, '小蛙徽章', 81, 2, NULL, '待付款'),
-(21, 11, 2147483647, 1, '豬豬抱枕', 690, 2, NULL, '待付款'),
-(21, 12, 2147483647, 2, '小黃帆布袋', 230, 2, NULL, '待付款'),
-(21, 13, 2147483647, 0, '小蛙徽章', 81, 2, 0, '45'),
-(21, 14, 2147483647, 1, '豬豬抱枕', 690, 2, 0, '45'),
-(21, 15, 2147483647, 2, '小黃帆布袋', 230, 2, 0, '45'),
-(21, 16, 2147483647, 0, '小蛙徽章', 81, 2, 45, '待出貨'),
-(21, 17, 2147483647, 1, '四腳抱枕', 690, 6, 45, '待出貨'),
-(21, 18, 2147483647, 0, '小蛙徽章', 81, 2, 200, '待付款'),
-(21, 19, 2147483647, 1, '四腳抱枕', 690, 6, 200, '待付款'),
-(21, 20, 2147483647, 0, '小蛙徽章', 81, 2, 200, '待付款'),
-(21, 21, 2147483647, 1, '四腳抱枕', 690, 6, 0, '待付款'),
-(21, 22, 2147483647, 0, '小蛙徽章', 81, 2, 45, '待出貨'),
-(21, 23, 2147483647, 1, '四腳抱枕', 690, 6, 0, '待出貨'),
-(21, 24, 2147483647, 0, '小蛙徽章', 81, 2, 200, '待付款'),
-(21, 25, 2147483647, 1, '四腳抱枕', 690, 6, 0, '待付款');
+(21, 34, 1588490356, 0, '驚驚徽章', 81, 3, 45, '待出貨'),
+(21, 35, 1588490356, 1, '小蛙徽章', 81, 1, 0, '待出貨'),
+(21, 36, 1588491140, 0, '帆布袋-B', 200, 4, 200, '已出貨');
 
 -- --------------------------------------------------------
 
@@ -432,18 +420,7 @@ CREATE TABLE IF NOT EXISTS `payment` (
 --
 
 INSERT INTO `payment` (`name`, `order_id`, `iid`, `amount`, `paid`) VALUES
-('創建者', 7, 0, 162, 'n'),
-('創建者', 8, 1, 1380, 'n'),
-('創建者', 9, 2, 460, 'n'),
-('創建者', 10, 0, 162, 'n'),
-('創建者', 11, 1, 1380, 'n'),
-('創建者', 12, 2, 460, 'n'),
-('創建者', 18, 0, 162, 'n'),
-('創建者', 19, 1, 4140, 'n'),
-('創建者', 20, 0, 162, 'n'),
-('創建者', 21, 1, 4140, 'n'),
-('創建者', 24, 0, 162, 'n'),
-('創建者', 25, 1, 4140, 'n');
+('創建者', 36, 0, 800, 'n');
 
 -- --------------------------------------------------------
 
@@ -469,25 +446,9 @@ CREATE TABLE IF NOT EXISTS `transfer` (
 --
 
 INSERT INTO `transfer` (`uid`, `order_id`, `iid`, `method_transfer`, `sendto`, `receiver`, `phone`, `mobile`) VALUES
-(21, 7, 0, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678),
-(21, 8, 1, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678),
-(21, 9, 2, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678),
-(21, 10, 0, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678),
-(21, 11, 1, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678),
-(21, 12, 2, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678),
-(21, 13, 0, '統一', '金門縣金城鎮東門里民族路七號一樓', '創建者', 212345678, 912345678),
-(21, 14, 1, '統一', '金門縣金城鎮東門里民族路七號一樓', '創建者', 212345678, 912345678),
-(21, 15, 2, '統一', '金門縣金城鎮東門里民族路七號一樓', '創建者', 212345678, 912345678),
-(21, 16, 0, '統一', '基隆市中正區義二路8號1樓', '創建者', 212345678, 912345678),
-(21, 17, 1, '統一', '基隆市中正區義二路8號1樓', '創建者', 212345678, 912345678),
-(21, 18, 0, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678),
-(21, 19, 1, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678),
-(21, 20, 0, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678),
-(21, 21, 1, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678),
-(21, 22, 0, '全家', '金門縣金城鎮南門里光前路39-5號', '創建者', 212345678, 912345678),
-(21, 23, 1, '全家', '金門縣金城鎮南門里光前路39-5號', '創建者', 212345678, 912345678),
-(21, 24, 0, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678),
-(21, 25, 1, '宅配', '臺中市西屯區資策會', '創建者', 212345678, 912345678);
+(21, 34, 0, '全家', '新竹市東區科園里工業東二路1號1樓', '創建者', 2147483647, 912345678),
+(21, 35, 1, '全家', '新竹市東區科園里工業東二路1號1樓', '創建者', 2147483647, 912345678),
+(21, 36, 0, '宅配', '不知道甚麼地方', '創建者', 2147483647, 912345678);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

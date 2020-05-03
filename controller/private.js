@@ -2,116 +2,215 @@ module.exports = function (request, response, controllerName) {
 
 	var mysql = require('mysql');
 	var connection = mysql.createConnection({
-		host : '127.0.0.1',
-		user : 'root',
-		password : '',
-		database : 'time_thief'
+		host: '127.0.0.1',
+		user: 'root',
+		password: '',
+		database: 'time_thief'
 	});
 
-	connection.connect(function(err) {
+	connection.connect(function (err) {
 		if (err === 'PROTOCOL_CONNECTION_LOST') {
 			// 直接關連線
 			console.log("關閉連線_private");
-            connection.end();
+			connection.end();
 		}
-		if(err) {
+		if (err) {
 			console.log(JSON.stringify(err));
 			console.log("資料庫連結錯誤_private");
 			return;
-        }
+		}
 	});
 
 
-    this.request  = request;
-    this.response = response;
+	this.request = request;
+	this.response = response;
 	this.viewPath = controllerName + "/";
 
 
 
-	this.personal = function(){
+	this.personal = function () {
 		this.response.render(this.viewPath + "personal.html");
 	}
 
-	this.password = function(){
+	this.password = function () {
 		this.response.render(this.viewPath + "password.html");
 	}
-	
-	this.inform = function(){
+
+	this.inform = function () {
 		this.response.render(this.viewPath + "inform.html");
 	}
-	
-	this.order = function(){
+
+	this.order = function () {
 		this.response.render(this.viewPath + "order.html");
 	}
+	this.success = function () {
+		this.response.render(this.viewPath + "success.html");
+	}
+	this.failed = function () {
+		this.response.render(this.viewPath + "failed.html");
+	}
 
-	this.diamond = function(){
+	this.get_order = function () {
+		var objResponse = this.response;
+		let user = request.session.user;
+		//訂購日期 iid  pname pprice p_n fee state
+		connection.query('SELECT `purchase_date`,`item_id`,`product_name`,`product_price`,`product_n`,`fee`,`state` FROM `order_list` WHERE uid = ?', [user], function (err, result) {
+			if (err) {
+				console.log(JSON.stringify(err));
+				return;
+			}
+			let data = JSON.stringify(result);
+			objResponse.send(data);
+		})
+	}
+
+	this.diamond = function () {
 		this.response.render(this.viewPath + "diamond.html");
 	}
-	this.post_diamond = function(){
+
+	this.get_history = function () {
+		var objResponse = this.response;
+		let user = request.session.user;
+		connection.query('SELECT `modified_date`,`amount`,`diamond_card`,`the_rest` FROM diamond WHERE uid = ?',
+			[user], function (err, result) {
+				if (err) {
+					console.log(JSON.stringify(err));
+					return;
+				}
+				let data = JSON.stringify(result);
+				objResponse.send(data);
+			})
+	}
+
+	this.post_diamond = function () {
 		var objResponse = this.response;
 		let card = request.body.id;
 		let pas = request.body.ps;
 		let acc = request.body.ac;
 		console.log(card, pas, acc);
-		connection.query('call validTB(?, ?)', [card, pas], function(err, result){
-			if(err){
+		connection.query('call validTB(?, ?)', [card, pas], function (err, result) {
+			if (err) {
 				console.log(JSON.stringify(err));
 				return;
 			}
-			let getND =JSON.stringify(result[0]);
-			getND =JSON.parse(getND);
-			var getValid =getND[0].n;
-			var getCard =getND[0].diamond_card;
-			if(getValid == 1){
-				connection.query('SELECT COUNT(*) as n FROM `member_list` WHERE account = ? ',[acc],function(err,result){
-					if(err){
+			let getND = JSON.stringify(result[0]);
+			getND = JSON.parse(getND);
+			var getValid = getND[0].n;
+			var getCard = getND[0].diamond_card;
+			if (getValid == 1) {
+				connection.query('SELECT COUNT(*) as n FROM `member_list` WHERE account = ? ', [acc], function (err, result) {
+					if (err) {
 						console.log(JSON.stringify(err));
 						return;
 					}
 					getND = JSON.stringify(result[0]);
 					getND = JSON.parse(getND);
-					if(getND.n == 1){
-						connection.query('call deposit(?, ?)',[acc, getCard],function(err){
-							if(err){
+					if (getND.n == 1) {
+						connection.query('call deposit(?, ?)', [acc, getCard], function (err) {
+							if (err) {
 								console.log(JSON.stringify(err));
 								return;
 							}
 						});
-						objResponse.send("儲值成功");
+						this.response.redirect('/private/success');
 					}
-					else{
-						objResponse.send("儲值失敗，此帳號不存在");
+					else {
+						//帳號不存在
+						this.response.redirect('/private/failed');
 					}
 				})
 			}
-			else{
-				
-				objResponse.send("此卡號無效");
+			else {
+				//卡號無效
+				this.response.redirect('/private/failed');
 			}
-			
+
 		})
 	}
 
-	this.history = function(){
+	this.history = function () {
 		this.response.render(this.viewPath + "history.html");
 	}
 
-	this.user = function(){
+	this.post_update = function () {
+		let email = request.body.staticEmail;
+		let country = request.body.city;
+		let area = request.body.area;
+		let detail = request.body.detail;
+		let user = request.session.user;
+		let name = request.body.myname;
+		let phone = request.body.phone;
+		let mobile = request.body.mobile;
+		connection.query('UPDATE address set country = ?, area = ?, detail = ? WHERE uid = ?',
+			[country, area, detail, user], function (err, result) {
+				if (err) {
+					console.log(JSON.stringify(err));
+					return;
+				}
+			});
+		connection.query('UPDATE contact set name = ?, phone = ?, mobile = ? WHERE account = ?',
+			[name, phone, mobile, email], function (err, result) {
+				if (err) {
+					console.log(JSON.stringify(err));
+					return;
+				}
+			})
+		this.response.redirect('/private/success');
+	}
+
+	this.user = function () {
 		var objResponse = this.response;
 		let user = request.session.user;
-		connection.query('call dataM(?)', [user], function(err, result){
-			if(err){
+		connection.query('call dataM(?)', [user], function (err, result) {
+			if (err) {
 				console.log(JSON.stringify(err));
 				return;
 			}
-			let data =JSON.stringify(result[0]);
+			let data = JSON.stringify(result[0]);
 			objResponse.send(data);
 		})
 	}
-}	
+
+	this.update_pas = function () {
+		let acc = request.session.user;
+		let pass = request.body.oldpass;
+		let newpass = request.body.newpass;
+		let nopass = request.body.nopass;
+		var correct;
+		(newpass == nopass) ? correct = 1 : correct = 0;
+		console.log(acc + "登入");
+		let response = this.response;
+		connection.query('SELECT COUNT(*) as n, member_id.account FROM member_list, member_id WHERE member_list.account = member_id.account AND member_id.uid = ? AND pass = md5(?)',
+			[acc, pass], function (err, output) {
+				if (err) {
+					console.log(JSON.stringify(err));
+					return;
+				}
+				let result = JSON.stringify(output);
+				result = JSON.parse(result);
+				let acot = result[0].account;
+				if (result[0].n == 1 && correct == 1) {
+					connection.query('UPDATE member_list set pass = md5(?) where account = ?',
+						[newpass, acot], function (err, output) {
+							if (err) {
+								console.log(JSON.stringify(err));
+								return;
+							}
+							response.redirect('/member/profile')
+						}
+					)
+
+				}
+				else {
+					response.redirect('/private/failed')
+				}
+
+			})
+
+	}
 
 
 
 
 
-
+}
