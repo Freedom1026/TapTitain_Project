@@ -1,5 +1,5 @@
 
-if(window.innerWidth <= 400 && window.innerWidth > window.innerHeight ){
+if( screen.width <= 400 && screen.width > screen.height ){
     //待修改
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.font = "20px Arial";

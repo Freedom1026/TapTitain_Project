@@ -65,7 +65,7 @@ module.exports = function (request, response, controllerName) {
 							sessionUser = JSON.parse(sessionUser);
 							request.session.user = sessionUser[0].uid;
 							tempUser = request.session.user;
-							response.redirect('/home');
+							response.redirect('http://localhost:7777/home');
 						})
 
 				}

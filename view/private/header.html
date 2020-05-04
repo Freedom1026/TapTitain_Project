@@ -1,67 +1,90 @@
 <!DOCTYPE html>
 <html lang="zh-tw">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" sizes="192x192" href="../img/favicon.ico" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
-    <script src="../js/vue.min.js"></script>
-    <script src="../js/address.js"></script>
-    <title>會員專區</title>
-    <style>
-      @import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
-        body{
-          background: url('../img/member.png'), black;
-          font-family: "cwTeXYen", sans-serif;
-          background-repeat: repeat-x;
-          text-align: center;
-        }
-        table{
-            background-color: rgb(207, 207, 207);
-            border: 2px solid white;
-            margin: 8%  auto ;
-        }
-        form{
-          border-radius: 15px;
-          background-color: rgb(207, 207, 207);
-          border: 2px solid white;
-          margin: 8%  auto ;
-        }
-        tr.sp{
-          background-color:rgb(173, 168, 168);
-        }
-      </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="192x192" href="../img/favicon.ico" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="../js/vue.min.js"></script>
+  <script src="../js/address.js"></script>
+  <title>會員專區</title>
+  <style>
+    @import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+
+    body {
+      background: url('../img/member.png'), black;
+      font-family: "cwTeXYen", sans-serif;
+      background-repeat: repeat-x;
+      text-align: center;
+    }
+
+    table {
+      background-color: rgb(207, 207, 207);
+      border: 2px solid white;
+      margin: 8% auto;
+    }
+
+    form {
+      border-radius: 15px;
+      background-color: rgb(236, 236, 236);
+      border: 2px solid white;
+      margin: 8% auto;
+    }
+
+    tr.sp {
+      background-color: rgb(173, 168, 168);
+    }
+
+    p.format {
+      color: red;
+      font-size: 12px;
+    }
+  </style>
 </head>
+
 <body>
-    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-        <!-- Brand -->
-        <a class="navbar-brand" href="../"><img src="../img/LOGO.png" alt=""><img src="../img/title2.png" alt=""></a>
-    
-        <!-- Toggler/collapsibe Button -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-    
-        <!-- Navbar links -->
-        <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="#">遊戲介紹</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">最新消息</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/member/profile">會員專區</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../member/shop">周邊商品</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+    <!-- Brand -->
+    <a class="navbar-brand" href="../"><img src="../img/LOGO.png" alt="" style="height: 30px;"><img
+        src="../img/title2.png" alt="" style="height: 30px;"></a>
+
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#">遊戲介紹</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">最新消息</a>
+        </li>
+        <% if (userName) { %>
+          <li class="nav-item active">
+            <a class="nav-link" href="/member/profile">會員專區</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/home/signout"><i class="fa fa-user" aria-hidden="true"></i>登出</a>
+        </li>
+        <% } else  { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/private/login"><i class="fa fa-user" aria-hidden="true"></i>
+            登入/註冊</a>
+        </li>
+        <% } %>
+        <li class="nav-item active">
+          <a class="nav-link" href="/member/shop">周邊商品</a>
+        </li>
+      </ul>
+    </div>
+  </nav>

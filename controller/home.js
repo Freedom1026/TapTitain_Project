@@ -45,13 +45,12 @@ module.exports = function (request, response, controllerName) {
 	}
 	
 
-	this.test = function(){
-		this.response.redirect("localhost:7777/home/test");
-		// this.response.render("testarea" + "/" + "index.html");
+	this.changePort = function(){
+		this.response.redirect("localhost:7777");
 	}
 
 	this.firebase =function(){
-		this.response.render("testarea" + "/" + "firebase.html")
+		this.response.render("testarea" + "/" + "index.html")
 	}
 
 
@@ -65,6 +64,7 @@ module.exports = function (request, response, controllerName) {
 			}
 			objResponse.send(JSON.stringify(rows));
 		})
+	
 	}
 
 	this.get_Csk = function () {

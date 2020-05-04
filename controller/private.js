@@ -29,25 +29,25 @@ module.exports = function (request, response, controllerName) {
 
 
 	this.personal = function () {
-		this.response.render(this.viewPath + "personal.html");
+		this.response.render(this.viewPath + "personal.html",{ userName: request.session.user });
 	}
 
 	this.password = function () {
-		this.response.render(this.viewPath + "password.html");
+		this.response.render(this.viewPath + "password.html",{ userName: request.session.user });
 	}
 
 	this.inform = function () {
-		this.response.render(this.viewPath + "inform.html");
+		this.response.render(this.viewPath + "inform.html",{ userName: request.session.user });
 	}
 
 	this.order = function () {
-		this.response.render(this.viewPath + "order.html");
+		this.response.render(this.viewPath + "order.html",{ userName: request.session.user });
 	}
 	this.success = function () {
-		this.response.render(this.viewPath + "success.html");
+		this.response.render(this.viewPath + "success.html",{ userName: request.session.user });
 	}
 	this.failed = function () {
-		this.response.render(this.viewPath + "failed.html");
+		this.response.render(this.viewPath + "failed.html",{ userName: request.session.user });
 	}
 
 	this.get_order = function () {
@@ -65,7 +65,7 @@ module.exports = function (request, response, controllerName) {
 	}
 
 	this.diamond = function () {
-		this.response.render(this.viewPath + "diamond.html");
+		this.response.render(this.viewPath + "diamond.html",{ userName: request.session.user });
 	}
 
 	this.get_history = function () {
@@ -129,7 +129,7 @@ module.exports = function (request, response, controllerName) {
 	}
 
 	this.history = function () {
-		this.response.render(this.viewPath + "history.html");
+		this.response.render(this.viewPath + "history.html",{ userName: request.session.user });
 	}
 
 	this.post_update = function () {
@@ -158,6 +158,51 @@ module.exports = function (request, response, controllerName) {
 		this.response.redirect('/private/success');
 	}
 
+	this.login = function(){
+		this.response.render(this.viewPath + "login.html",
+		{ userName:request.session.user, Msg: request.session.errMsg});
+	}
+
+	this.post_login = function(){
+		let acc = request.body.account;
+		let pass = request.body.password;
+		console.log(acc + "登入");
+		let response = this.response;
+		connection.query('SELECT COUNT(*) as n FROM `member_list` WHERE account = ? AND pass = md5(?)',[acc, pass], function(err, output){
+			if(err){
+				console.log(JSON.stringify(err));
+				return;
+			}
+			let result = JSON.stringify(output);
+			result = JSON.parse(result);
+
+			if(result[0].n == 1){
+					console.log("登入成功");
+					request.session.errMsg = "";
+						connection.query('SELECT uid FROM member_id WHERE account = ?', [acc], function(err, row){
+							if(err){
+								console.log(JSON.stringify(err));
+								return;
+							}
+							let sessionUser = JSON.stringify(row);
+							sessionUser = JSON.parse(sessionUser);
+							request.session.user = sessionUser[0].uid;
+							tempUser = request.session.user;
+							response.redirect('/member/profile');
+						})
+
+				}
+				else{
+					console.log("登入失敗");
+					request.session.errMsg = "帳號密碼錯誤";
+					response.redirect('/member/profile');
+				}
+
+		});
+	}
+
+
+	
 	this.user = function () {
 		var objResponse = this.response;
 		let user = request.session.user;
