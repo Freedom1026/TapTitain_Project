@@ -127,7 +127,7 @@ function getmoney(){
         diaUpdate();
     }
     else{
-        console.log("儲值介面")
+        alert("寶藏不足，請儲值")
     }
 
 }
@@ -143,7 +143,7 @@ function coldtime(){
         diaUpdate();
     }
     else{
-        console.log("儲值介面")
+        alert("寶藏不足，請儲值")
     }
 
 }
@@ -156,7 +156,7 @@ function killnow(){
     diaUpdate()
 }
     else{
-        console.log("儲值介面")
+        alert("寶藏不足，請儲值")
     }
 }
 
