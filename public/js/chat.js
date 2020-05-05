@@ -35,16 +35,6 @@ function spevent(e){
   inputB.value = '';
 }
 
-// var msgform = document.getElementsByTagName('form');
-// console.log($("div.chatroom form"));
-// msgform.addEventListener('submit', function(e) {
-//   e.preventDefault();
-//   var input = document.querySelector('#message');
-//   console.log(text);
-//   var text =  input.value;
-//   socket.emit('message', text);
-//   input.value = '';
-// });
 
 socket.on('message', function(text) {
   if (!text) {
