@@ -44,6 +44,12 @@ module.exports = function (request, response, controllerName) {
 		this.response.redirect("/");
 	}
 	
+	this.intro = function(){
+		this.response.render(this.viewPath + "intro.html",{userName:request.session.user});
+	}
+	this.news = function(){
+		this.response.render(this.viewPath + "news.html",{userName:request.session.user});
+	}
 
 	this.changePort = function(){
 		this.response.redirect("localhost:7777");

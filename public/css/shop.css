@@ -7,6 +7,7 @@
       /* color:white; */
       margin: 0;
       padding: 0;
+      text-align: center;
     }
     .swiper-container {
       width: 100%;
@@ -76,4 +77,22 @@
         box-shadow: 0 0 0 5px white;
         border-radius: 10px;
         margin: 10px auto;
+    }
+
+    h3{
+      margin: auto;
+    }
+
+    .swiper-slide div{
+      margin-top: 60%;
+      background-color: rgb(138, 132, 132, 0.5);
+    }
+
+    .find_goods label{
+      color: white;
+      font-size: 24px;
+    }
+
+    .find_goods input{
+      font-size: 16px;
     }

@@ -157,6 +157,7 @@ module.exports = function (request, response, controllerName) {
 		let phone = request.body.phone;
 		let mobile = request.body.mobile;
 		let pay = request.body.payway;
+		let objResponse = this.response;
 		
 		if(pay == "超商"){
 			var method_transfer = request.body.brands;
@@ -187,6 +188,7 @@ module.exports = function (request, response, controllerName) {
 					   console.log(JSON.stringify(err));
 					   return;
 				   }
+				   objResponse.redirect('/private/success');
 			   })
 
 			});
@@ -221,6 +223,7 @@ module.exports = function (request, response, controllerName) {
 					   console.log(JSON.stringify(err));
 					   return;
 				   }
+				   objResponse.redirect('/private/success');
 			   })
 
 			});			
@@ -229,7 +232,7 @@ module.exports = function (request, response, controllerName) {
 		// console.log(index,receiver,pname,pprice,pamount,psum,phone,mobile,method_transfer,atmsend,convenience,state)
 
 		// 導向
-		this.response.redirect('/private/success');
+		
 	}
 
 }	

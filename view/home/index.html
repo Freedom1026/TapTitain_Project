@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/index.css">
   <link rel="stylesheet" href="css/space.css">
   <link rel="icon" type="image/png" sizes="192x192" href="../img/favicon.ico" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -13,6 +12,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+  <link rel="stylesheet" href="css/index.css">
   <script src="../js/vue.min.js"></script>
   <title>時空賊</title>
 </head>
@@ -33,10 +33,10 @@
     <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="#">遊戲介紹</a>
+          <a class="nav-link" href="/home/intro">遊戲介紹</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">最新消息</a>
+          <a class="nav-link" href="/home/news">最新消息</a>
         </li>
         <% if (userName) { %>
         <li class="nav-item">

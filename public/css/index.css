@@ -1,6 +1,9 @@
+@import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+
 body{
   background-image: url(../img/space.jpg);
   background-size: cover;
+  font-family: "cwTeXYen", sans-serif;
 }
 
 label{

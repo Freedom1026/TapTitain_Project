@@ -1,3 +1,52 @@
-img{
-    width: 20vh;
-}
+@import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+
+        body {
+            background: url('../img/member.png'), black;
+            font-family: "cwTeXYen", sans-serif;
+            background-repeat: repeat-x;
+            text-align: center;
+            /* color: white; */
+        }
+
+        table.avdnav {
+            margin: 10vh auto;
+            text-align: center;
+        }
+
+        th{
+            background-color: black;
+            border: 0px 0px 10px 0px solid rgb(121, 115, 115);
+            color: white;
+        }
+
+        td{
+            padding: 5%;
+            color: white;
+            vertical-align: middle;
+        }
+        td img{
+            height: 30vh;
+        }
+
+        tr td:first-child{
+            width: 20vw;
+            border-radius: 50px;
+        }
+
+        tr td h3{
+            margin: auto;
+            background-color: rgb(78, 78, 78);
+            border-radius: 10px;
+            width: 40%;
+            min-width: 100pt;
+        }
+
+        tr td:nth-child(2){
+            padding: 5%;
+            background-color: white;
+            color:black;
+            font-size: 20px;
+            border-radius: 200px;
+            width: 40vw;
+            border: 10px black solid;
+        }

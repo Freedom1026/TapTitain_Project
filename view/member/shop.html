@@ -31,10 +31,10 @@
         <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="#">遊戲介紹</a>
+              <a class="nav-link" href="/home/intro">遊戲介紹</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">最新消息</a>
+              <a class="nav-link" href="/home/news">最新消息</a>
             </li>
             <% if (userName) { %>
               <li class="nav-item">
@@ -57,21 +57,91 @@
 
     </div>
 
-
+    <h3 style="color: white; margin-top: 10vh;">--最新商品--</h3>
   <div class="carousel">
   <!-- Swiper -->
     <div class="swiper-container">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" style="background-image:url(../img/goods/badge/1.png)"></div>
-        <div class="swiper-slide" style="background-image:url(../img/goods/bag/2.png)"></div>
-        <div class="swiper-slide" style="background-image:url(../img/goods/badge/3.png)"></div>
-        <div class="swiper-slide" style="background-image:url(../img/goods/bag/4.png)"></div>
-        <div class="swiper-slide" style="background-image:url(../img/goods/badge/5.png)"></div>
-        <div class="swiper-slide" style="background-image:url(../img/goods/bag/6.png)"></div>
-        <div class="swiper-slide" style="background-image:url(../img/goods/badge/7.png)"></div>
-        <div class="swiper-slide" style="background-image:url(../img/goods/bag/8.png)"></div>
-        <div class="swiper-slide" style="background-image:url(../img/goods/badge/9.png)"></div>
-        <div class="swiper-slide" style="background-image:url(../img/goods/bag/10.png)"></div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/badge/1.png)">
+          <div>
+            <h4>布布徽章</h4>
+            <h5>尺寸：直徑7.5cm</h5>
+            <h5>材質：金屬</h5>
+            <h4>NT$ 81</h4>
+          </div>
+        </div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/bag/2.png)">
+          <div>
+          <h4>帆布袋-B</h4>
+          <h5>尺寸：30 x 36 cm (袋身)</h5>
+          <h5>材質：棉、聚酯纖維</h5>
+          <h4>NT$ 200</h4>
+          </div>
+        </div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/badge/3.png)">
+          <div>
+            <h4>三眼徽章</h4>
+            <h5>尺寸：直徑7.5cm</h5>
+            <h5>材質：金屬</h5>
+            <h4>NT$ 81</h4>
+          </div>
+        </div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/bag/4.png)">
+          <div>
+            <h4>帆布袋-D</h4>
+            <h5>尺寸：30 x 36 cm (袋身)</h5>
+            <h5>材質：棉、聚酯纖維</h5>
+            <h4>NT$ 200</h4>
+            </div>
+        </div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/badge/5.png)">
+          <div>
+            <h4>毛毛徽章</h4>
+            <h5>尺寸：直徑7.5cm</h5>
+            <h5>材質：金屬</h5>
+            <h4>NT$ 81</h4>
+          </div>
+        </div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/bag/6.png)">
+          <div>
+            <h4>帆布袋-F</h4>
+            <h5>尺寸：30 x 36 cm (袋身)</h5>
+            <h5>材質：棉、聚酯纖維</h5>
+            <h4>NT$ 200</h4>
+            </div>
+        </div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/badge/7.png)">
+          <div>
+            <h4>小蛙徽章</h4>
+            <h5>尺寸：直徑7.5cm</h5>
+            <h5>材質：金屬</h5>
+            <h4>NT$ 81</h4>
+          </div>
+        </div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/bag/8.png)">
+          <div>
+            <h4>小紫帆布袋</h4>
+            <h5>尺寸：30 x 36 cm (袋身)</h5>
+            <h5>材質：棉、聚酯纖維</h5>
+            <h4>NT$ 200</h4>
+            </div>
+        </div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/badge/9.png)">
+          <div>
+            <h4>凹嗚徽章</h4>
+            <h5>尺寸：直徑7.5cm</h5>
+            <h5>材質：金屬</h5>
+            <h4>NT$ 81</h4>
+          </div>
+        </div>
+        <div class="swiper-slide" style="background-image:url(../img/goods/bag/10.png)">
+          <div>
+            <h4>主角帆布袋</h4>
+            <h5>尺寸：30 x 36 cm (袋身)</h5>
+            <h5>材質：棉、聚酯纖維</h5>
+            <h4>NT$ 200</h4>
+            </div>
+        </div>
       </div>
       <!-- Add Pagination -->
       <div class="swiper-pagination"></div>
@@ -92,19 +162,30 @@
       {{product_name}}已成功加入購物車
     </div>
   </div>
+  <br>
+  <br>
 
+    <div class="find_goods">
+    <label for="filter_shop">搜尋商品</label>
+    <input type="text" name="" id="filter_shop" v-model="find_regex">
+    </div>
 
+    
   <div class="container">
-    <p style="color: white;">大徽章專區</p>
+    <hr style=" border: 2px solid white;">
+    <h3 style="color: white;">--大徽章專區--</h3>
     <div class="row">
-      <goodbadge v-for="(item, index) in badges" :imgu="item.imgurl" :pn="item.pname" :ppr="item.price" @childs="local"></goodbadge>
+      <goodbadge v-for="(item, index) in badges" :imgu="item.imgurl" :pn="item.pname" :ppr="item.price" @childs="local" v-if="item.pname.includes(find_regex)"></goodbadge>
     </div>
-    <p style="color: white;">「猜猜我是誰」系列-帆布袋專區</p>
+    <hr style=" border: 2px solid white;">
+    <h3 style="color: white;">--「猜猜我是誰」系列-帆布袋專區--</h3>
     <div class="row">
-      <goodbag v-for="(item, index) in bags" :imgu="item.imgurl" :pn="item.pname" :ppr="item.price" @childs="local"></goodbag>
+      <goodbag v-for="(item, index) in bags" :imgu="item.imgurl" :pn="item.pname" :ppr="item.price" @childs="local" v-if="item.pname.includes(find_regex)"></goodbag>
     </div>
+    <hr style=" border: 2px solid white;">
+    <h3 style="color: white;">--抱枕系列--</h3>
     <div class="row">
-        <goodpillow v-for="(item, index) in pillows" :imgu="item.imgurl" :pn="item.pname" :ppr="item.price" @childs="local"></goodbag>
+        <goodpillow v-for="(item, index) in pillows" :imgu="item.imgurl" :pn="item.pname" :ppr="item.price" @childs="local" v-if="item.pname.includes(find_regex)"></goodbag>
     </div>
   </div>
 
@@ -168,7 +249,7 @@
       <div class="card_self">
         <div class="good_title">抱枕系列</div>
         <div class="imgcol">
-          <video alt="" style="width: 80%;" muted @mouseover="hover_event($event.target)" @mouseleave="leave_event($event.target)">
+          <video alt="" :src="imgu" style="width: 80%;" muted @mouseover="hover_event($event.target)" @mouseleave="leave_event($event.target)">
             <source :src="imgu">
           </video>
         </div>
@@ -289,6 +370,8 @@
         buythings:[],
         counthings:0,
         product_name:'',
+        find_regex:'',
+        now_test:/./,
         badges:[
         {imgurl:"../img/goods/badge/1.png",
         pname:"布布徽章",
@@ -395,6 +478,8 @@
         }
       }
     })
+
+ 
   </script>
 </body>
 </html>
