@@ -66,10 +66,16 @@ function gameControl(){
         Me.attacked();
         NowMonster.attacked();
         ctx.save();
-        ctx.fillStyle = "#AF2770";
-        ctx.font = "30px Arial";
-        ctx.fillText(NowMonster.attackedAmount, RwdDx*1.2, RwdDy*2);
+        ctx.fillStyle = "#000000";
+        ctx.font = "bolder 40px Arial";
+        ctx.fillText(NowMonster.attackedAmount, RwdDx*1.23, RwdDy*2);
         ctx.restore();
+        ctx.save();
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "40px Arial";
+        ctx.fillText(NowMonster.attackedAmount, RwdDx*1.23+2, RwdDy*2-2);
+        ctx.restore();
+
     };
     Me.draw();
     let temp = Math.floor(NowMonster.hp * NowMonster.hpbarContent);

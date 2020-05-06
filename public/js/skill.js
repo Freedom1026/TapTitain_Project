@@ -15,7 +15,7 @@
 
 
 //設定技能基礎值
-
+//fiexed marks
 var HSK = class HSK{
     constructor(skname, lv){
         this.skname = skname;
@@ -23,10 +23,6 @@ var HSK = class HSK{
         this.SKOpenFlag = false;
         //加成係數
         this.times = 1;
-        this.LvUp = [0,10,20,30,40,50,60,70,80,90,100];
-        this.upSpend = [0,100,120,150,200,250,300,400];
-        this.skTime = [0,30,60,90,17,90,90,100]; 
-        this.coolTime = [0, 100,150,160,180,720,800];
         //計時參數
         this.t_A = -1;
         this.t_B = -1;
@@ -35,24 +31,16 @@ var HSK = class HSK{
 
     // SkOpen(skID){ //每秒確認
 
-    //     if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
-    //         this.SKOpenFlag = true;
-    //         $(`div.heroSkill div:nth-child(${skID}) button`).text("可以升級");
-    //         $(`div.heroSkill div:nth-child(${skID}) button`).css("color","red");
-    //         return this.SKOpenFlag;
-    //     }else{
-    //         this.SKOpenFlag = false;
-    //         $(`div.heroSkill div:nth-child(${skID}) button`).text("不能升級");
-    //         $(`div.heroSkill div:nth-child(${skID}) button`).css("color","rgba(170, 170, 170, 0.637)");
-    //         return this.SKOpenFlag;
-    //     }
+    
     // }
 
-    //設定計時時間   
+    //設定計時時間
+    //fiexed mark
     timeReset(ele, rA, rB){
+        console.log(this);
         if(this.t_B <=0){
-            this.t_A = rA | this.skTime[this.lv];
-            this.t_B = rB | this.coolTime[this.lv];
+            this.t_A = rA || this.skTime;
+            this.t_B = rB || this.coolTime;
             this.timeStart = setInterval (()=>this.timeCount(ele) , 1000);
             //call function of content
             this.execute();
@@ -86,23 +74,32 @@ var HSK = class HSK{
             $(ele).css("color","white");
         }
     }
-    
+    updatelvup(){
+        this.LvUp = (this.lv + 1) * 10;
+        this.skTime = this.lv * 30; 
+        this.coolTime = this. lv* 50;
+        return this.LvUp;
+    }
 }
 
-
+//fixed marks
 class ActSkill_B extends HSK {
-    constructor(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B){
-        super(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B);
-        this.Plus = [1,2,2.5,3.1,3.5,3.8,4,5];
+    constructor(skname, lv, SKOpenFlag, times, t_A, t_B){
+        super(skname, lv, SKOpenFlag, times, t_A, t_B);
+        this.Plus = this.lv /2 + 1.5;
         this.moneyPlus = 1;
         this.cname = "財富之力";
         this.imgwhere = '../img/icon/fortune.png';
         this.description = "時間內金幣掉落增加";
+        this.LvUp = (this.lv + 1) * 10;
+        this.upSpend = this.lv * 20 + 80;
+        this.skTime = this.lv * 30; 
+        this.coolTime = this. lv* 50;
     }
 
     SkOpen(skID){ //每秒確認
 
-        if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
+        if(this.LvUp <= Me.LV && this.upSpend <= Me.Coin){
             this.SKOpenFlag = true;
             $("#btn_02").text("可以升級");
             $("#btn_02").css("color","red");
@@ -116,7 +113,7 @@ class ActSkill_B extends HSK {
     }
 
     execute(){ //sk_a 成為參數被呼叫
-        this.moneyPlus = this.Plus[this.lv];
+        this.moneyPlus = this.Plus;
     }
 
     cancel(){
@@ -125,18 +122,23 @@ class ActSkill_B extends HSK {
 
 }
 
+//fixed mark
 class ActSkill_C extends HSK {
-    constructor(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B){
-        super(skname, lv, SKOpenFlag, times, LvUp, upSpend, skTime, coolTime, t_A, t_B);
-        this.upATK = [1,1.05,1.06,1.1,1.2,1.4,1.5,1.6];
+    constructor(skname, lv, SKOpenFlag, times, t_A, t_B){
+        super(skname, lv, SKOpenFlag, times, t_A, t_B);
+        this.upATK = this.lv  * 0.01 + 1;
         this.cname = "蠻荒之力";
         this.imgwhere = '../img/icon/wild.png';
         this.description = "時間內攻擊力增加";
+        this.LvUp = (this.lv + 1) * 10;
+        this.upSpend = this.lv * 20 + 80;
+        this.skTime = this.lv * 30; 
+        this.coolTime = this. lv* 50;
     }
-
+//fixed mark
     SkOpen(skID){ //每秒確認
 
-        if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
+        if(this.LvUp <= Me.LV && this.upSpend <= Me.Coin){
             this.SKOpenFlag = true;
             $("#btn_03").text("可以升級");
             $("#btn_03").css("color","red");
@@ -150,7 +152,7 @@ class ActSkill_C extends HSK {
     }
 
     execute(){ 
-        this.times = this.upATK[this.lv];
+        this.times = this.upATK;
     }
 
     cancel(){
@@ -251,6 +253,7 @@ function levelUp(skill,skID){
         //扣除金錢function
         spend(skID)
         SkillArray[skID].lv ++;
+        SkillArray[skID].updatelvup();
         //傳入參數: 技能名稱
         $(`span.${skill}`).text(`Lv.${SkillArray[skID].lv}`);
         $(`div.actSkill span:nth-child(${skID})`).css("visibility","visible");
@@ -305,7 +308,7 @@ function mespand(){
 }
 
 function spend(skID){
-    Me.Coin -= SkillArray[skID].upSpend[SkillArray[skID].lv];
+    Me.Coin -= SkillArray[skID].upSpend;
 }
 
 const pnArray = ["div.heroSkill","div.creatureSkill","div.diamond"]
@@ -326,14 +329,14 @@ function panelgo(pnID,btn){
         // $(pn).css("display","block");
         }
     }
-
+//fixed mark
 function showDetail(skid){
     let name = SkillArray[skid].cname;
     let img = SkillArray[skid].imgwhere;
     let lv = SkillArray[skid].lv;
     let des = SkillArray[skid].description;
-    let sktime = SkillArray[skid].skTime[lv];
-    let coolTime = SkillArray[skid].coolTime[lv];
+    let sktime = SkillArray[skid].skTime;
+    let coolTime = SkillArray[skid].coolTime;
     console.log(sktime);
     $("div.HSkillDetail").css("display","block");
     $("div.description").html(`<p>技能名稱：${name}</p>

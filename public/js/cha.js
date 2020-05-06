@@ -43,6 +43,10 @@ var Cha = class Cha {
     draw(){
         ctx.drawImage(this.image, this.sx, this.sy, this.sWidth, this.sHeight, this.dx, this.dy, this.dWidth, this.dHeight)
     }
+    updatelvup(){
+        this.LvUp = (this.lv + 1) * 10;
+        return this.LvUp;
+    }
 }
 
 class mainCha extends Cha {
@@ -99,9 +103,9 @@ class CreatureA extends Cha{
         this.speed = 0;
         this.lv = 0;
         this.ATK = this.lv * 20;
-        this.upSpend = [0,100,120,150,200,250,300,400];
+        this.upSpend = this.lv * 20 + 80;
         this.SKOpenFlag = true;
-        this.LvUp = [0,10,20,30,40,50,60,70,80,90,100];
+        this.LvUp = (this.lv + 1) * 10;
     }
     attacked(){
         this.sx += 225;
@@ -120,12 +124,12 @@ class CreatureA extends Cha{
         (this.speed % 5 == 0)? this.attacked():0;
         NowMonster.hpAutoLose();
     }
-
+//fixed mark
     SkOpen(skID){ 
         $(`div.creatureSkill tr:nth-child(${skID+1}) td:nth-child(2)`).text(`攻擊力:${this.ATK}`);
-        $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(2)`).text(`金錢：${this.upSpend[this.lv]}`);
-        $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(3)`).text(`等級：${this.LvUp[this.lv]}`);
-        if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
+        $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(2)`).text(`金錢：${this.upSpend}`);
+        $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(3)`).text(`等級：${this.LvUp}`);
+        if(this.LvUp <= Me.LV && this.upSpend <= Me.Coin){
             this.SKOpenFlag = true;
             $(`div.creatureSkill tr:nth-child(${skID}) td:nth-child(5) button`).text("可以升級");
             $(`div.creatureSkill tr:nth-child(${skID}) td:nth-child(5)`).css("color","red");
@@ -144,17 +148,17 @@ class CreatureA extends Cha{
         
     }
 }
-
+//fixed mark
 class CreatureB extends Cha{
     constructor(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight){
         super(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
         this.name = "monB";
         this.speed = 0;
         this.lv = 0;
-        this.ATK = this.lv * 20;
-        this.upSpend = [0,100,120,150,200,250,300,400];
+        this.ATK = this.lv * 30;
+        this.upSpend = this.lv * 20 + 120;
         this.SKOpenFlag = true;
-        this.LvUp = [0,10,20,30,40,50,60,70,80,90,100];
+        this.LvUp = (this.lv + 1) * 10;
     }
     attacked(){
         this.sx += 225;
@@ -176,9 +180,9 @@ class CreatureB extends Cha{
 
     SkOpen(skID){ 
         $(`div.creatureSkill tr:nth-child(${skID+1}) td:nth-child(2)`).text(`攻擊力:${this.ATK}`);
-        $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(2)`).text(`金錢：${this.upSpend[this.lv]}`);
-        $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(3)`).text(`等級：${this.LvUp[this.lv]}`);
-        if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
+        $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(2)`).text(`金錢：${this.upSpend}`);
+        $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(3)`).text(`等級：${this.LvUp}`);
+        if(this.LvUp <= Me.LV && this.upSpend <= Me.Coin){
             this.SKOpenFlag = true;
             $(`div.creatureSkill tr:nth-child(${skID}) td:nth-child(5) button`).text("可以升級");
             $(`div.creatureSkill tr:nth-child(${skID}) td:nth-child(5)`).css("color","red");
@@ -204,10 +208,10 @@ class CreatureC extends Cha{
         this.name = "monC";
         this.speed = 0;
         this.lv = 0;
-        this.ATK = this.lv * 20;
-        this.upSpend = [0,100,120,150,200,250,300,400];
+        this.ATK = this.lv * 40;
+        this.upSpend = this.lv * 20 + 160;
         this.SKOpenFlag = true;
-        this.LvUp = [0,10,20,30,40,50,60,70,80,90,100];
+        this.LvUp = (this.lv + 1) * 10;
     }
     attacked(){
         this.sx += 225;
@@ -229,9 +233,9 @@ class CreatureC extends Cha{
 
     SkOpen(skID){ //每秒確認....prototype連線
         $(`div.creatureSkill tr:nth-child(${skID+1}) td:nth-child(2)`).text(`攻擊力:${this.ATK}`);
-        $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(2)`).text(`金錢：${this.upSpend[this.lv]}`);
-        $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(3)`).text(`等級：${this.LvUp[this.lv]}`);
-        if(this.LvUp[this.lv] <= Me.LV && this.upSpend[this.lv] <= Me.Coin){
+        $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(2)`).text(`金錢：${this.upSpend}`);
+        $(`div.creatureSkill tr:nth-child(${skID+2}) td:nth-child(3)`).text(`等級：${this.LvUp}`);
+        if(this.LvUp <= Me.LV && this.upSpend <= Me.Coin){
             this.SKOpenFlag = true;
             $(`div.creatureSkill tr:nth-child(${skID}) td:nth-child(5) button`).text("可以升級");
             $(`div.creatureSkill tr:nth-child(${skID}) td:nth-child(5)`).css("color","red");
@@ -292,6 +296,7 @@ function ClevelUp(skill,skID){
             Cspend(skID)
             C_array[skID].lv ++;
             C_array[skID].updateATK();
+            C_array[skID].updatelvup();
             //傳入參數: 技能名稱
             $(`td.${skill}`).text(`Lv.${C_array[skID].lv}`);
 
@@ -319,5 +324,5 @@ function ClevelUp(skill,skID){
     }
 
     function Cspend(skID){
-        Me.Coin -= C_array[skID].upSpend[C_array[skID].lv];
+        Me.Coin -= C_array[skID].upSpend;
     }

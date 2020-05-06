@@ -131,7 +131,7 @@ module.exports = function (request, response, controllerName) {
 	}
 	
 	this.profile = function(){
-		this.response.render(this.viewPath + "mydata.html");
+		this.response.render(this.viewPath + "mydata.html",{ userName: request.session.user });
 	}
 
 	this.get_cart = function(){
