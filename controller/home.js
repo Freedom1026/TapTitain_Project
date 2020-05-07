@@ -18,7 +18,10 @@ module.exports = function (request, response, controllerName) {
 			console.log(JSON.stringify(err));
 			console.log("資料庫連結錯誤_home");
 			return;
-        }
+		}
+		// connection.on('error', function() {
+		// 	connection.end();
+		// });
 	});
 
     this.request  = request;

@@ -18,7 +18,10 @@ module.exports = function (request, response, controllerName) {
 			console.log(JSON.stringify(err));
 			console.log("資料庫連結錯誤_member");
 			return;
-        }
+		}
+		// connection.on('error', function() {
+		// 	connection.end();
+		// });
 	});
 
 
@@ -157,7 +160,7 @@ module.exports = function (request, response, controllerName) {
 		let phone = request.body.phone;
 		let mobile = request.body.mobile;
 		let pay = request.body.payway;
-		let objResponse = this.response;
+		var objResponse = this.response;
 		
 		if(pay == "超商"){
 			var method_transfer = request.body.brands;
@@ -188,7 +191,7 @@ module.exports = function (request, response, controllerName) {
 					   console.log(JSON.stringify(err));
 					   return;
 				   }
-				   objResponse.redirect('/private/success');
+				//    objResponse.redirect('/private/success');
 			   })
 
 			});
@@ -223,14 +226,14 @@ module.exports = function (request, response, controllerName) {
 					   console.log(JSON.stringify(err));
 					   return;
 				   }
-				   objResponse.redirect('/private/success');
+				//  objResponse.redirect('/private/success');
 			   })
 
 			});			
 		}
 
 		// console.log(index,receiver,pname,pprice,pamount,psum,phone,mobile,method_transfer,atmsend,convenience,state)
-
+		// objResponse.redirect('/private/success');
 		// 導向
 		
 	}

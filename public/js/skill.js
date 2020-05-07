@@ -37,10 +37,10 @@ var HSK = class HSK{
     //設定計時時間
     //fiexed mark
     timeReset(ele, rA, rB){
-        console.log(this);
+        this.updatelvup();
         if(this.t_B <=0){
-            this.t_A = rA || this.skTime;
-            this.t_B = rB || this.coolTime;
+            this.t_A = rA | this.skTime;
+            this.t_B = rB | this.coolTime;
             this.timeStart = setInterval (()=>this.timeCount(ele) , 1000);
             //call function of content
             this.execute();
@@ -150,6 +150,7 @@ class ActSkill_C extends HSK {
             return this.SKOpenFlag;
         }
     }
+
 
     execute(){ 
         this.times = this.upATK;

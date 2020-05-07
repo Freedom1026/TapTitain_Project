@@ -8,17 +8,17 @@
     <link rel="icon" type="image/png" sizes="192x192" href="../img/favicon.ico" />
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/game.css">
-    <script src="js/popper.min.js"></script>
-    <script src="js/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="../css/game.css">
+    <!-- <script src="../js/popper.min.js"></script> -->
     <script src="/socket.io/socket.io.js"></script>
-    <script src="js/chat.js"></script>
+    <script src="../js/jquery-3.4.1.js"></script>
+    <script src="../js/chat.js"></script>
 </head>
 <body>
 <!-- cog -->
 <div class="optionsBtn">
     <input type="image" src="../img/icon/cog.png" onclick="showCog()">
-    <input type="image" src="../img/icon/reward.png" >
+    <input type="image" src="../img/icon/reward.png" onclick="showreward()">
     <input type="image" src="../img/icon/chat.png" onclick="chat()">
 </div>
 
@@ -50,6 +50,19 @@
         <span onclick="wild.timeReset(this)" id="actBTN_B"> &ensp;&ensp;
         </span>
 </div>
+
+<script>
+    //lazy way
+    function passFortune(ele){
+        console.log(ele);
+        fortune.timeReset();
+
+    }
+    function passWild(ele){
+
+        wild.timeReset(ele);
+    }
+</script>
 
     <!-- basic information -->
     <div class="bascInfo">
@@ -191,6 +204,17 @@
     </div>
 </div>
 
+<div class="rewardP">
+    <div>
+        <h1>遊戲任務</h1>
+        <br>
+        <hr>
+        等級不夠喔！努力練等領取任務吧！
+        <label>繼續遊戲<br>
+        <input type="image" src="../img/icon/continue.png" onclick="closeReward()"></label>
+        </div>
+</div>
+
 
 <div class="chatroom">
     <div class="title">
@@ -234,6 +258,12 @@
 
         function goIndex(){
             window.location.replace("/")
+        }
+        function showreward(){
+        $('div.rewardP').css("display","block")
+        }
+        function closeReward(){
+        $("div.rewardP").css("display","none");
         }
         
     </script>

@@ -34,14 +34,14 @@
         <!-- Navbar links -->
         <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
             <ul class="navbar-nav">
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="/home/intro">遊戲介紹</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/home/news">最新消息</a>
                 </li>
                 <% if (userName) { %>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/member/profile">會員專區</a>
                 </li>
                 <li class="nav-item">
@@ -53,40 +53,58 @@
                         登入/註冊</a>
                 </li>
                 <% } %>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/member/shop">周邊商品</a>
                 </li>
             </ul>
         </div>
     </nav>
 <div class="container">
-    <table class="avdnav">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col" colspan="2"><h1>遊戲介紹</h1></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><h3>時空守門員</h3><img src="../img/how/1.png" alt=""></td>
-            <td>時空怪獸「大眼」，作為時空守門員，每次登入遊戲後，他都會首先映入玩家眼簾。</td>
 
-          </tr>
-          <tr>
-            <td><h3>時空賊</h3><img src="../img/how/me.png" alt=""></td>
-            <td>遊戲主角，是個穿梭在各個時空收集寶藏的時空海賊。</td>
-          </tr>
-          <tr>
-            <td><img src="../img/how/04.png" alt=""></td>
-            <td>the Bird</td>
-          </tr>
-          <tr>
-            <td><img src="../img/how/09.png" alt=""></td>
-            <td>the Bird</td>
-          </tr>
-        </tbody>
-      </table>
+          <div class="avdnav">
+            <th scope="col" colspan="2"><h1>遊戲介紹</h1></th>
+          </div>
+
+          <div class="content">
+
+          <div class="team">
+            <div class="animateR"><img src="../img/how/bks1.png" alt=""></div>
+            <div class="itemA"><h3>時空守門員</h3><img src="../img/how/1.png" alt="" style="height: 20vh"></div>
+            <div class="itemB"><h3>時空怪獸「大眼」，作為時空守門員，每次登入遊戲後，他都會首先映入玩家眼簾。</h3></div>
+
+          </div>
+
+          <div class="team">
+            <div class="animateR"><img src="../img/how/bks2.png" alt=""></div>
+            <div class="itemA"><h3>時空賊</h3><img src="../img/how/me.png" alt="" style="height: 20vh"></div>
+            <div class="itemB"><h3>遊戲主角，是個穿梭在各個時空收集寶藏的時空海賊。</h3></div>
+          </div>
+
+          <div class="team">
+            <div class="animateR"><img src="../img/how/bks3.png" alt=""></div>
+            <div class="itemA"><h3>遊戲技能</h3><img src="../img/how/04.png" alt="" style="height: 40vh"></div>
+            <div class="itemB"><h3>升級角色技能，更有效率的獲得寶藏吧！</h3></div>
+          </div>
+
+          <div class="team">
+            <div class="animateR"><img src="../img/how/bks4.png" alt=""></div>
+            <div class="itemA"><h3>機器人夥伴</h3><img src="../img/how/09.png" alt="" style="height: 40vh"></div>
+            <div class="itemB"><h3>召集機器人夥伴，一起進行時空旅程吧！</h3></div>
+          </div>
+
+          <div class="team">
+            <div class="animateR"><img src="../img/how/bks5.png" alt=""></div>
+            <div class="itemA"><h3>寶藏技能</h3><img src="../img/how/11.png" alt="" style="height: 40vh"></div>
+            <div class="itemB"><h3>使用寶藏換取特殊技能，能更快探索各個時空，看到各種不同的時空怪物！</h3></div>
+          </div>
+        </div>
+
+
     
+    
+    
+    
+
 </div>
 </body>
 

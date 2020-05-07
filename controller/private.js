@@ -19,6 +19,9 @@ module.exports = function (request, response, controllerName) {
 			console.log("資料庫連結錯誤_private");
 			return;
 		}
+		// connection.on('error', function() {
+		// 	connection.end();
+		// });
 	});
 
 
