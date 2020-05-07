@@ -130,6 +130,11 @@ module.exports = function (request, response, controllerName) {
 	}
 
 	this.cart = function(){
+		let respon = this.response;
+		if (!request.session.user) {
+			respon.redirect("/private/login");
+			return;
+		}
 		this.response.render(this.viewPath + "cart.html");
 	}
 	
