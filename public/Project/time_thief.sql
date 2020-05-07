@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 
--- 伺服器版本： 10.4.8-MariaDB
--- PHP 版本： 7.3.11
+-- 產生時間： 2020-05-07 10:48:36
+-- 伺服器版本： 10.4.11-MariaDB
+-- PHP 版本： 7.2.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -149,7 +148,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `register` (IN `acc` VARCHAR(50), IN
 
 DROP PROCEDURE IF EXISTS `validTB`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `validTB` (IN `dmdc` VARCHAR(36), IN `pas` VARCHAR(24))  BEGIN
-	SELECT COUNT(*) as n, diamond_card
+	SELECT COUNT(*) as n, ifnull(diamond_card,'nothing') as diamond_card
     FROM cards_list
     WHERE cards_list.diamond_card = dmdc
     	AND
@@ -165,6 +164,9 @@ DELIMITER ;
 --
 -- 資料表結構 `address`
 --
+-- 建立時間： 2020-05-04 02:27:43
+-- 最後更新： 2020-05-07 08:28:45
+--
 
 DROP TABLE IF EXISTS `address`;
 CREATE TABLE IF NOT EXISTS `address` (
@@ -176,16 +178,25 @@ CREATE TABLE IF NOT EXISTS `address` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- 資料表的關聯 `address`:
+--
+
+--
 -- 傾印資料表的資料 `address`
 --
 
 INSERT INTO `address` (`uid`, `country`, `area`, `detail`) VALUES
-(21, '金門縣', '金寧鄉', '資策會');
+(21, '桃園市', '觀音區', '資策會'),
+(27, '臺中市', '西屯區', '資策會'),
+(28, '臺中市', '南屯區', '公益路二段51號');
 
 -- --------------------------------------------------------
 
 --
 -- 資料表結構 `cards_list`
+--
+-- 建立時間： 2020-05-04 02:27:43
+-- 最後更新： 2020-05-07 08:48:14
 --
 
 DROP TABLE IF EXISTS `cards_list`;
@@ -197,11 +208,15 @@ CREATE TABLE IF NOT EXISTS `cards_list` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- 資料表的關聯 `cards_list`:
+--
+
+--
 -- 傾印資料表的資料 `cards_list`
 --
 
 INSERT INTO `cards_list` (`diamond_card`, `password`, `state`) VALUES
-('015a96c6-3586-4fe0-9d18-37a8df2edc5b', '5ea3c15633a9809fa2e8de4d', 0),
+('015a96c6-3586-4fe0-9d18-37a8df2edc5b', '5ea3c15633a9809fa2e8de4d', 1),
 ('09d05517-fde4-4505-b5ed-7fa6b2dfed01', '5ea3c1562cb4fc244b76bf39', 1),
 ('1c7f5128-f406-4565-bb87-c69b5b92a893', '5ea3c156d4a4bea6ef4fcf61', 1),
 ('1e6833f4-7568-4ad4-a39f-ef7f16c2eeda', '5ea3c156909169f0a868de37', 1),
@@ -237,6 +252,9 @@ INSERT INTO `cards_list` (`diamond_card`, `password`, `state`) VALUES
 --
 -- 資料表結構 `contact`
 --
+-- 建立時間： 2020-05-04 02:27:44
+-- 最後更新： 2020-05-07 08:26:23
+--
 
 DROP TABLE IF EXISTS `contact`;
 CREATE TABLE IF NOT EXISTS `contact` (
@@ -249,16 +267,25 @@ CREATE TABLE IF NOT EXISTS `contact` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- 資料表的關聯 `contact`:
+--
+
+--
 -- 傾印資料表的資料 `contact`
 --
 
 INSERT INTO `contact` (`account`, `name`, `gender`, `phone`, `mobile`) VALUES
-('developer@test.com', '創建者', '女士', 2147483647, 912345678);
+('developer@test.com', '創建者', '女士', 2147483647, 912345678),
+('Helloworld@test.com', '測試員', '先生', 12345689, 912345678),
+('newMember@test.com', '新成員', '先生', 123456789, 912345678);
 
 -- --------------------------------------------------------
 
 --
 -- 資料表結構 `creatureskill`
+--
+-- 建立時間： 2020-05-04 02:27:44
+-- 最後更新： 2020-05-07 08:26:23
 --
 
 DROP TABLE IF EXISTS `creatureskill`;
@@ -272,16 +299,25 @@ CREATE TABLE IF NOT EXISTS `creatureskill` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- 資料表的關聯 `creatureskill`:
+--
+
+--
 -- 傾印資料表的資料 `creatureskill`
 --
 
 INSERT INTO `creatureskill` (`uid`, `yellow`, `purple`, `blue`, `orange`) VALUES
-(21, 0, 0, 0, 0);
+(21, 2, 0, 1, 0),
+(27, 0, 0, 0, 0),
+(28, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
 --
 -- 資料表結構 `diamond`
+--
+-- 建立時間： 2020-05-04 02:27:44
+-- 最後更新： 2020-05-07 08:48:00
 --
 
 DROP TABLE IF EXISTS `diamond`;
@@ -295,16 +331,16 @@ CREATE TABLE IF NOT EXISTS `diamond` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- 傾印資料表的資料 `diamond`
+-- 資料表的關聯 `diamond`:
 --
-
-INSERT INTO `diamond` (`uid`, `modified_date`, `amount`, `diamond_card`, `the_rest`) VALUES
-(21, 1588488919, 200, '015a96c6-3586-4fe0-9d18-37a8df2edc5b', 1020);
 
 -- --------------------------------------------------------
 
 --
 -- 資料表結構 `member_id`
+--
+-- 建立時間： 2020-05-04 02:27:44
+-- 最後更新： 2020-05-07 08:26:23
 --
 
 DROP TABLE IF EXISTS `member_id`;
@@ -313,19 +349,28 @@ CREATE TABLE IF NOT EXISTS `member_id` (
   `account` varchar(50) NOT NULL,
   PRIMARY KEY (`uid`),
   UNIQUE KEY `account` (`account`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4;
+
+--
+-- 資料表的關聯 `member_id`:
+--
 
 --
 -- 傾印資料表的資料 `member_id`
 --
 
 INSERT INTO `member_id` (`uid`, `account`) VALUES
-(21, 'developer@test.com');
+(21, 'developer@test.com'),
+(27, 'Helloworld@test.com'),
+(28, 'newMember@test.com');
 
 -- --------------------------------------------------------
 
 --
 -- 資料表結構 `member_list`
+--
+-- 建立時間： 2020-05-04 02:27:45
+-- 最後更新： 2020-05-07 08:26:23
 --
 
 DROP TABLE IF EXISTS `member_list`;
@@ -338,16 +383,25 @@ CREATE TABLE IF NOT EXISTS `member_list` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- 資料表的關聯 `member_list`:
+--
+
+--
 -- 傾印資料表的資料 `member_list`
 --
 
 INSERT INTO `member_list` (`account`, `pass`, `birth`, `add_date`) VALUES
-('developer@test.com', '161ebd7d45089b3446ee4e0d86dbcf92', 716169600, 2147483647);
+('developer@test.com', '161ebd7d45089b3446ee4e0d86dbcf92', 716169600, 2147483647),
+('Helloworld@test.com', '0b91a08ebe8c9081002a045d27d6c9b9', 716169600, 2147483647),
+('newMember@test.com', 'e0ea52df79cff14dd980e44c062bacd7', 716169600, 2147483647);
 
 -- --------------------------------------------------------
 
 --
 -- 資料表結構 `myself`
+--
+-- 建立時間： 2020-05-04 02:27:45
+-- 最後更新： 2020-05-07 08:39:21
 --
 
 DROP TABLE IF EXISTS `myself`;
@@ -364,16 +418,25 @@ CREATE TABLE IF NOT EXISTS `myself` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- 資料表的關聯 `myself`:
+--
+
+--
 -- 傾印資料表的資料 `myself`
 --
 
 INSERT INTO `myself` (`uid`, `lv`, `stage`, `coin`, `diamond`, `sk_A`, `sk_B`, `achievement`) VALUES
-(21, 2, 2, 207, 1020, 0, 1, 0);
+(21, 11, 8, 2184, 410, 0, 2, 0),
+(27, 1, 1, 0, 0, 0, 0, 0),
+(28, 1, 1, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
 --
 -- 資料表結構 `order_list`
+--
+-- 建立時間： 2020-05-07 07:49:14
+-- 最後更新： 2020-05-07 08:29:50
 --
 
 DROP TABLE IF EXISTS `order_list`;
@@ -388,21 +451,26 @@ CREATE TABLE IF NOT EXISTS `order_list` (
   `fee` int(10) DEFAULT NULL,
   `state` varchar(10) NOT NULL,
   PRIMARY KEY (`order_id`,`item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+--
+-- 資料表的關聯 `order_list`:
+--
 
 --
 -- 傾印資料表的資料 `order_list`
 --
 
 INSERT INTO `order_list` (`uid`, `order_id`, `purchase_date`, `item_id`, `product_name`, `product_price`, `product_n`, `fee`, `state`) VALUES
-(21, 34, 1588490356, 0, '驚驚徽章', 81, 3, 45, '待出貨'),
-(21, 35, 1588490356, 1, '小蛙徽章', 81, 1, 0, '待出貨'),
-(21, 36, 1588491140, 0, '帆布袋-B', 200, 4, 200, '已出貨');
+(21, 1, 1588840190, 0, '布布徽章', 81, 2, 200, '待付款');
 
 -- --------------------------------------------------------
 
 --
 -- 資料表結構 `payment`
+--
+-- 建立時間： 2020-05-07 07:49:31
+-- 最後更新： 2020-05-07 08:29:50
 --
 
 DROP TABLE IF EXISTS `payment`;
@@ -416,16 +484,23 @@ CREATE TABLE IF NOT EXISTS `payment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- 資料表的關聯 `payment`:
+--
+
+--
 -- 傾印資料表的資料 `payment`
 --
 
 INSERT INTO `payment` (`name`, `order_id`, `iid`, `amount`, `paid`) VALUES
-('創建者', 36, 0, 800, 'n');
+('創建者', 1, 0, 162, 'n');
 
 -- --------------------------------------------------------
 
 --
 -- 資料表結構 `transfer`
+--
+-- 建立時間： 2020-05-07 07:49:45
+-- 最後更新： 2020-05-07 08:29:50
 --
 
 DROP TABLE IF EXISTS `transfer`;
@@ -442,13 +517,15 @@ CREATE TABLE IF NOT EXISTS `transfer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- 資料表的關聯 `transfer`:
+--
+
+--
 -- 傾印資料表的資料 `transfer`
 --
 
 INSERT INTO `transfer` (`uid`, `order_id`, `iid`, `method_transfer`, `sendto`, `receiver`, `phone`, `mobile`) VALUES
-(21, 34, 0, '全家', '新竹市東區科園里工業東二路1號1樓', '創建者', 2147483647, 912345678),
-(21, 35, 1, '全家', '新竹市東區科園里工業東二路1號1樓', '創建者', 2147483647, 912345678),
-(21, 36, 0, '宅配', '不知道甚麼地方', '創建者', 2147483647, 912345678);
+(21, 1, 0, '宅配', '桃園市觀音區資策會', '創建者', 2147483647, 912345678);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
