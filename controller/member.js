@@ -120,6 +120,7 @@ module.exports = function (request, response, controllerName) {
 		let uid = request.session.user;
 		connection.query('update myself set lv = ?, stage = ?, coin = ?, sk_A = ?, sk_B = ?, diamond = ? where uid = ?',[lv, stage, coin, sk_A, sk_B, diamond, uid]);
 		connection.query('update creatureskill set yellow = ?, purple = ?, blue = ? where uid = ?',[yellow, purple, blue, uid]);
+		connection.end();
 	}
 
 
@@ -152,6 +153,7 @@ module.exports = function (request, response, controllerName) {
 			}
 			objResponse.send(JSON.stringify(rows));
 		})
+		connection.end();
 	}
 
 	this.post_cart = function(){
@@ -196,9 +198,8 @@ module.exports = function (request, response, controllerName) {
 					   console.log(JSON.stringify(err));
 					   return;
 				   }
-				//    objResponse.redirect('/private/success');
 			   })
-
+			   connection.end();
 			});
 			
 			}
@@ -231,9 +232,8 @@ module.exports = function (request, response, controllerName) {
 					   console.log(JSON.stringify(err));
 					   return;
 				   }
-				//  objResponse.redirect('/private/success');
 			   })
-
+			   connection.end();
 			});			
 		}
 

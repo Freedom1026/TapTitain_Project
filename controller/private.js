@@ -65,6 +65,7 @@ module.exports = function (request, response, controllerName) {
 			let data = JSON.stringify(result);
 			objResponse.send(data);
 		})
+		connection.end();
 	}
 
 	this.diamond = function () {
@@ -82,7 +83,8 @@ module.exports = function (request, response, controllerName) {
 				}
 				let data = JSON.stringify(result);
 				objResponse.send(data);
-			})
+			});
+			connection.end();
 	}
 
 	this.post_diamond = function () {
@@ -117,16 +119,19 @@ module.exports = function (request, response, controllerName) {
 								}
 							});
 							console.log("here");
+							connection.end();
 							objResponse.redirect('/private/success');
 						}
 						else {
 							//帳號不存在
+							connection.end();
 							objResponse.redirect('/private/failed');
 						}
 				})
 			}
 			else {
 				//卡號無效
+				connection.end();
 				objResponse.redirect('/private/failed');
 			}
 			// this.response.redirect('/private/failed');
@@ -161,6 +166,7 @@ module.exports = function (request, response, controllerName) {
 					return;
 				}
 			})
+			connection.end();
 		this.response.redirect('/private/success');
 	}
 
@@ -194,6 +200,7 @@ module.exports = function (request, response, controllerName) {
 							sessionUser = JSON.parse(sessionUser);
 							request.session.user = sessionUser[0].uid;
 							tempUser = request.session.user;
+							connection.end();
 							response.redirect('/member/profile');
 						})
 
@@ -201,6 +208,7 @@ module.exports = function (request, response, controllerName) {
 				else{
 					console.log("登入失敗");
 					request.session.errMsg = "帳號密碼錯誤";
+					connection.end();
 					response.redirect('/member/profile');
 				}
 
@@ -247,12 +255,14 @@ module.exports = function (request, response, controllerName) {
 								console.log(JSON.stringify(err));
 								return;
 							}
+							connection.end();
 							response.redirect('/member/profile')
 						}
 					)
 
 				}
 				else {
+					connection.end();
 					response.redirect('/private/failed')
 				}
 

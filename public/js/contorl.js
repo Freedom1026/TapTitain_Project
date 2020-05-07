@@ -212,7 +212,7 @@ var flagAD = false;
 			if(flagAD == false){
                 flagAD = true;
                 bbk.src='../img/icon/audio.png';
-                // bbk.setAttribute("src", "url('../img/icon/bgmusic.png')");
+                // bbk.setAttribute("src", "url('/img/icon/bgmusic.png')");
 			}
 			else if(flagAD == true){
                 flagAD = false;

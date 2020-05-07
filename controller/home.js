@@ -42,6 +42,7 @@ module.exports = function (request, response, controllerName) {
 		}
 		this.response.render(this.viewPath + "game.html");
 	}
+
 	this.signout = function () {
 		request.session.user = null;
 		this.response.redirect("/");
@@ -73,6 +74,7 @@ module.exports = function (request, response, controllerName) {
 			}
 			objResponse.send(JSON.stringify(rows));
 		})
+		connection.end();
 	
 	}
 
@@ -86,6 +88,7 @@ module.exports = function (request, response, controllerName) {
 			}
 			objResponse.send(JSON.stringify(rows));
 		})
+		connection.end();
 	}
 
 	this.get_sign = function () {

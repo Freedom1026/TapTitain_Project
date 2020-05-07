@@ -1,8 +1,6 @@
 
 var chaimg = new Image();
 chaimg.src = "img/all2.png";
-var creatures = new Image();
-creatures.src = "img/testMon.png"
 
 if(window.innerWidth <= 768){
     //RWD係數 -->寬度係數不同

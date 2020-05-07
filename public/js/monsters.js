@@ -1,7 +1,7 @@
 var monstersImg = new Image();
-monstersImg.src = "img/testMon4.png";
+monstersImg.src = "../img/testMon4.png";
 var coinPic = new Image();
-coinPic.src = "img/coin.png";
+coinPic.src = "../img/coin.png";
 
 //目前破關進度
 var atStage;
@@ -123,8 +123,8 @@ function changeMonster(){
     //關卡切換 打倒怪物計數+1
     atStage += 1 ;
     let rk = Math.ceil(Math.random()*8);
-    bk.src =`./img/stage/stage${rk}.jpg`;
-    $('div.stage span:nth-child(2)').css("background-image",`url(./img/stage/stage${rk}.jpg)`);
+    bk.src =`../img/stage/stage${rk}.jpg`;
+    $('div.stage span:nth-child(2)').css("background-image",`url(../img/stage/stage${rk}.jpg)`);
 
     if(atStage < 10){
     $('div.stage span:nth-child(1)').html(`&ensp;&ensp;${atStage - 1}`);
