@@ -232,9 +232,6 @@ module.exports = function (request, response, controllerName) {
 			});			
 		}
 
-		// console.log(index,receiver,pname,pprice,pamount,psum,phone,mobile,method_transfer,atmsend,convenience,state)
-		// objResponse.redirect('/private/success');
-		// 導向
 		
 	}
 
