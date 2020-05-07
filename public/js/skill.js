@@ -43,12 +43,12 @@ var HSK = class HSK{
             this.t_B = rB | this.coolTime;
             this.timeStart = setInterval (()=>this.timeCount(ele) , 1000);
             //call function of content
-            this.execute();
         }
     }
 
     //計時功能    ---->prototype
     timeCount(ele){
+        this.execute();
         if(this.t_A <= 0){
             this.cancel();
             this.t_B -=1;
@@ -113,6 +113,7 @@ class ActSkill_B extends HSK {
     }
 
     execute(){ //sk_a 成為參數被呼叫
+        this.Plus = this.lv /2 + 1.5;
         this.moneyPlus = this.Plus;
     }
 
@@ -153,10 +154,13 @@ class ActSkill_C extends HSK {
 
 
     execute(){ 
+        this.upATK = this.lv  * 0.01 + 1;
+        NowMonster.attackedAmount = Math.floor(Me.ATK * wild.times);
         this.times = this.upATK;
     }
 
     cancel(){
+        NowMonster.attackedAmount = Math.floor(Me.ATK * wild.times);
         this.times = 1;
     }
 
@@ -332,6 +336,7 @@ function panelgo(pnID,btn){
     }
 //fixed mark
 function showDetail(skid){
+    SkillArray[skid].updatelvup();
     let name = SkillArray[skid].cname;
     let img = SkillArray[skid].imgwhere;
     let lv = SkillArray[skid].lv;
