@@ -109,28 +109,29 @@ module.exports = function (request, response, controllerName) {
 					getND = JSON.stringify(result[0]);
 					getND = JSON.parse(getND);
 					console.log(getND);
-					if (getND.n == 1) {
-						connection.query('call deposit(?, ?)', [acc, getCard], function (err) {
-							if (err) {
-								console.log(JSON.stringify(err));
-								return;
-							}
-						});
-						console.log("here");
-						objResponse.redirect('/private/success');
-					}
-					else {
-						//帳號不存在
-						objResponse.redirect('/private/failed');
-					}
+						if (getND.n == 1) {
+							connection.query('call deposit(?, ?)', [acc, getCard], function (err) {
+								if (err) {
+									console.log(JSON.stringify(err));
+									return;
+								}
+							});
+							console.log("here");
+							objResponse.redirect('/private/success');
+						}
+						else {
+							//帳號不存在
+							objResponse.redirect('/private/failed');
+						}
 				})
 			}
 			else {
 				//卡號無效
-				this.response.redirect('/private/failed');
+				objResponse.redirect('/private/failed');
 			}
-
+			// this.response.redirect('/private/failed');
 		})
+
 	}
 
 	this.history = function () {
