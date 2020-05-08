@@ -124,7 +124,7 @@ function changeMonster(){
     atStage += 1 ;
     let rk = Math.ceil(Math.random()*8);
     bk.src =`../img/stage/stage${rk}.jpg`;
-    $('div.stage span:nth-child(2)').css("background-image",`url(../img/stage/stage${rk}.jpg)`);
+    $('div.stage span:nth-child(2)').css("background-image",`url('../img/stage/stage${rk}.jpg')`);
 
     if(atStage < 10){
     $('div.stage span:nth-child(1)').html(`&ensp;&ensp;${atStage - 1}`);

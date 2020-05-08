@@ -198,7 +198,7 @@
     <label>遊戲音效<br>
     <input type="image" src="../img/icon/audio-off.png" onclick="collisionClick(this)"></label>
     <label>返回首頁<br>
-    <input type="image" src="../img/icon/return.png" onclick="goIndex()"></label>
+    <a href="/"><input type="image" src="../img/icon/return.png"></label></a>
     <label>繼續遊戲<br>
     <input type="image" src="../img/icon/continue.png" onclick="closeCog()"></label>
     </div>
@@ -256,16 +256,44 @@
         $("div.cog").css("display","none");
         }
 
-        function goIndex(){
-            window.location.replace("/")
-        }
+        // function goIndex(){
+        //     window.location.replace("/")
+        // }
         function showreward(){
         $('div.rewardP').css("display","block")
         }
         function closeReward(){
         $("div.rewardP").css("display","none");
         }
-        
+        // 音效
+
+var flagBG = false;
+var flagAD = false;
+		function bgPlay(bbk){
+			console.log(bbk);
+			if(flagBG == false){
+                flagBG = true;
+                console.log(this.src);
+                bbk.src="../img/icon/bgmusic.png";
+				BGmusic.play();
+			}
+			else if(flagBG == true){
+                flagBG = false;
+                bbk.src="../img/icon/bgmusic-off.png";
+				BGmusic.pause();
+			}
+		}
+		function collisionClick(bbk){
+			console.log(bbk);
+			if(flagAD == false){
+                flagAD = true;
+                bbk.src='../img/icon/audio.png';
+			}
+			else if(flagAD == true){
+                flagAD = false;
+                bbk.src='../img/icon/audio-off.png';
+			}
+        }
     </script>
 
 

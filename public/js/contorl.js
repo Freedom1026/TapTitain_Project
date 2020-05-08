@@ -59,7 +59,7 @@ function gameControl(){
     ctx.font = "20px myfont";
     ctx.fillText(Me.Coin, RwdDx * 1.3 + 15, RwdDy + 16);
     //C_A.attacked();
-// console.log(NowMonster);
+    updateAll();
     NowMonster.hpbar();
     canvas.onclick = FirstThing;
     if(ClickFlag){
@@ -189,33 +189,18 @@ function diaUpdate(){
 }
 
 
-// 音效
 
-var flagBG = false;
-var flagAD = false;
-		function bgPlay(bbk){
-			console.log(bbk);
-			if(flagBG == false){
-                flagBG = true;
-                console.log(this.src);
-                bbk.src="../img/icon/bgmusic.png";
-				BGmusic.play();
-			}
-			else if(flagBG == true){
-                flagBG = false;
-                bbk.src="../img/icon/bgmusic-off.png";
-				BGmusic.pause();
-			}
-		}
-		function collisionClick(bbk){
-			console.log(bbk);
-			if(flagAD == false){
-                flagAD = true;
-                bbk.src='../img/icon/audio.png';
-                // bbk.setAttribute("src", "url('/img/icon/bgmusic.png')");
-			}
-			else if(flagAD == true){
-                flagAD = false;
-                bbk.src='../img/icon/audio-off.png';
-			}
-		}
+        
+
+    function updateAll(){
+        Me.updateATK();
+        Me.updatelvup();
+        C_A.updatelvup();
+        C_B.updatelvup();
+        C_C.updatelvup();
+        C_A.updateATK();
+        C_B.updateATK();
+        C_C.updateATK();
+        fortune.updatelvup();
+        wild.updatelvup();
+    }

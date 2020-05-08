@@ -78,7 +78,9 @@ app.put("/:controllerName/:actionName", function (request, response) {
 
 // 呼叫 controller.action() 以處理 Client 端送來的請求
 function doControllerAction(controllerName, actionName, request, response) {
-
+    if(controllerName == "img"){
+        console.log(request);
+    }
     if (controllerName !== "js") {
         let moduleName = "./controller/" + controllerName + ".js";
         let controllerClass = require(moduleName);
