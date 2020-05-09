@@ -194,7 +194,10 @@ $(window).on('beforeunload',function(){
     $.ajax({
         type: "put",
         url: "/member/record",
-        data: newItem
+        data: newItem,
+        success:function(){
+            console.log("成功修改" + newItem);
+        }
     })
 
 })
@@ -278,8 +281,13 @@ function levelUp(skill,skID){
         $.ajax({
             type: "put",
             url: "/member/record",
-            data: newItem
+            data: newItem,
         })
+        .done(function( data ) {
+            
+              console.log( "Sample of data:" );
+            });
+            // console.log( "Sample of data:" );
     }
     else if(skID == 0 && SkillArray[0].SKOpenFlag){
         //主角升級  
@@ -303,7 +311,10 @@ function levelUp(skill,skID){
         $.ajax({
             type: "put",
             url: "/member/record",
-            data: newItem
+            data: newItem,
+            success:function(){
+                console.log("成功修改" + newItem);
+            }
         })
     }
 }

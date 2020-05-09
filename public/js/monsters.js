@@ -122,7 +122,8 @@ function changeMonster(){
 
     //關卡切換 打倒怪物計數+1
     atStage += 1 ;
-    let rk = Math.ceil(Math.random()*8);
+    let rk = Math.floor(Math.random()*8);
+    console.log(rk);
     bk.src =`../img/stage/stage${rk}.jpg`;
     $('div.stage span:nth-child(2)').css("background-image",`url(../img/stage/stage${rk}.jpg)`);
 
