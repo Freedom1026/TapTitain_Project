@@ -300,23 +300,6 @@ function ClevelUp(skill,skID){
 
             //缺少攻擊力調整
 
-
-            var newItem ={
-                lv : Me.LV,
-                stage : atStage,
-                coin : Me.Coin,
-                diamond: Me.diamond,
-                sk_A : fortune.lv,
-                sk_B : wild.lv,
-                yellow : C_A.lv,
-                purple : C_B.lv,
-                blue : C_C.lv
-            };
-            $.ajax({
-                type: "put",
-                url: "/member/record",
-                data: newItem
-            })
         }
 
     }

@@ -124,7 +124,8 @@ function changeMonster(){
     atStage += 1 ;
     let rk = Math.floor(Math.random()*8);
     console.log(rk);
-    bk.src =`../img/stage/stage${rk}.jpg`;
+    $(function(){bk.src =`http://localhost:80/img/stage/stage${rk}.jpg`;});
+    bk.src =`http://localhost:80/img/stage/stage${rk}.jpg`;
     $('div.stage span:nth-child(2)').css("background-image",`url('../img/stage/stage${rk}.jpg')`);
 
     if(atStage < 10){
@@ -163,7 +164,6 @@ var CoinObj = class CoinObj {
     }
 
     deleteSelf(){
-        console.log("i")
         setTimeout(() => {
             this.start = true;
         }, 3000);

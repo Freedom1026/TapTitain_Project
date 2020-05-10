@@ -192,7 +192,7 @@ $(window).on('beforeunload',function(){
     };
 
     $.ajax({
-        type: "put",
+        type: "post",
         url: "/member/record",
         data: newItem,
         success:function(){
@@ -266,28 +266,7 @@ function levelUp(skill,skID){
         $(`span.${skill}`).text(`Lv.${SkillArray[skID].lv}`);
         $(`div.actSkill span:nth-child(${skID})`).css("visibility","visible");
 
-        //ajax
-        var newItem ={
-            lv : Me.LV,
-            stage : atStage,
-            coin : Me.Coin,
-            diamond: Me.diamond,
-            sk_A : fortune.lv,
-            sk_B : wild.lv,
-            yellow : C_A.lv,
-            purple : C_B.lv,
-            blue : C_C.lv
-        };
-        $.ajax({
-            type: "put",
-            url: "/member/record",
-            data: newItem,
-        })
-        .done(function( data ) {
-            
-              console.log( "Sample of data:" );
-            });
-            // console.log( "Sample of data:" );
+
     }
     else if(skID == 0 && SkillArray[0].SKOpenFlag){
         //主角升級  
@@ -296,26 +275,7 @@ function levelUp(skill,skID){
         $(`span.${skill}`).text(`Lv.${SkillArray[0].LV}`);
         mespand();
 
-        //ajax
-        var newItem ={
-            lv : Me.LV,
-            stage : atStage,
-            coin : Me.Coin,
-            diamond: Me.diamond,
-            sk_A : fortune.lv,
-            sk_B : wild.lv,
-            yellow : C_A.lv,
-            purple : C_B.lv,
-            blue : C_C.lv
-        };
-        $.ajax({
-            type: "put",
-            url: "/member/record",
-            data: newItem,
-            success:function(){
-                console.log("成功修改" + newItem);
-            }
-        })
+
     }
 }
 

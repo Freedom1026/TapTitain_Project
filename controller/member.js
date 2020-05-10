@@ -100,7 +100,7 @@ module.exports = function (request, response, controllerName) {
 		this.response.redirect('/');
 	}
 
-	this.put_record = function(){
+	this.record = function(){
 		//
 		let lv = request.body.lv;
         let stage = request.body.stage;
@@ -114,9 +114,12 @@ module.exports = function (request, response, controllerName) {
 		let purple = request.body.purple;
 		let blue = request.body.blue;
 		let uid = request.session.user;
+		var i = 0;
+		console.log("回合:"+ i ,lv, stage, coin, sk_A, sk_B, diamond, yellow, purple, blue, uid);
 		connection.query('update myself set lv = ?, stage = ?, coin = ?, sk_A = ?, sk_B = ?, diamond = ? where uid = ?',[lv, stage, coin, sk_A, sk_B, diamond, uid]);
 		connection.query('update creatureskill set yellow = ?, purple = ?, blue = ? where uid = ?',[yellow, purple, blue, uid]);
 		connection.end();
+		i ++;
 	}
 
 

@@ -8,6 +8,7 @@ if( screen.width <= 400 && screen.width > screen.height ){
 else{
     
     $('.hideBlock').css("visibility","visible");
+
     setInterval(gameControl, 80);
 }
 
@@ -17,7 +18,7 @@ var ClickFlag = false;
 
 function gameControl(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    //background
+
     ctx.drawImage(bk,0, 0, 1200, 800);
     //creatures
 
@@ -167,22 +168,6 @@ function killnow(){
 
 function diaUpdate(){
     $('#damount').text(Me.diamond);
-    var newItem ={
-        lv : Me.LV,
-        stage : atStage,
-        coin : Me.Coin,
-        diamond: Me.diamond,
-        sk_A : fortune.lv,
-        sk_B : wild.lv,
-        yellow : C_A.lv,
-        purple : C_B.lv,
-        blue : C_C.lv
-    };
-    $.ajax({
-        type: "put",
-        url: "/member/record",
-        data: newItem
-    })
 }
 
 
