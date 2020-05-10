@@ -7,11 +7,8 @@ if( screen.width <= 400 && screen.width > screen.height ){
 }
 else{
     
-    window.onload = function() {
-        $('.hideBlock').css("visibility","visible");
-        $('#pbar').css("display","none");
-        setInterval(gameControl, 80);
-    };
+    $('.hideBlock').css("visibility","visible");
+    setInterval(gameControl, 80);
 }
 
 var ClickFlag = false;
