@@ -114,12 +114,10 @@ module.exports = function (request, response, controllerName) {
 		let purple = request.body.purple;
 		let blue = request.body.blue;
 		let uid = request.session.user;
-		var i = 0;
 		console.log("回合:"+ i ,lv, stage, coin, sk_A, sk_B, diamond, yellow, purple, blue, uid);
 		connection.query('update myself set lv = ?, stage = ?, coin = ?, sk_A = ?, sk_B = ?, diamond = ? where uid = ?',[lv, stage, coin, sk_A, sk_B, diamond, uid]);
 		connection.query('update creatureskill set yellow = ?, purple = ?, blue = ? where uid = ?',[yellow, purple, blue, uid]);
 		connection.end();
-		i ++;
 	}
 
 
@@ -139,6 +137,11 @@ module.exports = function (request, response, controllerName) {
 	}
 	
 	this.profile = function(){
+		let respon = this.response;
+		if (!request.session.user) {
+			respon.redirect("/private/login");
+			return;
+		}
 		this.response.render(this.viewPath + "mydata.html",{ userName: request.session.user });
 	}
 
