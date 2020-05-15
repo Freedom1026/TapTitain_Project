@@ -43,12 +43,13 @@ var HSK = class HSK{
             this.t_B = rB | this.coolTime;
             this.timeStart = setInterval (()=>this.timeCount(ele) , 1000);
             //call function of content
+            this.execute();
         }
     }
 
     //計時功能    ---->prototype
     timeCount(ele){
-        this.execute();
+        
         if(this.t_A <= 0){
             this.cancel();
             this.t_B -=1;
@@ -60,6 +61,7 @@ var HSK = class HSK{
             $(ele).css("color","red");
             if(this.t_B <= 0){
                 $(ele).html("&ensp;&ensp;");
+                this.cancel();
                 clearInterval(this.timeStart);
                 return this.t_B;
             }
