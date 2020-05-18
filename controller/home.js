@@ -67,6 +67,7 @@ module.exports = function (request, response, controllerName) {
 				console.log(JSON.stringify(err));
 				return;
 			}
+			console.log(JSON.stringify(rows))
 			objResponse.send(JSON.stringify(rows));
 		})
 		connection.end();

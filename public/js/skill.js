@@ -215,9 +215,11 @@ $(function(){
         atStage = HeroData[0].stage;
         Me.diamond = HeroData[0].diamond;
         $('#damount').text(Me.diamond);
-        $('div.stage span:nth-child(1)').html(`&ensp;&ensp;${atStage - 1}`);
+        let preStage = atStage - 1 ;
+        let nextStage = atStage + 1;
+        $('div.stage span:nth-child(1)').html(`&ensp;&ensp;${preStage}`);
         $('div.stage span:nth-child(2)').html(`&ensp;&ensp;${atStage}`);
-        $('div.stage span:nth-child(3)').html(`&ensp;&ensp;${atStage + 1}`);
+        $('div.stage span:nth-child(3)').html(`&ensp;&ensp;${nextStage}`);
         initMonster();
         SkillArray[0].LV = HeroData[0].lv;
         SkillArray[1].lv = HeroData[0].sk_A;
