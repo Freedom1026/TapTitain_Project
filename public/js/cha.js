@@ -226,6 +226,7 @@ class CreatureC extends Cha{
         this.speed ++;
         //         80*5=400ms                this.normal沒寫
         (this.speed % 5 == 0)? this.attacked():0;
+
         NowMonster.hpAutoLose();
     }
 

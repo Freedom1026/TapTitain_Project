@@ -65,6 +65,7 @@ module.exports = function (request, response, controllerName) {
 							request.session.user = sessionUser[0].uid;
 							tempUser = request.session.user;
 							response.redirect('http://localhost:7777/home');
+							// response.redirect('http://localhost/home');
 						})
 
 				}
