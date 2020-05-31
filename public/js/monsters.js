@@ -97,7 +97,7 @@ function initMonster(){
     //0 0 225 225
 }
 
-
+initMonster();
 var CoinArray = [];
 
 
@@ -118,7 +118,7 @@ function changeMonster(){
         CoinArray[i].deleteSelf();
     }
 
-    const NowMonster = new monstersProperty(monstersImg, 0, r, 220, 220, RwdDx, RwdDy, RwdDw, RwdDh, atked); //array[index].img, array[index].sx
+    NowMonster = new monstersProperty(monstersImg, 0, r, 220, 220, RwdDx, RwdDy, RwdDw, RwdDh, atked); //array[index].img, array[index].sx
 
     //關卡切換 打倒怪物計數+1
     atStage += 1 ;
