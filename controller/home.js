@@ -4,7 +4,7 @@ module.exports = function (request, response, controllerName) {
 	var connection = mysql.createConnection({
 		host : '127.0.0.1',
 		user : 'root',
-		password : '',
+		password : '123456',
 		database : 'time_thief'
 	});
 

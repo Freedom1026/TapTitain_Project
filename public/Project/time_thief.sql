@@ -126,7 +126,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `register` (IN `acc` VARCHAR(50), IN
     values ( acc );
 
     insert into member_list (account, pass, birth)
-    values (acc, md5(pas), bir);
+    values (acc, md5(pas), bir, unix_timestamp(CURRENT_TIMESTAMP));
 
     insert into contact (account, name, gender, phone, mobile)
     values(acc, na, ge, ph, mo);
@@ -378,7 +378,7 @@ CREATE TABLE IF NOT EXISTS `member_list` (
   `account` varchar(50) NOT NULL,
   `pass` varchar(32) NOT NULL,
   `birth` int(10) DEFAULT NULL,
-  `add_date` int(10) NOT NULL DEFAULT current_timestamp(),
+  `add_date` int(10) DEFAULT NULL,
   PRIMARY KEY (`account`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

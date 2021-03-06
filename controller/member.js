@@ -4,7 +4,7 @@ module.exports = function (request, response, controllerName) {
 	var connection = mysql.createConnection({
 		host : '127.0.0.1',
 		user : 'root',
-		password : '',
+		password : '123456',
 		database : 'time_thief'
 	});
 
@@ -64,8 +64,8 @@ module.exports = function (request, response, controllerName) {
 							sessionUser = JSON.parse(sessionUser);
 							request.session.user = sessionUser[0].uid;
 							tempUser = request.session.user;
-							response.redirect('http://localhost:7777/home');
-							// response.redirect('http://localhost/home');
+							// response.redirect('http://localhost:7777/home');
+							response.redirect('http://localhost/home');
 						})
 
 				}
