@@ -1,5 +1,5 @@
 // 以 Express 建立 Web伺服器
-var PORT = process.env.PORT || 7777;
+var PORT = process.env.PORT || 80;
 var express = require("express");
 var app = express();
 
@@ -42,7 +42,7 @@ app.set('views', __dirname + '/view');
 
 // 一切就緒，開始接受用戶端連線
 // app.listen(process.env.PORT);
-app.listen(80);
+// app.listen(80);
 console.log("Server is running... Press 'Ctrl + C' to exit.");
 
 
